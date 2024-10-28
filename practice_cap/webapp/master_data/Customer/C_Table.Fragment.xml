@@ -1,0 +1,76 @@
+
+<core:FragmentDefinition xmlns:uxap="sap.uxap"
+    xmlns:table="sap.ui.table"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:u="sap.ui.unified"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:field="sap.m.ListType.Detail"
+    xmlns:smartMultiInput="sap.ui.comp.smartmultiinput" height="100%">
+    <Table id="customerTable" inset="false" items="{path:'items', length:9999999999}" mode="{mode}" sticky="ColumnHeaders,HeaderToolbar">
+        <headerToolbar>
+            <OverflowToolbar>
+                <content>
+                    <Label design="Bold" text="{i18n>cnTableTitle} " />
+                   
+                    <Button text="{i18n>cnBtnCreate}" type="Transparent" press="onPressCustomerCreate" />
+                    <!-- <ToolbarSeparator /> -->
+                    <OverflowToolbarButton type="Transparent" tooltip="{i18n>cnSortTooltip}" visible = "{visible/excelUploadDownload}" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+                    <OverflowToolbarButton type="Transparent" tooltip="{i18n>cnGroupTooltip}" visible = "{visible/excelUploadDownload}" icon="sap-icon://group-2" press="handleGroupButtonPressed" />
+                    <OverflowToolbarButton visible = "{visible/excelUploadDownload}" type="Transparent" icon="sap-icon://settings" tooltip="{i18n>cnSettingsTooltip}" press="handlePersoButtonPressed" />
+                </content>
+            </OverflowToolbar>
+        </headerToolbar>
+     
+        <columns>
+            <Column width="3rem">
+                <Text text="{i18n>cuId}" />
+            </Column>
+            <Column width="7rem">
+                <Text text="{i18n>cuCode}" />
+            </Column>
+            <Column minScreenWidth="Desktop" popinDisplay="Inline" demandPopin="true">
+                <Text text="{i18n>cuName}" />
+            </Column>
+            <Column width="10rem" minScreenWidth="Desktop" popinDisplay="Inline" demandPopin="true">
+                <Text text="{i18n>cuShortName}" />
+            </Column>
+           
+            <Column width="8rem">
+                <Text text="{i18n>cuCity}" />
+            </Column>
+            <Column width="7rem" hAlign="Center">
+                <Text text="{i18n>cnCreatedBy}" />
+            </Column>
+            <Column width="7rem" hAlign="Center">
+                <Text text="{i18n>cnCreatedOn}" />
+            </Column>
+            <Column width="7rem" hAlign="Center">
+                <Text text="{i18n>cnUpdatedBy}" />
+            </Column>
+            <Column width="7rem" hAlign="Center">
+                <Text text="{i18n>cnUpdatedOn}" />
+            </Column>
+           
+        </columns>
+        <items>
+            <ColumnListItem vAlign="Middle" type="{type}" press=".onListItemPress" visible="true">
+                <cells>
+                    <ObjectIdentifier title="{id}" />
+                    <Text text="{Code}" />
+                    <Text text="{name}" />
+                    <Text text="{shortName}" />
+                    <Text text="{city}" />
+                    <Text text="{createdBy}"/>
+                    <Text text="{updatedBy}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

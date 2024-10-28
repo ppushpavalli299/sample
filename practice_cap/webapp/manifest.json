@@ -1,0 +1,136 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "app.practicecap",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.15.1",
+      "toolsId": "bee6cbe6-387a-4be1-bf80-4a660450f76b"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.129.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "app.practicecap.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "app.practicecap.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "clearControlAggregation": false,
+        "transition": "slide"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "Login",
+          "target": "Login"
+        },
+        {
+          "pattern": "dashboard",
+          "name": "Dashboard",
+          "target": "Dashboard"
+        },
+        {
+          "pattern": "Sample",
+          "name": "Sample",
+          "target": "Sample"
+        },
+        {
+          "pattern": "CustomerMaster",
+          "name": "CustomerMaster",
+          "target": "ManageCustomer"
+        },
+        {
+          "pattern": "CustomerDetailCreate",
+          "name": "CustomerDetailCreate",
+          "target": "AddEditCustomer"
+        },
+        {
+          "pattern": "CustomerDetailEdit/{id}",
+          "name": "CustomerDetailEdit",
+          "target": "AddEditCustomer"
+        }
+      ],
+      "targets": {
+        "Login": {
+          "viewType": "XML",
+          "viewName": "Login"
+        },
+        "Dashboard": {
+          "viewType": "XML",
+          "viewName": "DashBoard"
+        },
+        "Sample": {
+          "viewType": "XML",
+          "viewName": "Sample"
+        },
+        "ManageCustomer": {
+          "viewType": "XML",
+          "viewName": "master_data.Customer.ManageCustomer"
+        },
+        "AddEditCustomer": {
+          "viewType": "XML",
+          "viewName": "master_data.Customer.AddEditCustomer"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "app.practicecap.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+
+
+<core:FragmentDefinition xmlns:uxap="sap.uxap"
+    xmlns:table="sap.ui.table"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:smartMultiInput="sap.ui.comp.smartmultiinput" height="100%">
+    <fb:FilterBar id = "customerFilterBar" filterBarExpanded="true" reset="onReset" clear="onReset" search="onSearch" useToolbar="false" showGoOnFB="true" showClearOnFB="true">
+        <fb:filterGroupItems>
+            <fb:FilterGroupItem name="A" visibleInFilterBar="true" label="{i18n>cuId}" groupName="optional">
+                <fb:control>
+                    <Input value="{id}" type="Number" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem name="B" visibleInFilterBar="true" label="{i18n>cuCode}" groupName="optional">
+                <fb:control>
+                    <Input value="{Code}" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem name="C" visibleInFilterBar="true" label="{i18n>cuName}" groupName="optional">
+                <fb:control>
+                    <Input value="{name}" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem name="D" visibleInFilterBar="true" label="{i18n>cuShortName}" groupName="optional">
+                <fb:control>
+                    <Input value="{shortName}" />
+                </fb:control>
+            </fb:FilterGroupItem>
+          
+            <fb:FilterGroupItem name="F" visibleInFilterBar="true" label="{i18n>cuCity}" groupName="optional">
+                <fb:control>
+                    <Input value="{city}"></Input>
+                    <MultiComboBox selectedKeys="{cityCollection}">
+                        <core:Item key="CPO" text="CPO" />
+                        <core:Item key="Abhu Dhabi" text="Abhu Dhabi" />
+                        <core:Item key="Dhubai" text="Dhubai" />
+                    </MultiComboBox>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem name="G" visibleInFilterBar="false" label="{i18n>shCreatedBy}" groupName="optional">
+                <fb:control>
+                    <Input value="{createdBy}" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem name="H" visibleInFilterBar="false" label="{i18n>shCreatedOn}" groupName="optional">
+                <fb:control>
+                    <DateRangeSelection placeholder="DD-MM-YYYY" change="handleChangeDateRange" value= "{
+                        'type': 'sap.ui.model.type.DateInterval',
+                        'formatOptions': {
+                        'pattern': 'dd-MM-yyyy'
+                        },
+                        'parts': [
+                            {
+                                'type': 'sap.ui.model.type.Date',
+                                'path': 'c_start'
+                            },
+                            {
+                                'type': 'sap.ui.model.type.Date',
+                                'path': 'c_end'
+                            }
+                        ]
+                    }" field:date="createdOnStart,createdOnEnd"/>
+
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem name="I" visibleInFilterBar="false" label="{i18n>shUpdatedBy}" groupName="optional">
+                <fb:control>
+                    <Input value="{updatedBy}" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem name="J" visibleInFilterBar="false" label="{i18n>shUpdatedOn}" groupName="optional">
+                <fb:control>
+                    <DateRangeSelection placeholder="DD-MM-YYYY" change="handleChangeDateRange" value= "{
+                        'type': 'sap.ui.model.type.DateInterval',
+                        'formatOptions': {
+                        'pattern': 'dd-MM-yyyy'
+                        },
+                        'parts': [
+                            {
+                                'type': 'sap.ui.model.type.Date',
+                                'path': 'u_start'
+                            },
+                            {
+                                'type': 'sap.ui.model.type.Date',
+                                'path': 'u_end'
+                            }
+                        ]
+                    }" field:date="updatedOnStart,updatedOnEnd"/>
+
+                </fb:control>
+            </fb:FilterGroupItem>
+           
+        </fb:filterGroupItems>
+    </fb:FilterBar>
+</core:FragmentDefinition>

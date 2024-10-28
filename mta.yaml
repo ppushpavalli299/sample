@@ -1,0 +1,114 @@
+_schema-version: 3.3.0
+ID: Practice_CAP
+description: A simple CAP project.
+version: 1.0.0-SNAPSHOT
+modules:
+- name: Practice_CAP-srv
+  type: java
+  path: srv
+  properties:
+    JBP_CONFIG_COMPONENTS: 'jres: [''com.sap.xs.java.buildpack.jre.SAPMachineJRE'']'
+    JBP_CONFIG_SAP_MACHINE_JRE: '{ version: 21.+ }'
+    SPRING_PROFILES_ACTIVE: cloud,sandbox
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: sap_java_buildpack_jakarta
+    readiness-health-check-http-endpoint: /actuator/health
+    readiness-health-check-type: http
+  build-parameters:
+    build-result: target/*-exec.jar
+    builder: custom
+    commands:
+    - mvn clean package -DskipTests=true --batch-mode
+- name: Practice_CAP-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: Practice_CAP-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - apppracticecap.zip
+      name: apppracticecap
+      target-path: resources/
+- name: apppracticecap
+  type: html5
+  path: practice_cap
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: db
+  type: hdb
+  path: db
+  requires:
+  - name: hdi_db
+- name: Practice_CAP-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: Practice_CAP-destination-service
+    parameters:
+      content-target: true
+  - name: Practice_CAP-repo-host
+    parameters:
+      service-key:
+        name: Practice_CAP-repo-host-key
+  - name: uaa_Practice_CAP
+    parameters:
+      service-key:
+        name: uaa_Practice_CAP-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: practice_cap_Practice_CAP_repo_host
+          ServiceInstanceName: Practice_CAP-html5-srv
+          ServiceKeyName: Practice_CAP-repo-host-key
+          sap.cloud.service: practice_cap
+        - Authentication: OAuth2UserTokenExchange
+          Name: practice_cap_uaa_Practice_CAP
+          ServiceInstanceName: Practice_CAP-xsuaa-service
+          ServiceKeyName: uaa_Practice_CAP-key
+          sap.cloud.service: practice_cap
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+resources:
+- name: Practice_CAP-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: Practice_CAP-html5-srv
+    service-plan: app-host
+- name: Practice_CAP-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      version: 1.0.0
+    service: destination
+    service-name: Practice_CAP-destination-service
+    service-plan: lite
+- name: hdi_db
+  type: com.sap.xs.hdi-container
+  properties:
+    hdi-container-name: ${service-name}
+- name: uaa_Practice_CAP
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: Practice_CAP-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true

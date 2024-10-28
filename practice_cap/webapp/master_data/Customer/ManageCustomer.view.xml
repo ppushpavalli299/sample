@@ -1,0 +1,38 @@
+
+<mvc:View controllerName="app.practicecap.master_data.Customer.ManageCustomer"
+    xmlns:uxap="sap.uxap"
+    xmlns:table="sap.ui.table"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:field="sap.m.ListType.Detail"
+    xmlns:smartMultiInput="sap.ui.comp.smartmultiinput" height="100%">
+    <f:DynamicPage id="page_Customer" headerExpanded="true" preserveHeaderStateOnScroll="true" showFooter="{=!!${errors>/}.length}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>cuPageTitle}" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="false">
+                <f:content>
+                    <core:Fragment fragmentName="app.practicecap.master_data.Customer.C_FilterBar" type="XML" binding="{/advancedFilter}" />
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <core:Fragment fragmentName="app.practicecap.master_data.Customer.C_Table" type="XML" binding="{/table}"/>
+        </f:content>
+      
+    </f:DynamicPage>
+</mvc:View>
