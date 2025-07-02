@@ -77,14 +77,57 @@
           "name": "RouteView1",
           "pattern": ":?query:",
           "target": [
-            "TargetView1"
+            "TargetView"
+          ]
+        },
+        {
+          "name": "dashboard",
+          "pattern": "dashboard",
+          "target": [
+            "Dashboard"
+          ]
+        },
+        {
+          "name": "employee",
+          "pattern": "employee",
+          "target": [
+            "Employee"
+          ]
+        },
+        {
+          "name": "employee_detail",
+          "pattern": "employee_detail/{id}/{layout}",
+          "target": [
+            "Employee",
+            "EmployeeDetail"
           ]
         }
       ],
       "targets": {
-        "TargetView1": {
-          "id": "View1",
-          "name": "View1"
+        "TargetView": {
+          "id": "View",
+          "name": "View"
+        },
+        "Dashboard": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewName": "Dashboard"
+        },
+        "Employee": {
+          "viewPath": "project1.employee",
+          "viewName": "Employee",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "Employee",
+          "parent": "AppUnified"
+        },
+        "EmployeeDetail": {
+          "viewPath": "project1.employee",
+          "viewName": "EmployeeDetail",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "EmployeeDetail",
+          "parent": "AppUnified"
         }
       }
     },

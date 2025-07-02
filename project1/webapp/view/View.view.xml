@@ -1,0 +1,46 @@
+<mvc:View controllerName="project1.controller.View"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core" height="100%">
+
+    <Page title="Login Page" showHeader="false" class="loginPage">
+        <content>
+            <FlexBox justifyContent="Center" alignItems="Center" class="fullHeightWidth">
+                <items>
+                    <f:Card class="centeredCard">
+                        <f:content>
+                            <FlexBox class="sapUiMediumMargin" justifyContent="Center" alignItems="Center">
+                                <VBox class="sapUiTinyMargin" justifyContent="Center" alignItems="Center" width="80%">
+                                    <items>
+                                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                                            <Title class="sapUiTinyMarginBegin" wrapping="true" titleStyle="H2" text="Login"/>
+                                        </HBox>
+                                        <form:SimpleForm class="loginForm" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="2" emptySpanM="2" columnsL="2" columnsM="1" singleContainerFullSize="true">
+                                            <form:content>
+                                                <Label text="Username" />
+                                                <Input placeholder="Enter Username" value="{loginModel>/userName}" liveChange="onInputChange" class="loginInput"/>
+
+                                                <Label text="Password" labelFor="inpPassword" />
+                                                <Input id="inpPassword" type="Password" value="{loginModel>/password}" class="sapUiSizeCozy" 
+                                                    showValueHelp="true" valueHelpIconSrc="sap-icon://hide" valueHelpRequest="onShowPassword"/>
+
+                                                <HBox justifyContent="End">
+                                                    <Link text="Forgot Password?" press="onPressChangePassword"/>
+                                                </HBox>
+
+                                                <Label />
+                                                <Button text="Login" press="onLoginPress" enabled="{loginModel>/enableLogin}" class="loginButton"/>
+                                            </form:content>
+                                        </form:SimpleForm>
+                                    </items>
+                                </VBox>
+                            </FlexBox>
+                        </f:content>
+                    </f:Card>
+                </items>
+            </FlexBox>
+        </content>
+    </Page>
+</mvc:View>
