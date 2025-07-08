@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (Controller, MessageToast, JSONModel) {
     "use strict";
 
-    return Controller.extend("project1.controller.View1", {
+    return Controller.extend("project1.controller.View", {
         onInit: function () {
             this.initLoginModel();
         },

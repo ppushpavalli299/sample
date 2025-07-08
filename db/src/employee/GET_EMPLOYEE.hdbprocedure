@@ -1,0 +1,65 @@
+CREATE PROCEDURE "GET_EMPLOYEE" (
+    IN FILTER_PARAMS NCLOB,
+    IN PAGE_NUMBER INTEGER,
+    IN PAGE_SIZE INTEGER
+)
+AS
+BEGIN
+    -- Declare variables
+    DECLARE NAME NVARCHAR(100);
+    DECLARE DESIGNATION NVARCHAR(100);
+    DECLARE STATUS INTEGER;
+    DECLARE QUERY NCLOB := '';
+    DECLARE TEMP_QUERY NCLOB := '';
+    DECLARE START_INDEX INTEGER := (:PAGE_NUMBER - 1) * :PAGE_SIZE;
+    DECLARE TOTAL_RECORDS INTEGER := 0;
+    
+    -- Base query
+    TEMP_QUERY := 'SELECT "id", "name", "designation", "status" FROM "employee"';
+    
+    -- Extract from JSON (handle null values)
+    SELECT JSON_VALUE(:FILTER_PARAMS, '$.name') INTO NAME FROM DUMMY;
+    SELECT JSON_VALUE(:FILTER_PARAMS, '$.designation') INTO DESIGNATION FROM DUMMY;
+    SELECT JSON_VALUE(:FILTER_PARAMS, '$.status') INTO STATUS FROM DUMMY;
+    
+    -- Build WHERE clause
+    IF (:FILTER_PARAMS IS NOT NULL AND :FILTER_PARAMS != '') THEN
+        IF (NAME IS NOT NULL AND NAME != '') THEN
+            QUERY := QUERY || CASE 
+                                WHEN QUERY = '' THEN ' "name" = ''' || :NAME || ''''
+                                ELSE ' AND "name" = ''' || :NAME || '''' 
+                              END;
+        END IF;
+        
+        IF (DESIGNATION IS NOT NULL AND DESIGNATION != '') THEN
+            QUERY := QUERY || CASE 
+                                WHEN QUERY = '' THEN ' "designation" = ''' || :DESIGNATION || ''''
+                                ELSE ' AND "designation" = ''' || :DESIGNATION || '''' 
+                              END;
+        END IF;
+        
+        IF (STATUS IS NOT NULL AND STATUS > -1) THEN
+            QUERY := QUERY || CASE 
+                                WHEN QUERY = '' THEN ' "status" = ' || :STATUS
+                                ELSE ' AND "status" = ' || :STATUS 
+                              END;
+        END IF;
+        
+        IF (QUERY IS NOT NULL AND QUERY != '') THEN
+            QUERY := ' WHERE ' || QUERY;
+        END IF;
+    END IF;
+    
+    -- Count total records
+    EXECUTE IMMEDIATE 'SELECT COUNT(*) FROM (' || :TEMP_QUERY || ' ' || :QUERY || ') AS COUNT_TABLE'
+    INTO TOTAL_RECORDS;
+    
+    -- Handle pagination
+    PAGE_SIZE := CASE WHEN PAGE_SIZE = 0 THEN TOTAL_RECORDS ELSE PAGE_SIZE END;
+    
+    -- Final paginated query
+    TEMP_QUERY := 'SELECT * FROM (' || :TEMP_QUERY || ' ' || :QUERY || ') AS temp_table ORDER BY "id" DESC LIMIT ' || :PAGE_SIZE || ' OFFSET ' || :START_INDEX;
+    
+    -- Execute and return results
+    EXECUTE IMMEDIATE :TEMP_QUERY;
+END

@@ -62,7 +62,7 @@ sap.ui.define([
         //             "pageSize": 100
         //         };
 
-        //         let path = URLConstants.URL.emp_filter;
+        //         let path = URLConstants.URL.employee_filter;
         //         this.showLoading(true);
         //         let obj = await this.restMethodPost(path, reqData);
         //         if (obj && obj.length > 0) {
@@ -72,7 +72,7 @@ sap.ui.define([
         //                 }
         //             });
         //         }
-        //         this.getView().setModel(new JSONModel(obj), "companyMdl");
+        //         this.getView().setModel(new JSONModel(obj), "employeeMdl");
         //         this.showLoading(false);
         //     }
         //     catch (ex) {
