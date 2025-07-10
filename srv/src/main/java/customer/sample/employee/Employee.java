@@ -18,7 +18,7 @@ public class Employee {
 
     private String name;
     private String designation;
-    private Integer status;
+    private String status;
 
     // Getters & Setters
     public Long getId() {
@@ -45,11 +45,11 @@ public class Employee {
         this.designation = designation;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

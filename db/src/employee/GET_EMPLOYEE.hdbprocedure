@@ -15,7 +15,7 @@ BEGIN
     DECLARE TOTAL_RECORDS INTEGER := 0;
     
     -- Base query
-    TEMP_QUERY := 'SELECT "id", "name", "designation", "status" FROM "employee"';
+    TEMP_QUERY := 'SELECT "ID", "NAME", "DESIGNATION", "STATUS" FROM "EMPLOYEE"';
     
     -- Extract from JSON (handle null values)
     SELECT JSON_VALUE(:FILTER_PARAMS, '$.name') INTO NAME FROM DUMMY;
@@ -58,7 +58,7 @@ BEGIN
     PAGE_SIZE := CASE WHEN PAGE_SIZE = 0 THEN TOTAL_RECORDS ELSE PAGE_SIZE END;
     
     -- Final paginated query
-    TEMP_QUERY := 'SELECT * FROM (' || :TEMP_QUERY || ' ' || :QUERY || ') AS temp_table ORDER BY "id" DESC LIMIT ' || :PAGE_SIZE || ' OFFSET ' || :START_INDEX;
+    TEMP_QUERY := 'SELECT * FROM (' || :TEMP_QUERY || ' ' || :QUERY || ') AS temp_table ORDER BY "ID" DESC LIMIT ' || :PAGE_SIZE || ' OFFSET ' || :START_INDEX;
     
     -- Execute and return results
     EXECUTE IMMEDIATE :TEMP_QUERY;
