@@ -1,26 +1,12 @@
 <mvc:View controllerName="project1.employee.Employee"
-    xmlns="sap.m"
-    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:fb="sap.ui.comp.filterbar"
     xmlns:f="sap.f"
     xmlns:core="sap.ui.core"
-    xmlns:form="sap.ui.layout.form"
-    xmlns:uxap="sap.uxap"
-    xmlns:tnt="sap.tnt"
-    xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:u="sap.ui.unified"
-    xmlns:v="sap.ui.comp.variants"
-    xmlns:smartForm="sap.ui.comp.smartform"
-    xmlns:smartField="sap.ui.comp.smartfield"
-    xmlns:card="sap.f.cards"
-    xmlns:table="sap.ui.table"
-    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
-    xmlns:vm="sap.ui.comp.variants"
-    xmlns:viz.data="sap.viz.ui5.data"
-    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:l="sap.ui.layout">
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
 
     <f:DynamicPage id="page_MngCompanies" headerExpanded="true">
+
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
@@ -33,26 +19,30 @@
         <!-- DynamicPage Header -->
         <f:header>
             <f:DynamicPageHeader pinnable="true">
-                <fb:FilterBar id="filterbar" filterBarExpanded="true" search="advancedFilter" useToolbar="false" showGoOnFB="true" showClearOnFB="true" clear="clearAllFilters" showFilterConfiguration="false">
+                <fb:FilterBar id="filterbar" filterBarExpanded="true" search="onSearch" clear="clearAllFilters" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false">
+
                     <fb:filterItems>
                         <fb:FilterItem name="A" label="ID">
                             <fb:control>
-                                <Input placeholder="Select Employee ID" value="{advancedFilterMdl>/id}" />
+                                <Input placeholder="Enter Employee ID" value="{advancedFilterMdl>/id}" />
                             </fb:control>
                         </fb:FilterItem>
+
                         <fb:FilterItem name="B" label="Name">
                             <fb:control>
-                                <Input placeholder="Select Employee Name" value="{advancedFilterMdl>/name}" />
+                                <Input placeholder="Enter Employee Name" value="{advancedFilterMdl>/name}" />
                             </fb:control>
                         </fb:FilterItem>
+
                         <fb:FilterItem name="C" label="Designation">
                             <fb:control>
-                                <Input placeholder="Select Employee Designation" value="{advancedFilterMdl>/designation}" />
+                                <Input placeholder="Enter Employee Designation" value="{advancedFilterMdl>/designation}" />
                             </fb:control>
                         </fb:FilterItem>
+
                         <fb:FilterItem name="D" label="Status">
                             <fb:control>
-                                <Input placeholder="Select Employee Status" value="{advancedFilterMdl>/statusText}" />
+                                <Input placeholder="Enter Status" value="{advancedFilterMdl>/status}" />
                             </fb:control>
                         </fb:FilterItem>
                     </fb:filterItems>
@@ -62,18 +52,25 @@
 
         <!-- DynamicPage Content -->
         <f:content>
-            <Table id="tableId_companies" items="{employeeMdl>/}" itemPress="onListItemPress" mode="SingleSelectMaster" sticky="ColumnHeaders,HeaderToolbar" inset="false" class="sapUiSmallMarginTop">
+            <Table id="tableId_companies" mode="SingleSelectMaster" growing="true" growingThreshold="20" items="{employeeMdl>/employees}" itemPress="onListItemPress" inset="false" class="sapFDynamicPageAlignContent" width="auto" autoPopinMode="true" contextualWidth="Auto" title="Employee List">
 
+                <!-- Header Toolbar -->
                 <headerToolbar>
                     <OverflowToolbar>
-                        <content>
-                            <Label design="Bold" text="{= 'Items(' + ${employeeMdl>/}.length + ')'}" visible="{= ${employeeMdl>/}.length >= 0}" />
-                            <ToolbarSpacer />
-                            <Button text="Create" type="Ghost" press="onCreateEmp" />
-                        </content>
+                        <ToolbarSpacer />
+                        <Button text="Create" type="Ghost" press="onCreateEmployee" />
                     </OverflowToolbar>
                 </headerToolbar>
 
+                <!-- Info Toolbar -->
+                <infoToolbar>
+                    <OverflowToolbar id="filterInfo">
+                        <Title text="{= 'Items (' + ${employeeMdl>/employees}.length + ')' }" />
+                        <ToolbarSpacer />
+                    </OverflowToolbar>
+                </infoToolbar>
+
+                <!-- Columns -->
                 <columns>
                     <Column>
                         <Text text="ID" />
@@ -92,13 +89,14 @@
                     </Column>
                 </columns>
 
+                <!-- Items -->
                 <items>
                     <ColumnListItem type="Navigation">
                         <cells>
                             <ObjectIdentifier title="{employeeMdl>id}" />
                             <Text text="{employeeMdl>name}" />
                             <Text text="{employeeMdl>designation}" />
-                            <Text text="{employeeMdl>status}" />
+                            <Text text="{employeeMdl>statusText}" />
                             <Button icon="sap-icon://show" type="Transparent" tooltip="{i18n>com_viewTemplate}" press="onPressViewTemplate" />
                         </cells>
                     </ColumnListItem>

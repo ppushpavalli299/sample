@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
-    "project1/model/models"
-], (UIComponent, models) => {
+    "project1/model/models",
+    "sap/ui/model/json/JSONModel"
+], (UIComponent, models, JSONModel) => {
     "use strict";
 
     return UIComponent.extend("project1.Component", {
@@ -18,6 +19,9 @@ sap.ui.define([
 
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
+
+            // ✅ Initialize the 'errors' model here
+            this.setModel(new JSONModel([]), "errors");
 
             // enable routing
             this.getRouter().initialize();
