@@ -6,8 +6,6 @@
     xmlns="sap.m">
 
     <f:DynamicPage id="page_MngCompanies" headerExpanded="true">
-
-        <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
@@ -16,11 +14,9 @@
             </f:DynamicPageTitle>
         </f:title>
 
-        <!-- DynamicPage Header -->
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <fb:FilterBar id="filterbar" filterBarExpanded="true" search="onSearch" clear="clearAllFilters" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false">
-
                     <fb:filterItems>
                         <fb:FilterItem name="A" label="ID">
                             <fb:control>
@@ -36,13 +32,15 @@
 
                         <fb:FilterItem name="C" label="Designation">
                             <fb:control>
-                                <Input placeholder="Enter Employee Designation" value="{advancedFilterMdl>/designation}" />
+                                <Input placeholder="Enter Designation" value="{advancedFilterMdl>/designation}" />
                             </fb:control>
                         </fb:FilterItem>
 
                         <fb:FilterItem name="D" label="Status">
                             <fb:control>
-                                <Input placeholder="Enter Status" value="{advancedFilterMdl>/status}" />
+                                <MultiComboBox items="{masterdataMdl>/status}" selectedKeys="{advancedFilterMdl>/status}">
+                                    <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                </MultiComboBox>
                             </fb:control>
                         </fb:FilterItem>
                     </fb:filterItems>
@@ -50,11 +48,8 @@
             </f:DynamicPageHeader>
         </f:header>
 
-        <!-- DynamicPage Content -->
         <f:content>
-            <Table id="tableId_companies" mode="SingleSelectMaster" growing="true" growingThreshold="20" items="{employeeMdl>/employees}" itemPress="onListItemPress" inset="false" class="sapFDynamicPageAlignContent" width="auto" autoPopinMode="true" contextualWidth="Auto" title="Employee List">
-
-                <!-- Header Toolbar -->
+            <Table id="tableId_companies" items="{employeeMdl>/employees}" mode="SingleSelectMaster" growing="true" growingThreshold="20" itemPress="onListItemPress" autoPopinMode="true" class="sapFDynamicPageAlignContent">
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
@@ -62,7 +57,6 @@
                     </OverflowToolbar>
                 </headerToolbar>
 
-                <!-- Info Toolbar -->
                 <infoToolbar>
                     <OverflowToolbar id="filterInfo">
                         <Title text="{= 'Items (' + ${employeeMdl>/employees}.length + ')' }" />
@@ -70,34 +64,32 @@
                     </OverflowToolbar>
                 </infoToolbar>
 
-                <!-- Columns -->
                 <columns>
                     <Column>
                         <Text text="ID" />
                     </Column>
-                    <Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+                    <Column>
                         <Text text="Name" />
                     </Column>
-                    <Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+                    <Column>
                         <Text text="Designation" />
                     </Column>
-                    <Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+                    <Column>
                         <Text text="Status" />
                     </Column>
                     <Column>
-                        <Text text="Actions" visible="false"/>
+                        <Text text="Actions" />
                     </Column>
                 </columns>
 
-                <!-- Items -->
                 <items>
                     <ColumnListItem type="Navigation">
                         <cells>
                             <ObjectIdentifier title="{employeeMdl>id}" />
                             <Text text="{employeeMdl>name}" />
                             <Text text="{employeeMdl>designation}" />
-                            <Text text="{employeeMdl>statusText}" />
-                            <Button icon="sap-icon://show" type="Transparent" tooltip="{i18n>com_viewTemplate}" press="onPressViewTemplate" />
+                            <ObjectStatus text="{employeeMdl>statusText}" state="{employeeMdl>statusState}" />
+                            <Button icon="sap-icon://show" type="Transparent" press="onPressViewTemplate" />
                         </cells>
                     </ColumnListItem>
                 </items>

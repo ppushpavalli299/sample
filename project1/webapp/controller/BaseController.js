@@ -229,31 +229,31 @@ sap.ui.define([
 
             this.showLoading(false);
         },
-        errorMessagePopover: async function (popoverBtn) {
-            try {
-                const oButton = popoverBtn || this.getView().byId("errorButton");
-                if (!oButton) {
-                    console.warn("Popover trigger button not found.");
-                    return;
-                }
+        // errorMessagePopover: async function (popoverBtn) {
+        //     try {
+        //         const oButton = popoverBtn || this.getView().byId("errorButton");
+        //         if (!oButton) {
+        //             console.warn("Popover trigger button not found.");
+        //             return;
+        //         }
 
-                if (!this.oPopover) {
-                    this.oPopover = await this.loadFragment({
-                        name: "project1.view.ErrorMessage"
-                    });
-                    this.getView().addDependent(this.oPopover);
-                }
+        //         if (!this.oPopover) {
+        //             this.oPopover = await this.loadFragment({
+        //                 name: "project1.view.ErrorMessage"
+        //             });
+        //             this.getView().addDependent(this.oPopover);
+        //         }
 
-                this.oPopover.openBy(oButton);
-            } catch (error) {
-                console.error("Error loading popover:", error);
-            }
-        },
-        handleMessagePopoverPress(oEvent) {
-            let oSource = oEvent.getSource();
-            this.popoverBtn = oSource; // Set reference to source
-            this.errorMessagePopover(oSource);
-        }
+        //         this.oPopover.openBy(oButton);
+        //     } catch (error) {
+        //         console.error("Error loading popover:", error);
+        //     }
+        // },
+        // handleMessagePopoverPress(oEvent) {
+        //     let oSource = oEvent.getSource();
+        //     this.popoverBtn = oSource; // Set reference to source
+        //     this.errorMessagePopover(oSource);
+        // }
 
 
 

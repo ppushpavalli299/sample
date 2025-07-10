@@ -2,178 +2,112 @@ sap.ui.define([
     "project1/controller/BaseController",
     "sap/ui/model/json/JSONModel",
     "project1/utils/URLConstants",
-    "sap/ui/core/Core",
     "sap/m/MessageBox",
-    "sap/ui/core/Fragment"
-], function (BaseController, JSONModel, URLConstants, Core, MessageBox, Fragment) {
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, URLConstants, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     return BaseController.extend("project1.employee.Employee", {
 
         onInit: function () {
-            this.oOwnerComponent = this.getOwnerComponent();
-            this.oRouter = this.oOwnerComponent.getRouter();
-
+            this.oRouter = this.getOwnerComponent().getRouter();
             this.oRouter.getRoute("employee").attachMatched(this._onRouteMatched, this);
 
-            this.oFilterBar = this.byId('filterbar');
-            this.oTable = this.byId('tableId_companies');
+            this.oTable = this.byId("tableId_companies");
 
-            // Initialize filter model
-            var oFilterModel = new JSONModel({
+            // Filter model
+            this.getView().setModel(new JSONModel({
                 id: "",
                 name: "",
                 designation: "",
-                status: ""
-            });
-            this.getView().setModel(oFilterModel, "advancedFilterMdl");
+                status: []
+            }), "advancedFilterMdl");
         },
 
         _onRouteMatched: function () {
-            // Set status master data
-            var setDataModel = {
+            const statusData = {
                 status: [
                     { key: "1", text: "Draft" },
                     { key: "2", text: "Active" },
                     { key: "3", text: "Inactive" }
                 ]
             };
-            this.getView().setModel(new JSONModel(setDataModel), "masterdataMdl");
-
-            // Load employee list
+            this.getView().setModel(new JSONModel(statusData), "masterdataMdl");
             this.fetchEmployee();
         },
 
         fetchEmployee: async function () {
             try {
-                let reqData = {
+                const path = URLConstants.URL.employee_filter;
+                const reqData = {
                     showAll: true,
-                    id: null,
-                    pageNo: 1,
-                    pageSize: 10
+                    pageNumber: 1,
+                    pageSize: 100
                 };
 
-                let path = URLConstants.URL.employee_filter;
-
                 this.showLoading(true);
-                let obj = await this.restMethodPost(path, reqData);
+                const result = await this.restMethodPost(path, reqData);
 
-                if (Array.isArray(obj) && obj.length > 0) {
-                    obj.forEach(function (ele) {
-                        if (ele && ele.status !== undefined) {
-                            let status = ele.status.toString();
-                            ele.statusText = status === "1" ? "Draft" :
-                                status === "2" ? "Active" :
-                                    status === "3" ? "Inactive" : "Unknown";
-                        }
-                    });
-                }
+                const mapped = result.map(emp => {
+                    let statusText = "Draft";
+                    let statusState = "Warning";
 
-                this.getView().setModel(new JSONModel({ employees: obj }), "employeeMdl");
-                this.showLoading(false);
+                    if (emp.status == 2) {
+                        statusText = "Active";
+                        statusState = "Success";
+                    } else if (emp.status == 3) {
+                        statusText = "Inactive";
+                        statusState = "Error";
+                    }
 
-            } catch (ex) {
-                this.showLoading(false);
-                this.errorHandling(ex);
-            }
-        },
-
-        onCreateEmployee: function () {
-            this.oRouter.navTo("create_employee", {
-                layout: "TwoColumnsMidExpanded"
-            });
-        },
-
-        onListItemPress: function (oEvent) {
-            let oItem = oEvent.getParameter("listItem");
-            let oCtx = oItem.getBindingContext("employeeMdl");
-
-            if (oCtx) {
-                let oEmp = oCtx.getObject();
-                this.oRouter.navTo("employee_detail", {
-                    layout: "TwoColumnsMidExpanded",
-                    id: oEmp.id
+                    return {
+                        ...emp,
+                        statusText,
+                        statusState
+                    };
                 });
+
+                this.getView().setModel(new JSONModel({ employees: mapped }), "employeeMdl");
+            } catch (ex) {
+                this.errorHandling(ex);
+            } finally {
+                this.showLoading(false);
             }
         },
 
-        // advancedFilter: function () {
-        //     const oFilterModel = this.getView().getModel("advancedFilterMdl");
-        //     const filterData = oFilterModel.getData();
+        onSearch: function () {
+            const oData = this.getView().getModel("advancedFilterMdl").getData();
+            const aFilters = [];
 
-        //     const requestData = {
-        //         name: filterData.name || null,
-        //         designation: filterData.designation || null,
-        //         status: filterData.status || null,
-        //         pageNo: 1,
-        //         pageSize: 10
-        //     };
+            if (oData.id) {
+                aFilters.push(new Filter("id", FilterOperator.EQ, oData.id));
+            }
+            if (oData.name) {
+                aFilters.push(new Filter("name", FilterOperator.Contains, oData.name));
+            }
+            if (oData.designation) {
+                aFilters.push(new Filter("designation", FilterOperator.Contains, oData.designation));
+            }
+            if (Array.isArray(oData.status) && oData.status.length > 0) {
+                const aStatusFilters = oData.status.map(key =>
+                    new Filter("status", FilterOperator.EQ, parseInt(key))
+                );
+                aFilters.push(new Filter({ filters: aStatusFilters, and: false }));
+            }
 
-        //     const path = URLConstants.URL.employee_filter;
-
-        //     this.showLoading(true);
-
-        //     this.restMethodPost(path, requestData)
-        //         .then((response) => {
-        //             response.forEach(function (ele) {
-        //                 if (ele && ele.status !== undefined) {
-        //                     let status = ele.status.toString();
-        //                     ele.statusText = status === "1" ? "Draft" :
-        //                                      status === "2" ? "Active" :
-        //                                      status === "3" ? "Inactive" : "Unknown";
-        //                 }
-        //             });
-
-        //             this.getView().setModel(new JSONModel({ employees: response }), "employeeMdl");
-        //             this.showLoading(false);
-        //         })
-        //         .catch((ex) => {
-        //             this.showLoading(false);
-        //             this.errorHandling(ex);
-        //         });
-        // },
+            this.oTable.getBinding("items").filter(aFilters);
+        },
 
         clearAllFilters: function () {
-            const model = this.getView().getModel("advancedFilterMdl");
-            model.setData({
+            this.getView().getModel("advancedFilterMdl").setData({
                 id: "",
                 name: "",
                 designation: "",
-                status: ""
+                status: []
             });
-
-            this.fetchEmployee();
-        },
-        onSearch: function (oEvent) {
-            let oModel = this.getView().getModel('advancedFilterMdl');
-            let oData = oModel.getData();
-
-            const aFilter = [];
-            // Loop over the filter fields and create filters
-            for (let [key, value] of Object.entries(oData)) {
-                if (value) {
-                    // If the value is an array, apply multiple filters (for example, for status)
-                    if (Array.isArray(value)) {
-                        const multiFilters = [];
-                        value.forEach(e => {
-                            multiFilters.push(new Filter(key, FilterOperator.EQ, parseInt(e))); // Assume status is numeric
-                        });
-                        aFilter.push(new Filter({ filters: multiFilters, and: false }));
-                    } else {
-                        // For other fields, use contains operator
-                        aFilter.push(new Filter(key, FilterOperator.Contains, value));
-                    }
-                }
-            }
-
-
-
-            // Apply the filters to the table binding
-            this.oTable.getBinding("items").filter(aFilter, "Application");
-
-            // Hide overlay after filtering
-            this.oTable.setShowOverlay(false);
-        },
+            this.oTable.getBinding("items").filter([]);
+        }
 
     });
 });
