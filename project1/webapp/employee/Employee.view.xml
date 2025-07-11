@@ -78,7 +78,7 @@
                         <Text text="Status" />
                     </Column>
                     <Column>
-                        <Text text="Actions" />
+                        <Text text="Actions" visible="false"/>
                     </Column>
                 </columns>
 
