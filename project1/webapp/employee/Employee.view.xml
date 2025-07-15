@@ -20,13 +20,13 @@
                     <fb:filterItems>
                         <fb:FilterItem name="A" label="ID">
                             <fb:control>
-                                <Input placeholder="Enter Employee ID" value="{advancedFilterMdl>/id}" />
+                                <Input placeholder="Enter ID" value="{advancedFilterMdl>/id}" />
                             </fb:control>
                         </fb:FilterItem>
 
                         <fb:FilterItem name="B" label="Name">
                             <fb:control>
-                                <Input placeholder="Enter Employee Name" value="{advancedFilterMdl>/name}" />
+                                <Input placeholder="Enter Name" value="{advancedFilterMdl>/name}" />
                             </fb:control>
                         </fb:FilterItem>
 
@@ -38,18 +38,19 @@
 
                         <fb:FilterItem name="D" label="Status">
                             <fb:control>
-                                <MultiComboBox items="{masterdataMdl>/status}" selectedKeys="{advancedFilterMdl>/status}">
+                                <MultiComboBox items="{masterdataMdl>/status}" selectedKeys="{advancedFilterMdl>/status}" placeholder="Select Status">
                                     <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
                                 </MultiComboBox>
                             </fb:control>
                         </fb:FilterItem>
+
                     </fb:filterItems>
                 </fb:FilterBar>
             </f:DynamicPageHeader>
         </f:header>
 
         <f:content>
-            <Table id="tableId_companies" items="{employeeMdl>/employees}" mode="SingleSelectMaster" growing="true" growingThreshold="20" itemPress="onListItemPress" autoPopinMode="true" class="sapFDynamicPageAlignContent">
+            <Table id="tableId_companies" items="{employeeMdl>/}" mode="SingleSelectMaster" growing="true" growingThreshold="20" itemPress="onListItemPress" autoPopinMode="true" class="sapFDynamicPageAlignContent">
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
@@ -88,8 +89,9 @@
                             <ObjectIdentifier title="{employeeMdl>id}" />
                             <Text text="{employeeMdl>name}" />
                             <Text text="{employeeMdl>designation}" />
-                            <ObjectStatus text="{employeeMdl>statusText}" state="{employeeMdl>statusState}" />
-                            <Button icon="sap-icon://show" type="Transparent" press="onPressViewTemplate" />
+                            <ObjectStatus text="{ path: 'employeeMdl>status', formatter: '.formatter.getStatusText' }" state="{ path: 'employeeMdl>status', formatter: '.formatter.getStatusState' }" />
+                            <Button text="View Payslip" icon="sap-icon://pdf-attachment" press="onPressViewTemplate" />
+
                         </cells>
                     </ColumnListItem>
                 </items>
