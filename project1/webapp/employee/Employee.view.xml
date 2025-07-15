@@ -60,7 +60,7 @@
 
                 <infoToolbar>
                     <OverflowToolbar id="filterInfo">
-                        <Title text="{= 'Items (' + ${employeeMdl>/employees}.length + ')' }" />
+                        <Title text="{= 'Items (' + ${employeeMdl>/}.length + ')' }" />
                         <ToolbarSpacer />
                     </OverflowToolbar>
                 </infoToolbar>
