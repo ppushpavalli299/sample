@@ -14,4 +14,12 @@ public class EmployeeService {
     public Collection<Employee> getEmployeeByFilter(EmployeeSearch employeeSearch) throws Exception {
         return employeeDAO.getEmployeeByFilter(employeeSearch);
     }
+
+    public EmployeeRequest getEmployeeById(Long id) throws Exception {
+        try {
+            return employeeDAO.getEmployeeById(id);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

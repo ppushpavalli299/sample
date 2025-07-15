@@ -4,8 +4,10 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/core/routing/History",
     "sap/m/MessageBox",
-    "project1/utils/URLConstants"
-], function (Controller, JSONModel, MessageToast, History, MessageBox, URLConstants) {
+    "project1/utils/URLConstants",
+    "sap/m/PDFViewer"
+     
+], function (Controller, JSONModel, MessageToast, History, MessageBox, URLConstants, PDFViewer) {
     "use strict";
 
     return Controller.extend("project1.controller.BaseController", {
@@ -90,12 +92,41 @@ sap.ui.define([
                 data: JSON.stringify(request),
                 contentType: "application/json",
                 xhrFields: {
-                    withCredentials: true // ⬅️ Required if using cookies/session
+                    withCredentials: true
                 },
                 success: response => deferred.resolve(response),
                 error: xhr => deferred.reject(xhr.responseJSON)
             });
 
+            return deferred.promise();
+        },
+
+        restMethodPost: function (url, request) {
+            let that = this;
+            url = URLConstants.URL.app_endPoint + url;
+            const username = "admin";
+            const password = "admin123";
+            const base64Credentials = btoa(username + ":" + password);
+
+            const deferred = $.Deferred();
+            $.ajax({
+                type: "POST",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Basic " + base64Credentials);
+                },
+                url: url,
+                data: JSON.stringify(request),
+                contentType: "application/json",
+                success: function (response) {
+                    deferred.resolve(response);
+                },
+                error: function (xhr) {
+                    deferred.reject(xhr);
+                    if (xhr && xhr.status == "401") {
+                        that.sessionTimeOut();
+                    }
+                },
+            });
             return deferred.promise();
         },
 
@@ -222,38 +253,115 @@ sap.ui.define([
             eModel.setData(mergedData);
 
             // ✅ Use fallback button if none provided
-            const btn = oControl || this.getView().byId("errorButton") || this.getView();
-            if (mergedData.length) {
-                this.errorMessagePopover(btn);
-            }
+            // const btn = oControl || this.getView().byId("errorButton") || this.getView();
+            // if (mergedData.length) {
+            //     this.errorMessagePopover(btn);
+            // }
 
             this.showLoading(false);
         },
-        // errorMessagePopover: async function (popoverBtn) {
-        //     try {
-        //         const oButton = popoverBtn || this.getView().byId("errorButton");
-        //         if (!oButton) {
-        //             console.warn("Popover trigger button not found.");
-        //             return;
-        //         }
+        restMethodPost: function (url, request) {
+            const deferred = $.Deferred();
+            $.ajax({
+                type: "POST",
+                url: URLConstants.URL.app_endPoint + url,
+                data: JSON.stringify(request),
+                contentType: "application/json",
+                success: function (response) {
+                    deferred.resolve(response);
+                },
+                error: function (xhr) {
+                    deferred.reject(xhr);
+                }
+            });
+            return deferred.promise();
+        },
 
-        //         if (!this.oPopover) {
-        //             this.oPopover = await this.loadFragment({
-        //                 name: "project1.view.ErrorMessage"
-        //             });
-        //             this.getView().addDependent(this.oPopover);
-        //         }
 
-        //         this.oPopover.openBy(oButton);
-        //     } catch (error) {
-        //         console.error("Error loading popover:", error);
+        // postForBlob: async function (url, body) {
+        //     url = url.startsWith("http") ? url : URLConstants.URL.app_endPoint + url;
+        //     const res = await fetch(url, {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             "Accept": "application/pdf"
+        //         },
+        //         body: JSON.stringify(body || {})
+        //     });
+
+        //     if (!res.ok) {
+        //         const errText = await res.text();
+        //         throw new Error(errText || res.statusText);
         //     }
+        //     return await res.blob();
         // },
-        // handleMessagePopoverPress(oEvent) {
-        //     let oSource = oEvent.getSource();
-        //     this.popoverBtn = oSource; // Set reference to source
-        //     this.errorMessagePopover(oSource);
+
+        // showBlobInPdfViewer: function (blob, title) {
+        //     const url = URL.createObjectURL(blob);
+
+        //     if (!this._pdfViewer) {
+        //         this._pdfViewer = new PDFViewer({
+        //             title: title || "PDF Viewer",
+        //             showDownloadButton: true
+        //         });
+        //         this.getView().addDependent(this._pdfViewer);
+        //     }
+
+        //     this._pdfViewer.setSource(url);
+        //     this._pdfViewer.setTitle(title || "PDF Viewer");
+        //     this._pdfViewer.open();
+        // },
+
+        // postBlob: function (relativeUrl, payload = {}, csrfToken = "fetch") {
+        //     const url = URLConstants.URL.app_endPoint + relativeUrl;
+
+        //     return $.ajax({
+        //         type: "POST",                           // switched to POST
+        //         url,
+        //         contentType: "application/json",
+        //         data: JSON.stringify(payload),         // body sent to the server
+        //         headers: { "X-CSRF-Token": csrfToken },// supply token if you already have it
+        //         xhrFields: { responseType: "blob" }    // expect binary (PDF)
+        //     }).then((blob, _status, xhr) => {
+        //         /* ---------- filename extraction (kept lean) ---------- */
+        //         const cd = xhr.getResponseHeader("Content-Disposition") || "";
+        //         const match = cd.match(/filename\*?=(?:UTF-\d['']*)?"?([^;"]+)/i);
+        //         const filename = match ? decodeURIComponent(match[1]) : "download.pdf";
+
+        //         /* ---------- trigger download ---------- */
+        //         const link = document.createElement("a");
+        //         link.href = URL.createObjectURL(blob);
+        //         link.download = filename;
+        //         document.body.appendChild(link);
+        //         link.click();
+        //         link.remove();
+        //         URL.revokeObjectURL(link.href);
+        //     }).fail(xhr => {
+        //         console.error("Failed to download PDF:", xhr);
+        //         throw xhr;                             // allow caller to handle errors
+        //     });
         // }
+
+        restMethodPostLink: function (url, request) {
+            const deferred = $.Deferred();
+            $.ajax({
+                type: "POST",
+                url: URLConstants.URL.app_endPoint + url,
+                data: JSON.stringify(request),
+                contentType: "application/json",
+                success: function (response) {
+                    deferred.resolve(response);
+                },
+                error: function (xhr) {
+                    deferred.reject(xhr);
+                }
+            });
+            return deferred.promise();
+        },
+        
+
+
+
 
 
 
