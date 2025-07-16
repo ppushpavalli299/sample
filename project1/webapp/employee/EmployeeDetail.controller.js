@@ -44,11 +44,11 @@ sap.ui.define([
 
             };
             this.getView().setModel(new JSONModel(setDataModel), "masterdataMdl");
-            this.fetchEmpById();
+            this.fetchEmployeeById();
         },
 
 
-        fetchEmpById: async function () {
+        fetchEmployeeById: async function () {
             try {
                 this.showLoading(true);
                 let companyByIdPath = URLConstants.URL.employee_by_id.replace("{id}", this._item);

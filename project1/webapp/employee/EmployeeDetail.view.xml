@@ -42,9 +42,9 @@
                         <uxap:blocks>
                             <form:SimpleForm id="form_id" editable="true" layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="4">
                                 <form:content>
-                                    <Label text="Employee Name" required="true"/>
+                                    <Label text= "Name" required="true"/>
                                     <Input value="{empdetailsMdl>/name}" field:type="Input"/>
-                                    <Label text="Employee Designation" required="true"/>
+                                    <Label text=" Designation" required="true"/>
                                     <Input value="{empdetailsMdl>/designation}" field:type="Input"/>
                                     <Label text="Status"/>
                                     <Select id="id_Status" items="{masterdataMdl>/status}" selectedKey="{empdetailsMdl>/status}">
