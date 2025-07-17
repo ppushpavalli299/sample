@@ -196,5 +196,9 @@ sap.ui.define([
         //         });
         //     }
         // },
+        onCreateEmployee: function () {
+            this.oRouter.navTo("create_employee", { layout: "TwoColumnsMidExpanded" });
+        },
+
     });
 });

@@ -64,7 +64,7 @@ sap.ui.define([
             }
         },
 
-        
+
 
         handleFullScreen() {
             //var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
