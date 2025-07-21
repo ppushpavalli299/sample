@@ -28,8 +28,11 @@ public class EmployeeService {
     }
 
     public String deleteEmployee(Long id) throws Exception {
-    return employeeDAO.deleteEmployee(id);
-}
+        return employeeDAO.deleteEmployee(id);
+    }
 
+    public String addEditEmployee(EmployeeRequest employeeRequest) throws Exception {
+        return employeeDAO.addEditEmployee(employeeRequest);
+    }
 
 }

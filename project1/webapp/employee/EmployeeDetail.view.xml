@@ -7,7 +7,7 @@
     xmlns:form="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" height="100%">
-<uxap:ObjectPageLayout id="oplConfigDetail" showFooter="{= !${visible>/view} || !!${errors>/}.length}" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+    <uxap:ObjectPageLayout id="oplConfigDetail" showFooter="{= !${visible>/view} || !!${errors>/}.length}" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:expandedHeading>
@@ -26,16 +26,20 @@
                     <ObjectAttribute title="ID" text="{empdetailsMdl>/id}" />
                 </uxap:snappedContent>
 
+                <uxap:actions>
+                    <Button icon="sap-icon://edit" tooltip="{i18n>btn_edit}" type="Transparent" enabled="{visible>/view}" press="onPressEdit" />
+                </uxap:actions>
+
                 <uxap:navigationActions>
-                    <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="{i18n>pos_enterFullScreen}" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
-                    <OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="{i18n>pos_exitFullScreen}" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+                    <!-- <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="{i18n>pos_enterFullScreen}" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="{i18n>pos_exitFullScreen}" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/> -->
                     <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="{i18n>pos_closeMiddleColumn}" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
                 </uxap:navigationActions>
 
             </uxap:ObjectPageDynamicHeaderTitle>
 
         </uxap:headerTitle>
-         <uxap:sections>
+        <uxap:sections>
             <uxap:ObjectPageSection title="General">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
@@ -43,11 +47,11 @@
                             <form:SimpleForm id="form_id" editable="true" layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="4">
                                 <form:content>
                                     <Label text= "Name" required="true"/>
-                                    <Input value="{empdetailsMdl>/name}" field:type="Input"/>
+                                    <Input value="{empdetailsMdl>/name}" field:type="Input" editable="{visible>/edit}"/>
                                     <Label text=" Designation" required="true"/>
-                                    <Input value="{empdetailsMdl>/designation}" field:type="Input"/>
+                                    <Input value="{empdetailsMdl>/designation}" field:type="Input" editable="{visible>/edit}"/>
                                     <Label text="Status"/>
-                                    <Select id="id_Status" items="{masterdataMdl>/status}" selectedKey="{empdetailsMdl>/status}">
+                                    <Select id="id_Status" items="{masterdataMdl>/status}" selectedKey="{empdetailsMdl>/status}" editable="{visible>/edit}">
                                         <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
                                         <!-- <core:Item key="1" text="Active" />  -->
                                     </Select>
@@ -58,6 +62,14 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-            </uxap:sections>
- </uxap:ObjectPageLayout>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar >
+                <Button id="errorBtnEditsystem" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject"></Button>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://save" tooltip="Save" text="Save" type="Success" press="onPressSave"/>
+                <Button icon="sap-icon://sys-cancel" tooltip="Cancel" text="Cancel" type="Reject" press="onPressCancel"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
 </mvc:View>

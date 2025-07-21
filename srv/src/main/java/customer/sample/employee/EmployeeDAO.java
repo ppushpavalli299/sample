@@ -113,4 +113,23 @@ public class EmployeeDAO {
         }
     }
 
+    public String addEditEmployee(EmployeeRequest employeeRequest) throws Exception {
+        try {
+            String employeeJson = new Gson().toJson(employeeRequest); // Convert object to JSON
+
+            StoredProcedureQuery spQuery = entityManager
+                    .createStoredProcedureQuery("FBC5AAD3564D4EEBBCFF6701C64CECD5.ADDEDIT_EMPLOYEE");
+
+            spQuery.registerStoredProcedureParameter(1, String.class, ParameterMode.IN); // EMPLOYEE_DATA
+            spQuery.registerStoredProcedureParameter(2, String.class, ParameterMode.OUT); // RESULT_MESSAGE
+
+            spQuery.setParameter(1, employeeJson);
+            spQuery.execute();
+
+            return (String) spQuery.getOutputParameterValue(2);
+        } catch (Exception e) {
+            throw new Exception("Error while inserting employee: " + e.getMessage(), e);
+        }
+    }
+
 }

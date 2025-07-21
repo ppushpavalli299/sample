@@ -50,4 +50,14 @@ public class EmployeeController {
         }
     }
 
+    @PostMapping("/addEdit")
+    public ResponseEntity<?> addEditEmployee(@RequestBody EmployeeRequest employeeRequest) {
+        try {
+            String message = employeeService.addEditEmployee(employeeRequest);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
 }
