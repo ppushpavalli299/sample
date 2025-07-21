@@ -14,11 +14,13 @@
     xmlns:u="sap.uxap"
     xmlns:tnt="sap.tnt"
     xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" height="100%">
-    <Page  id="sap" showHeader="true" enableScrolling="false" titleAlignment="Center" showFooter="false">
+    <Page id="sap" showHeader="true" enableScrolling="false" titleAlignment="Center" showFooter="false">
         <customHeader>
             <Bar>
                 <contentLeft>
-                    <Image src="./images/LOGO.png" height="50px" />
+
+                    <Image src="./images/image.png" height="35px" press="onPressLogo"/>
+                    <Title titleStyle="H5" text="{sideNavigation>/title}" textAlign="Center" visible="{device>/system/desktop}"/>
                 </contentLeft>
                 <contentMiddle>
                 </contentMiddle>
@@ -53,7 +55,7 @@
                                                     <ImageContent src="sap-icon://company-view" class="sapUiTinyMarginBegin"/>
                                                 </TileContent>
                                             </GenericTile>
-                                           
+
                                         </f:GridContainer>
                                     </u:ObjectPageSubSection>
                                 </u:subSections>
