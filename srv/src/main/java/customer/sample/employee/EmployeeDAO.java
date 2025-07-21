@@ -18,8 +18,7 @@ public class EmployeeDAO {
             String filterParams = new Gson().toJson(employeeSearch);
 
             StoredProcedureQuery spQuery = entityManager
-                   .createStoredProcedureQuery("FBC5AAD3564D4EEBBCFF6701C64CECD5.GET_EMPLOYEE", "Employee_Mapping");
-
+                    .createStoredProcedureQuery("FBC5AAD3564D4EEBBCFF6701C64CECD5.GET_EMPLOYEE", "Employee_Mapping");
 
             spQuery.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
             spQuery.registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN);
@@ -77,4 +76,41 @@ public class EmployeeDAO {
             throw new Exception("Error fetching Employee by ID", ex);
         }
     }
+
+    public String createEmployee(EmployeeRequest employeeRequest) throws Exception {
+        try {
+            String employeeJson = new Gson().toJson(employeeRequest);
+
+            StoredProcedureQuery spQuery = entityManager
+                    .createStoredProcedureQuery("FBC5AAD3564D4EEBBCFF6701C64CECD5.ADD_EMPLOYEE");
+
+            spQuery.registerStoredProcedureParameter(1, String.class, ParameterMode.IN); // EMPLOYEE_DATA
+            spQuery.registerStoredProcedureParameter(2, String.class, ParameterMode.OUT); // RESULT_MESSAGE
+
+            spQuery.setParameter(1, employeeJson);
+            spQuery.execute();
+
+            return (String) spQuery.getOutputParameterValue(2);
+        } catch (Exception e) {
+            throw new Exception("Error while inserting employee: " + e.getMessage(), e);
+        }
+    }
+
+    public String deleteEmployee(Long id) throws Exception {
+        try {
+            StoredProcedureQuery spQuery = entityManager
+                    .createStoredProcedureQuery("FBC5AAD3564D4EEBBCFF6701C64CECD5.DELETE_EMPLOYEE");
+
+            spQuery.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN); // ID
+            spQuery.registerStoredProcedureParameter(2, String.class, ParameterMode.OUT); // RESULT_MESSAGE
+
+            spQuery.setParameter(1, id);
+            spQuery.execute();
+
+            return (String) spQuery.getOutputParameterValue(2);
+        } catch (Exception e) {
+            throw new Exception("Error while deleting employee: " + e.getMessage(), e);
+        }
+    }
+
 }

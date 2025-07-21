@@ -184,18 +184,18 @@ sap.ui.define([
 
             return new Blob(byteArrays, { type: contentType });
         },
-        // onListItemPress: function (oEvent) {
-        //     let oItem = oEvent.getParameter("listItem");
-        //     let oCtx = oItem.getBindingContext("employeeMdl");
+        onListItemPress: function (oEvent) {
+            let oItem = oEvent.getParameter("listItem");
+            let oCtx = oItem.getBindingContext("employeeMdl");
 
-        //     if (oCtx) {
-        //         let oEmp = oCtx.getObject();
-        //         this.oRouter.navTo("employee_detail", {
-        //             layout: "TwoColumnsMidExpanded",
-        //             id: oEmp.id
-        //         });
-        //     }
-        // },
+            if (oCtx) {
+                let oEmp = oCtx.getObject();
+                this.oRouter.navTo("employee_detail", {
+                    layout: "TwoColumnsMidExpanded",
+                    id: oEmp.id
+                });
+            }
+        },
         onCreateEmployee: function () {
             this.oRouter.navTo("create_employee", { layout: "TwoColumnsMidExpanded" });
         },

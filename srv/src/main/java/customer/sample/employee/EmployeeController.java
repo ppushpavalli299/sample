@@ -21,7 +21,6 @@ public class EmployeeController {
         }
     }
 
-    
     @GetMapping("/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable("id") Long id) {
         try {
@@ -30,4 +29,25 @@ public class EmployeeController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> createEmployee(@RequestBody EmployeeRequest employeeRequest) {
+        try {
+            String message = employeeService.createEmployee(employeeRequest);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable("id") Long id) {
+        try {
+            String message = employeeService.deleteEmployee(id);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
 }

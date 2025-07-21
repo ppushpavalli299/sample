@@ -22,4 +22,14 @@ public class EmployeeService {
             throw e;
         }
     }
+
+    public String createEmployee(EmployeeRequest employeeRequest) throws Exception {
+        return employeeDAO.createEmployee(employeeRequest);
+    }
+
+    public String deleteEmployee(Long id) throws Exception {
+    return employeeDAO.deleteEmployee(id);
+}
+
+
 }
