@@ -10,92 +10,99 @@ sap.ui.define([
     'sap/m/Token',
     "project1/utils/ErrorMessage",
 ], function (
-    BaseController, JSONModel, MessageToast, URLConstants, Core, MessageBox, Fragment,Spreadsheet, Token,ErrorMessage
+    BaseController, JSONModel, MessageToast, URLConstants, Core, MessageBox, Fragment, Spreadsheet, Token, ErrorMessage
 ) {
     "use strict";
+
     return BaseController.extend("project1.employee.CreateEmployee", {
 
         onInit: function () {
             this.oOwnerComponent = this.getOwnerComponent();
-
             this.oRouter = this.oOwnerComponent.getRouter();
             this.oModel = this.oOwnerComponent.getModel();
 
-            
             this.oRouter.getRoute("create_employee").attachPatternMatched(this._onRouteMatched, this);
-            // this.oRouter.getRoute("employee").attachPatternMatched(this._onRouteMatchedEmp, this);
 
             let oSource = ((sId) => this.getView().byId(sId));
-            [this.formId, this.pageId, this.popoverBtn] = [oSource('form_id'), oSource('id_CreateEmp'), oSource('errorBtn')]
-        
+            [this.formId, this.pageId, this.popoverBtn] = [
+                oSource('form_id'),
+                oSource('id_CreateEmp'),
+                oSource('errorBtn')
+            ];
         },
-        _onRouteMatched: function (oEvent) {
-            var setDataModel = {
+
+        _onRouteMatched: function () {
+            let setDataModel = {
                 status: [
-                    { key: "1", text: "Active" },
-                    { key: "2", text: "Inactive" },
-                    { key: "3", text: "Draft" }
-                ],
-
-
+                    { key: "1", text: "Draft" },
+                    { key: "2", text: "Active" },
+                    { key: "3", text: "InActive" }
+                ]
             };
-            this.getView().setModel(new JSONModel(setDataModel), "masterdataMdl")
+            this.getView().setModel(new JSONModel(setDataModel), "masterdataMdl");
             this.setInitialModel();
             this.errorPopoverParams();
         },
+
         errorPopoverParams: function () {
-            //******Set Initially Empty Error Mdl******
             this.eMdl = this.getOwnerComponent().getModel("errors");
             ErrorMessage.removeValueState([this.formId], this.eMdl);
             this.eMdl.setData([]);
         },
+
         setInitialModel: function () {
             let obj = {
                 name: null,
                 designation: null,
-                status: 1,
-               
+                status: "1"
             };
             this.getView().setModel(new JSONModel(obj), "createEmpMdl");
         },
-        _onRouteMatchedEmp: function (oEvent) {
-        },
+
         handleFullScreen: function () {
-            //var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
             this.oRouter.navTo("create_employee", { layout: "MidColumnFullScreen" });
         },
+
         handleExitFullScreen: function () {
-            //var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/exitFullScreen");
             this.oRouter.navTo("create_employee", { layout: "TwoColumnsMidExpanded" });
         },
+
         handleClose: function () {
-            // var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
             this.oRouter.navTo("employee", { layout: "OneColumn" });
         },
+
         onExit: function () {
             this.oRouter.getRoute("employee").detachPatternMatched(this._onRouteMatched, this);
             this.oRouter.getRoute("create_employee").detachPatternMatched(this._onRouteMatched, this);
         },
+
         onPressCancel: function () {
             this.oRouter.navTo("employee", { layout: "OneColumn" });
         },
 
         onPressSave: async function () {
             try {
-                 ErrorMessage.formValidation([this.formId], this.eMdl, this.pageId);
+                // Perform form field validation
+                ErrorMessage.formValidation([this.formId], this.eMdl, this.pageId);
+
                 let reqData = this.getView().getModel("createEmpMdl")?.getData();
-                let valid = this.eMdl?.getData() || [];
-                if (valid.length === 0) {
-                    this.errorMessagePopoverClose();
-                    this.showLoading(true);
+                let validationErrors = this.eMdl?.getData() || [];
+
+                // Proceed only if there are no validation errors
+                if (validationErrors.length === 0) {
+                    if (this._oMessagePopover) {
+                        this._oMessagePopover.close();
+                    }
+
+                    this.showLoading(true); 
+
                     let path = URLConstants.URL.emp_add;
                     let response = await this.restMethodPost(path, reqData);
-        
+
                     this.getView().setModel(new JSONModel(response), "createEmpMdl");
-        
                     this.showLoading(false);
                     this.setInitialModel();
-        
+
                     MessageBox.information("Saved successfully!", {
                         actions: [MessageBox.Action.OK],
                         onClose: () => {
@@ -106,10 +113,9 @@ sap.ui.define([
                     this.errorHandling();
                 }
             } catch (ex) {
-                this.errorHandling(ex);
+                this.errorHandling(ex); 
             }
-        },
-        
+        }
 
     });
 });

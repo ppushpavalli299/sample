@@ -5,7 +5,10 @@ sap.ui.define([], function () {
             app_endPoint: "http://localhost:8080/",
             employee_filter: "employee/filter",
             employee_by_id: "employee/{id}", 
-            payslip_template_report_full: "api/payslip"
+            payslip_template_report_full: "api/payslip",
+            emp_add : "employee/add",
+            employee_delete: "employee/{id}"
+
            
         },
         Paging: {

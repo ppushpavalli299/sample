@@ -348,7 +348,22 @@ sap.ui.define([
                     });
                 });
             }
+        },
+        _showMessagePopover: function (oSource) {
+            if (!this._oMessagePopover) {
+                Fragment.load({
+                    name: "project1.view.ErrorMessage", // Adjust path if different
+                    controller: this
+                }).then(function (oMessagePopover) {
+                    this._oMessagePopover = oMessagePopover;
+                    this.getView().addDependent(this._oMessagePopover);
+                    this._oMessagePopover.openBy(oSource);
+                }.bind(this));
+            } else {
+                this._oMessagePopover.openBy(oSource);
+            }
         }
+
     };
 });
 
