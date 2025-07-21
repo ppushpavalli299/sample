@@ -1,0 +1,56 @@
+CREATE PROCEDURE "ADDEDIT_EMPLOYEE" (
+    IN EMPLOYEE_DATA NCLOB,
+    OUT RESULT_MESSAGE NVARCHAR(500)
+)
+AS
+BEGIN
+    DECLARE ID INTEGER;
+    DECLARE NAME NVARCHAR(100);
+    DECLARE DESIGNATION NVARCHAR(100);
+    DECLARE STATUS INTEGER;
+    DECLARE COUNT_EXISTS INTEGER;
+
+    -- Parse JSON input
+    SELECT JSON_VALUE(:EMPLOYEE_DATA, '$.id') INTO ID FROM DUMMY;
+    SELECT JSON_VALUE(:EMPLOYEE_DATA, '$.name') INTO NAME FROM DUMMY;
+    SELECT JSON_VALUE(:EMPLOYEE_DATA, '$.designation') INTO DESIGNATION FROM DUMMY;
+    SELECT JSON_VALUE(:EMPLOYEE_DATA, '$.status') INTO STATUS FROM DUMMY;
+
+    -- Validate input (ID not mandatory for new entry)
+    IF (NAME IS NOT NULL AND DESIGNATION IS NOT NULL AND STATUS IS NOT NULL) THEN
+
+        IF (ID IS NOT NULL) THEN
+            -- Check if employee exists
+            SELECT COUNT(*) INTO COUNT_EXISTS FROM "EMPLOYEE" WHERE "ID" = :ID;
+
+            IF :COUNT_EXISTS > 0 THEN
+                -- Update employee
+                UPDATE "EMPLOYEE"
+                SET "NAME" = :NAME,
+                    "DESIGNATION" = :DESIGNATION,
+                    "STATUS" = :STATUS
+                WHERE "ID" = :ID;
+
+                RESULT_MESSAGE := 'Employee updated successfully';
+            ELSE
+                -- Insert new employee with provided ID
+                INSERT INTO "EMPLOYEE" ("ID", "NAME", "DESIGNATION", "STATUS")
+                VALUES (:ID, :NAME, :DESIGNATION, :STATUS);
+
+                RESULT_MESSAGE := 'Employee added successfully (with provided ID)';
+            END IF;
+
+        ELSE
+            -- Generate ID automatically
+            SELECT COALESCE(MAX(ID), 0) + 1 INTO ID FROM "EMPLOYEE";
+
+            INSERT INTO "EMPLOYEE" ("ID", "NAME", "DESIGNATION", "STATUS")
+            VALUES (:ID, :NAME, :DESIGNATION, :STATUS);
+
+            RESULT_MESSAGE := 'Employee added successfully (auto ID)';
+        END IF;
+
+    ELSE
+        RESULT_MESSAGE := 'Invalid input: Name, Designation, and Status are required.';
+    END IF;
+END
