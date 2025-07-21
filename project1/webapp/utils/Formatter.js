@@ -4,7 +4,7 @@ sap.ui.define([], () => {
             switch (Number(value)) {
                 case 1: return "Draft";
                 case 2: return "Active";
-                case 3: return "Inactive";
+                case 3: return "InActive";
                 default: return "Unknown";
             }
         },
