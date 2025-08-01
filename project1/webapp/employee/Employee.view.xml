@@ -1,6 +1,7 @@
 <mvc:View controllerName="project1.employee.Employee"
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:f="sap.f"
+      xmlns:p13n="sap.m.p13n"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
@@ -23,19 +24,16 @@
                                 <Input placeholder="Enter ID" value="{advancedFilterMdl>/id}" />
                             </fb:control>
                         </fb:FilterItem>
-
                         <fb:FilterItem name="B" label="Name">
                             <fb:control>
                                 <Input placeholder="Enter Name" value="{advancedFilterMdl>/name}" />
                             </fb:control>
                         </fb:FilterItem>
-
                         <fb:FilterItem name="C" label="Designation">
                             <fb:control>
                                 <Input placeholder="Enter Designation" value="{advancedFilterMdl>/designation}" />
                             </fb:control>
                         </fb:FilterItem>
-
                         <fb:FilterItem name="D" label="Status">
                             <fb:control>
                                 <MultiComboBox items="{masterdataMdl>/status}" selectedKeys="{advancedFilterMdl>/status}" placeholder="Select Status">
@@ -43,7 +41,6 @@
                                 </MultiComboBox>
                             </fb:control>
                         </fb:FilterItem>
-
                     </fb:filterItems>
                 </fb:FilterBar>
             </f:DynamicPageHeader>
@@ -55,6 +52,7 @@
                     <OverflowToolbar>
                         <ToolbarSpacer />
                         <Button text="Create" type="Ghost" press="onCreateEmployee" />
+                        <!-- <Button icon="sap-icon://action-settings" press="openPersoDialog" /> -->
                     </OverflowToolbar>
                 </headerToolbar>
 
@@ -66,32 +64,32 @@
                 </infoToolbar>
 
                 <columns>
-                    <Column>
+                    <Column visible="true" id="id">
                         <Text text="ID" />
                     </Column>
-                    <Column>
+                    <Column  visible="true" id="name">
                         <Text text="Name" />
                     </Column>
-                    <Column>
+                    <Column visible="true" id="designation">
                         <Text text="Designation" />
                     </Column>
-                    <Column>
+                    <Column visible="true" id="status">
                         <Text text="Status" />
                     </Column>
                     <Column>
-                        <Text text="Actions" visible="false"/>
+                        <Text text="Actions" />
                     </Column>
                 </columns>
 
                 <items>
-                    <ColumnListItem type="Navigation">
+                    <ColumnListItem type="Navigation" press="onListItemPress">
                         <cells>
                             <ObjectIdentifier title="{employeeMdl>id}" />
                             <Text text="{employeeMdl>name}" />
                             <Text text="{employeeMdl>designation}" />
-                            <ObjectStatus text="{ path: 'employeeMdl>status', formatter: '.formatter.getStatusText' }" state="{ path: 'employeeMdl>status', formatter: '.formatter.getStatusState' }" />
+                            <ObjectStatus text="{ path: 'employeeMdl>status', formatter: '.formatter.getStatusText' }"
+                                          state="{ path: 'employeeMdl>status', formatter: '.formatter.getStatusState' }" />
                             <Button text="View Payslip" icon="sap-icon://pdf-attachment" press="onPressViewTemplate" />
-
                         </cells>
                     </ColumnListItem>
                 </items>

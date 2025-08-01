@@ -10,7 +10,7 @@
             <Bar>
                 <contentLeft>
              
-                    <Image src="./images/image.png" height="35px" press="onPressLogo"/>
+                    <!-- <Image src="./images/image.png" height="35px" press="onPressLogo"/> -->
                     <Title titleStyle="H5" text="{sideNavigation>/title}" textAlign="Center" visible="{device>/system/desktop}"/>
                 </contentLeft>
                 <contentMiddle>

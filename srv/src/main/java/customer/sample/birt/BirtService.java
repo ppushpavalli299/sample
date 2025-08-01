@@ -44,7 +44,7 @@ public class BirtService {
     }
 
     /* Produce PDF */
-    public byte[] generatePayslip(String fileParam, PayslipHeader header) throws Exception {
+    public byte[] generatePayslip(String fileParam, Payslip payslip) throws Exception {
         String design = (fileParam != null && !fileParam.isBlank()) ? fileParam : "payslip";
         String path = reportFolder + design + ".rptdesign";
 
@@ -57,8 +57,8 @@ public class BirtService {
             IRunAndRenderTask task = engine.createRunAndRenderTask(runnable);
 
             /* Data from procedure */
-            List<Payslip> payslips = payslipDAO.getPayslipsFromProcedure();
-            task.getAppContext().put("payslip", payslips);
+            // List<Payslip> payslips = payslipDAO.getPayslipsFromProcedure();
+            task.getAppContext().put("payslip", payslip);
 
             /* Render */
             ByteArrayOutputStream pdf = new ByteArrayOutputStream();

@@ -16,34 +16,29 @@ public class BirtController {
     private static final Logger log = LoggerFactory.getLogger(BirtController.class);
 
     private final BirtService birtService;
-
-    // @PostMapping(path = "/payslip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    // public ResponseEntity<Map<String, byte[]>> generatePaySlipReport(
-    //         @RequestParam(name = "file", required = false) String file,
-    //         @RequestBody(required = false) PayslipHeader header) {
-    //     try {
-    //         byte[] base64Pdf = birtService.generatePayslip(file, header);
-    //         return ResponseEntity.ok(Map.of("data", base64Pdf));
-    //     } catch (Exception ex) {
-    //         log.error("Could not create payslip PDF", ex);
-    //         return ResponseEntity.internalServerError().build();
-    //     }
-    // }
+    private final ImageBase64Service imageBase64Service;
 
     @PostMapping(path = "/payslip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> generatePaySlipReport(
             @RequestParam(name = "file", required = false) String file,
-            @RequestBody(required = false) PayslipHeader header) {
+            @RequestBody(required = false) Payslip payslip) {
         try {
-            byte[] pdfBytes = birtService.generatePayslip(file, header);
+            byte[] pdfBytes = birtService.generatePayslip(file, payslip);
             String base64Pdf = Base64.getEncoder().encodeToString(pdfBytes);
-            return ResponseEntity.ok()
-                    .contentType(MediaType.TEXT_PLAIN)
-                    .body(base64Pdf);
-
+            return ResponseEntity.ok().body(base64Pdf);
         } catch (Exception ex) {
             log.error("Could not create payslip PDF", ex);
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.internalServerError().body("Error generating payslip");
+        }
+    }
+
+    @GetMapping("/image-base64")
+    public ResponseEntity<String> getBase64Image(@RequestParam(name = "fileName") String fileName) {
+        String base64 = imageBase64Service.getImageAsBase64(fileName);
+        if (base64 != null) {
+            return ResponseEntity.ok(base64);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Image not found or failed to convert");
         }
     }
 }

@@ -7,6 +7,10 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/m/PDFViewer",
     "project1/utils/Formatter"
+   
+   
+
+
 ], function (
     BaseController,
     JSONModel,
@@ -16,16 +20,19 @@ sap.ui.define([
     FilterOperator,
     PDFViewer,
     Formatter
-) {
+  ) {
+
     "use strict";
 
     return BaseController.extend("project1.employee.Employee", {
         formatter: Formatter,
+
         onInit: function () {
             this.oRouter = this.getOwnerComponent().getRouter();
             this.oRouter.getRoute("employee").attachMatched(this._onRouteMatched, this);
             this.oTable = this.byId("tableId_companies");
 
+        
             this.getView().setModel(new JSONModel({
                 id: "",
                 name: "",
@@ -45,6 +52,7 @@ sap.ui.define([
             this.getView().setModel(new JSONModel(statusData), "masterdataMdl");
             this.fetchEmployee();
         },
+
         fetchEmployee: async function () {
             const path = URLConstants.URL.employee_filter;
             const reqData = { showAll: true, pageNumber: 1, pageSize: 100 };
@@ -93,41 +101,45 @@ sap.ui.define([
             this.oTable.getBinding("items").filter([]);
         },
 
-        // onPressViewTemplate: async function () {
-        //     try {
-        //         this.showLoading(true);
-
-        //         const payload = {
-        //             employee_id: null,
-        //             payroll_month: null,
-        //             payroll_year: null,
-        //             view_or_download: 1
-
-        //         };
-
-        //         const blob = await this.restMethodPosLink(
-        //             URLConstants.URL.payslip_template_report_full,
-        //             payload
-        //         );
-
-        //         if (blob && blob.size > 0) {
-        //             this.showBlobInPdfViewer(blob, "Employee Payslip");
-        //         }
-        //     } catch (ex) {
-        //         this.errorHandling(ex);
-        //     } finally {
-        //         this.showLoading(false);
-        //     }
-        // },
-
         onPressViewTemplate: async function () {
             try {
                 this.showLoading(true);
                 let payload = {
-                    employee_id: null,
-                    payroll_month: null,
-                    payroll_year: null,
-                    view_or_download: 1
+                    id: null,
+                    earnings: 5000,
+                    master: "BASIC",
+                    actual: 2000,
+                    deductions: "PF",
+                    actuals: 2000,
+                    payslipEarnings: [
+                        {
+                            id: 1,
+                            earnings: 5000,
+                            master: "BASIC",
+                            actual: 2000,
+                            deductions: "PF",
+                            actuals: 2000,
+                        },
+                        {
+                            id: 2,
+                            earnings: 25000,
+                            master: "HRA",
+                            actual: 3000,
+                            deductions: "PROF",
+                            actuals: 2000,
+                        },
+                        {
+                            id: 3,
+                            earnings: 30000,
+                            master: "Test",
+                            actual : 2000,
+                            deductions :"Test",
+                            actuals : 2000
+                        }
+
+
+                    ]
+
                 };
                 let path = URLConstants.URL.payslip_template_report_full;
                 let result = await this.restMethodPost(path, payload);
@@ -143,7 +155,7 @@ sap.ui.define([
         },
 
         loadPrevPDF: async function (pdfs) {
-            const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib;
+            const { PDFDocument } = PDFLib;
             const contentType = 'application/pdf';
             const pdfDocDisp = await PDFDocument.create();
 
@@ -184,6 +196,7 @@ sap.ui.define([
 
             return new Blob(byteArrays, { type: contentType });
         },
+
         onListItemPress: function (oEvent) {
             let oItem = oEvent.getParameter("listItem");
             let oCtx = oItem.getBindingContext("employeeMdl");
@@ -196,6 +209,7 @@ sap.ui.define([
                 });
             }
         },
+
         onCreateEmployee: function () {
             this.oRouter.navTo("create_employee", { layout: "TwoColumnsMidExpanded" });
         },

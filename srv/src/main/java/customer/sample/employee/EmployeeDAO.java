@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class EmployeeDAO {
@@ -131,5 +132,27 @@ public class EmployeeDAO {
             throw new Exception("Error while inserting employee: " + e.getMessage(), e);
         }
     }
+
+    // ✅ New update method using ADDEDIT_EMPLOYEE procedure
+    public String updateEmployee(EmployeeRequest employeeRequest) throws Exception {
+        try {
+            String employeeJson = new Gson().toJson(employeeRequest);
+
+            StoredProcedureQuery spQuery = entityManager
+                    .createStoredProcedureQuery("FBC5AAD3564D4EEBBCFF6701C64CECD5.ADDEDIT_EMPLOYEE");
+
+            spQuery.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+            spQuery.registerStoredProcedureParameter(2, String.class, ParameterMode.OUT);
+
+            spQuery.setParameter(1, employeeJson);
+            spQuery.execute();
+
+            return (String) spQuery.getOutputParameterValue(2);
+        } catch (Exception e) {
+            throw new Exception("Error while updating employee: " + e.getMessage(), e);
+        }
+    }
+
+   
 
 }

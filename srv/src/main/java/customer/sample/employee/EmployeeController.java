@@ -1,5 +1,7 @@
 package customer.sample.employee;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,5 +61,19 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
+
+    // RESTful PUT for full update
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateEmployee(@PathVariable("id") Long id, @RequestBody EmployeeRequest employeeRequest) {
+        try {
+            employeeRequest.setId(id); // Ensure ID from URL is used
+            String message = employeeService.updateEmployee(employeeRequest);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+ 
 
 }

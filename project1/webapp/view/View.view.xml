@@ -20,11 +20,12 @@
                                         <form:SimpleForm class="loginForm" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="2" emptySpanM="2" columnsL="2" columnsM="1" singleContainerFullSize="true">
                                             <form:content>
                                                 <Label text="Username" />
-                                                <Input placeholder="Enter Username" value="{loginModel>/userName}" liveChange="onInputChange" class="loginInput"/>
+                                                <Input placeholder="Please Enter Username" value="{loginModel>/userName}" liveChange="onInputChange" class="loginInput"/>
+                                                <!-- <Input id="inpUsername" placeholder="Please Enter Username" value="{loginModel>/userName}" liveChange="onInputChange" class="loginInput"/> -->
+
 
                                                 <Label text="Password" labelFor="inpPassword" />
-                                                <Input id="inpPassword" type="Password" value="{loginModel>/password}" class="sapUiSizeCozy" 
-                                                    showValueHelp="true" valueHelpIconSrc="sap-icon://hide" valueHelpRequest="onShowPassword"/>
+                                                <Input id="inpPassword" type="Password" value="{loginModel>/password}" class="sapUiSizeCozy" showValueHelp="true" valueHelpIconSrc="sap-icon://hide" valueHelpRequest="onShowPassword"/>
 
                                                 <HBox justifyContent="End">
                                                     <Link text="Forgot Password?" press="onPressChangePassword"/>

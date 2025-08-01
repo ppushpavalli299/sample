@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Map;
 
 @Service
 public class EmployeeService {
@@ -34,5 +35,12 @@ public class EmployeeService {
     public String addEditEmployee(EmployeeRequest employeeRequest) throws Exception {
         return employeeDAO.addEditEmployee(employeeRequest);
     }
+
+    // New method for update
+    public String updateEmployee(EmployeeRequest employeeRequest) throws Exception {
+        return employeeDAO.updateEmployee(employeeRequest);
+    }
+
+ 
 
 }

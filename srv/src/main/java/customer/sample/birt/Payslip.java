@@ -1,25 +1,24 @@
 package customer.sample.birt;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+
+import org.osgi.service.component.annotations.Component;
+
+import jakarta.persistence.Id;
 import lombok.Data;
 
-import java.io.Serializable;
-
+@Component
 @Data
-public class Payslip implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class Payslip {
+    @Id
+    private Long id;
     private String earnings;
-
-    @JsonProperty("earning_master")
-    private Double earningMaster;
-
-    @JsonProperty("earning_actual")
-    private Double earningActual;
-
+    private String master;
+    private String actual;
     private String deductions;
+    private String actuals;
 
-    @JsonProperty("deduction_actual")
-    private Double deductionActual;
+    private List<PayslipEarnings> payslipEarnings;  
+
 }
+

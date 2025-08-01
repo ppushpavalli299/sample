@@ -11,6 +11,11 @@ sap.ui.define([], function () {
             employee_delete: "employee/{id}",//delete
             emp_add_edit: "employee/addEdit",//addedit
 
+              // RESTful update using PUT
+            employee_update: "employee/{id}", // PUT - update employee
+            employee_patch: "employee/{id}" // PATCH request to update partial data
+
+
 
 
 

@@ -12,9 +12,9 @@ sap.ui.define([
 
         initLoginModel: function () {
             var oLoginModel = new JSONModel({
-                userName: "Pushpavalli",   
-                password: "12345",         
-                enableLogin: true,         
+                userName: "Pushpavalli",
+                password: "12345",
+                enableLogin: true,
                 isPasswordVisible: false
             });
             this.getView().setModel(oLoginModel, "loginModel");
@@ -28,6 +28,7 @@ sap.ui.define([
             var isLoginEnabled = sUsername.trim() !== "" && sPassword.trim() !== "";
             oModel.setProperty("/enableLogin", isLoginEnabled);
         },
+    
 
         onLoginPress: function () {
             var oModel = this.getView().getModel("loginModel");
@@ -41,7 +42,7 @@ sap.ui.define([
                 MessageToast.show("Invalid username or password.");
             }
         },
-
+       
         onShowPassword: function (oEvent) {
             var oInput = oEvent.getSource();
             var currentType = oInput.getType();
