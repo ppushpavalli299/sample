@@ -41,4 +41,7 @@ public class BirtController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Image not found or failed to convert");
         }
     }
+
+    
+
 }
