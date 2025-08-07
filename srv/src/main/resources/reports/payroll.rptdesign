@@ -6,7 +6,7 @@
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">120</property>
     <parameters>
-        <scalar-parameter name="employee Number" id="825">
+        <scalar-parameter name="employeeNumber" id="1247">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
             <property name="dataType">string</property>
@@ -21,7 +21,7 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="employee Name" id="826">
+        <scalar-parameter name="employeeName" id="1248">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
             <property name="dataType">string</property>
@@ -36,7 +36,7 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="cost Center" id="827">
+        <scalar-parameter name="costCenter" id="1249">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
             <property name="dataType">string</property>
@@ -51,7 +51,7 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="position" id="828">
+        <scalar-parameter name="position" id="1250">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
             <property name="dataType">string</property>
@@ -66,7 +66,7 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="date of joining" id="829">
+        <scalar-parameter name="dateOfJoining" id="1251">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
             <property name="dataType">date</property>
@@ -78,7 +78,7 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="nationality" id="830">
+        <scalar-parameter name="nationality" id="1252">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
             <property name="dataType">string</property>
@@ -93,41 +93,41 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="unpaid Days" id="831">
-            <property name="valueType">static</property>
-            <property name="isRequired">false</property>
-            <property name="dataType">string</property>
-            <property name="distinct">true</property>
-            <simple-property-list name="defaultValue">
-                <value type="constant"></value>
-            </simple-property-list>
-            <list-property name="selectionList"/>
-            <property name="paramType">simple</property>
-            <property name="controlType">text-box</property>
-            <structure name="format">
-                <property name="category">Unformatted</property>
-            </structure>
-        </scalar-parameter>
-        <scalar-parameter name="Payment Currency" id="832">
-            <property name="valueType">static</property>
-            <property name="isRequired">false</property>
-            <property name="dataType">string</property>
-            <property name="distinct">true</property>
-            <simple-property-list name="defaultValue">
-                <value type="constant"></value>
-            </simple-property-list>
-            <list-property name="selectionList"/>
-            <property name="paramType">simple</property>
-            <property name="controlType">text-box</property>
-            <structure name="format">
-                <property name="category">Unformatted</property>
-            </structure>
-        </scalar-parameter>
-        <scalar-parameter name="payment Date" id="843">
+        <scalar-parameter name="paymentDate" id="1253">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
             <property name="dataType">date</property>
             <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="unpaidDays" id="1254">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentCurrency" id="1255">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
             <list-property name="selectionList"/>
             <property name="paramType">simple</property>
             <property name="controlType">text-box</property>
@@ -516,14 +516,36 @@ return true;]]></method>
                                     <text-property name="content"><![CDATA[Employee Number:]]></text-property>
                                 </text>
                             </cell>
-                            <cell id="31"/>
+                            <cell id="31">
+                                <data id="1256">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">employeeNumber</property>
+                                            <expression name="expression" type="javascript">params["employeeNumber"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">employeeNumber</property>
+                                </data>
+                            </cell>
                             <cell id="32">
                                 <text id="55">
                                     <property name="contentType">auto</property>
                                     <text-property name="content"><![CDATA[Position :]]></text-property>
                                 </text>
                             </cell>
-                            <cell id="33"/>
+                            <cell id="33">
+                                <data id="1259">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">position</property>
+                                            <expression name="expression" type="javascript">params["position"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">position</property>
+                                </data>
+                            </cell>
                             <cell id="34">
                                 <text id="59">
                                     <property name="contentType">auto</property>
@@ -531,10 +553,16 @@ return true;]]></method>
                                 </text>
                             </cell>
                             <cell id="35">
-                                <text id="846">
-                                    <property name="contentType">auto</property>
-                                    <text-property name="content"><![CDATA[25.03.2025]]></text-property>
-                                </text>
+                                <data id="1262">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">paymentDate</property>
+                                            <expression name="expression" type="javascript">params["paymentDate"]</expression>
+                                            <property name="dataType">date</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">paymentDate</property>
+                                </data>
                             </cell>
                         </row>
                         <row id="36">
@@ -544,7 +572,18 @@ return true;]]></method>
                                     <text-property name="content"><![CDATA[Employee Name:]]></text-property>
                                 </text>
                             </cell>
-                            <cell id="38"/>
+                            <cell id="38">
+                                <data id="1257">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">employeeName</property>
+                                            <expression name="expression" type="javascript">params["employeeName"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">employeeName</property>
+                                </data>
+                            </cell>
                             <cell id="39">
                                 <text id="56">
                                     <property name="contentType">auto</property>
@@ -552,10 +591,16 @@ return true;]]></method>
                                 </text>
                             </cell>
                             <cell id="40">
-                                <text id="847">
-                                    <property name="contentType">auto</property>
-                                    <text-property name="content"><![CDATA[05.08.2024]]></text-property>
-                                </text>
+                                <data id="1260">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">dateOfJoining</property>
+                                            <expression name="expression" type="javascript">params["dateOfJoining"]</expression>
+                                            <property name="dataType">date</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">dateOfJoining</property>
+                                </data>
                             </cell>
                             <cell id="41">
                                 <text id="60">
@@ -564,10 +609,16 @@ return true;]]></method>
                                 </text>
                             </cell>
                             <cell id="42">
-                                <text id="845">
-                                    <property name="contentType">auto</property>
-                                    <text-property name="content"><![CDATA[0.00]]></text-property>
-                                </text>
+                                <data id="1263">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">unpaidDays</property>
+                                            <expression name="expression" type="javascript">params["unpaidDays"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">unpaidDays</property>
+                                </data>
                             </cell>
                         </row>
                         <row id="43">
@@ -577,14 +628,36 @@ return true;]]></method>
                                     <text-property name="content"><![CDATA[Cost Center:]]></text-property>
                                 </text>
                             </cell>
-                            <cell id="45"/>
+                            <cell id="45">
+                                <data id="1258">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">costCenter</property>
+                                            <expression name="expression" type="javascript">params["costCenter"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">costCenter</property>
+                                </data>
+                            </cell>
                             <cell id="46">
                                 <text id="58">
                                     <property name="contentType">auto</property>
                                     <text-property name="content"><![CDATA[Nationality :]]></text-property>
                                 </text>
                             </cell>
-                            <cell id="47"/>
+                            <cell id="47">
+                                <data id="1261">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">nationality</property>
+                                            <expression name="expression" type="javascript">params["nationality"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">nationality</property>
+                                </data>
+                            </cell>
                             <cell id="48">
                                 <text id="61">
                                     <property name="contentType">auto</property>
@@ -592,10 +665,16 @@ return true;]]></method>
                                 </text>
                             </cell>
                             <cell id="49">
-                                <text id="844">
-                                    <property name="contentType">auto</property>
-                                    <text-property name="content"><![CDATA[AED]]></text-property>
-                                </text>
+                                <data id="1264">
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">paymentCurrency</property>
+                                            <expression name="expression" type="javascript">params["paymentCurrency"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">paymentCurrency</property>
+                                </data>
                             </cell>
                         </row>
                     </grid>
