@@ -16,7 +16,7 @@ public class BirtController {
     private static final Logger log = LoggerFactory.getLogger(BirtController.class);
 
     private final BirtService birtService;
-    private final ImageBase64Service imageBase64Service;
+ 
 
     @PostMapping(path = "/payslip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> generatePaySlipReport(
@@ -32,13 +32,25 @@ public class BirtController {
         }
     }
 
-    @GetMapping("/image-base64")
-    public ResponseEntity<String> getBase64Image(@RequestParam(name = "fileName") String fileName) {
-        String base64 = imageBase64Service.getImageAsBase64(fileName);
-        if (base64 != null) {
-            return ResponseEntity.ok(base64);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Image not found or failed to convert");
+   //dynamicimagesbase64
+
+     @PostMapping("/images")
+    public ResponseEntity<byte[]> getBase64Image() {
+        try {
+            // Pass Input object to service
+            byte[] pdfBytes = birtService.generateImageReport();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(
+                    ContentDisposition.builder("inline")
+                            .filename("statement_of_accounts.pdf")
+                            .build());
+
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
