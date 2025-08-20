@@ -109,6 +109,13 @@
             "Employee",
             "CreateEmployee"
           ]
+        },
+        {
+          "name": "user",
+          "pattern": "user",
+          "target": [
+            "User"
+          ]
         }
       ],
       "targets": {
@@ -143,6 +150,14 @@
           "viewType": "XML",
           "transition": "slide",
           "viewId": "CreateEmployee",
+          "parent": "AppUnified"
+        },
+        "User": {
+          "viewPath": "project1.user",
+          "viewName": "User",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "User",
           "parent": "AppUnified"
         }
       }

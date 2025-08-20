@@ -37,7 +37,7 @@
                 <tnt:mainContents>
                     <u:ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" showHeaderContent="false">
                         <u:sections>
-                            <u:ObjectPageSection titleUppercase="false" title="Employee">
+                            <u:ObjectPageSection titleUppercase="false">
                                 <u:subSections>
                                     <u:ObjectPageSubSection titleUppercase="false">
                                         <f:GridContainer columnsChange=".onGridColumnsChange">
@@ -48,6 +48,14 @@
                                                 <f:GridContainerSettings rowSize="45px" columnSize="70px" gap="12px" />
                                             </f:layoutXS>
                                             <GenericTile sizeBehavior="Responsive" header="Employee" subheader="" press="onPressTile" app:route="employee" app:key="1">
+                                                <layoutData>
+                                                    <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                                                </layoutData>
+                                                <TileContent>
+                                                    <ImageContent src="sap-icon://company-view" class="sapUiTinyMarginBegin"/>
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile sizeBehavior="Responsive" header="User" subheader="" press="onPressTile" app:route="user" app:key="2">
                                                 <layoutData>
                                                     <f:GridContainerItemLayoutData minRows="2" columns="2" />
                                                 </layoutData>
