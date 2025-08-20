@@ -7,8 +7,8 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/m/PDFViewer",
     "project1/utils/Formatter"
-   
-   
+
+
 
 
 ], function (
@@ -20,7 +20,7 @@ sap.ui.define([
     FilterOperator,
     PDFViewer,
     Formatter
-  ) {
+) {
 
     "use strict";
 
@@ -32,7 +32,7 @@ sap.ui.define([
             this.oRouter.getRoute("employee").attachMatched(this._onRouteMatched, this);
             this.oTable = this.byId("tableId_companies");
 
-        
+
             this.getView().setModel(new JSONModel({
                 id: "",
                 name: "",
@@ -132,10 +132,27 @@ sap.ui.define([
                             id: 3,
                             earnings: 30000,
                             master: "Test",
-                            actual : 2000,
-                            deductions :"Test",
-                            actuals : 2000
-                        }
+                            actual: 2000,
+                            deductions: "Test",
+                            actuals: 2000
+                        },
+                        {
+                            id: 4,
+                            earnings: 30000,
+                            master: "Test1",
+                            actual: 2000,
+                            deductions: "Test",
+                            actuals: 2000
+                        },
+                        {
+                            id: 5,
+                            earnings: 30000,
+                            master: "Test",
+                            actual: 2000,
+                            deductions: "Test",
+                            actuals: 2000
+                        },
+
 
 
                     ]
