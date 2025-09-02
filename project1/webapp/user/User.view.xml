@@ -1,13 +1,11 @@
-<mvc:View
-    controllerName="project1.user.User"
+<mvc:View controllerName="project1.user.User"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
     xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:p13n="sap.m.p13n"
-    xmlns:f="sap.f">
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
 
-    <f:DynamicPage id="page_MngCompanies" headerExpanded="true">
+    <f:DynamicPage id="page_MngUser" headerExpanded="true">
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
@@ -16,13 +14,110 @@
             </f:DynamicPageTitle>
         </f:title>
 
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <fb:FilterBar id="filterbar" filterBarExpanded="true" search="onSearch" clear="clearAllFilters" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false">
+
+                    <fb:filterItems>
+                        <fb:FilterItem name="A" label="ID">
+                            <fb:control>
+                                <Input placeholder="Enter ID" value="{advancedFilterMdl>/id}" />
+                            </fb:control>
+                        </fb:FilterItem>
+
+                        <fb:FilterItem name="B" label="Name">
+                            <fb:control>
+                                <Input placeholder="Enter Name" value="{advancedFilterMdl>/name}" />
+                            </fb:control>
+                        </fb:FilterItem>
+
+                        <fb:FilterItem name="C" label="Designation">
+                            <fb:control>
+                                <ComboBox id="sel_employee" placeholder="Please Select Designation" items="{employeeMdl>/}" selectedKey="{advancedFilterMdl>/designation}" change="onChangeCompany">
+                                    <core:Item key="{employeeMdl>id}" text="{employeeMdl>name}" />
+                                </ComboBox>
+                            </fb:control>
+                        </fb:FilterItem>
+
+                        <fb:FilterItem name="D" label="Created By">
+                            <fb:control>
+                                <Input placeholder="Enter Created By" value="{advancedFilterMdl>/createdBy}" />
+                            </fb:control>
+                        </fb:FilterItem>
+
+                        <fb:FilterItem name="E" label="Created On">
+                            <fb:control>
+                                <DatePicker dateValue="{advancedFilterMdl>/createdOn}" displayFormat="dd-MM-yyyy" placeholder="dd-MM-yyyy" />
+                            </fb:control>
+                        </fb:FilterItem>
+
+
+                        <fb:FilterItem name="F" label="Status">
+                            <fb:control>
+                                <MultiComboBox items="{masterdataMdl>/status}" selectedKeys="{advancedFilterMdl>/status}" placeholder="Select Status">
+                                    <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                </MultiComboBox>
+                            </fb:control>
+                        </fb:FilterItem>
+                    </fb:filterItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+
         <f:content>
-            <!-- Add your content here -->
-            <VBox class="sapUiSmallMargin">
-                <Text text="Welcome to the Employee Page" />
-                <!-- Placeholder for future content -->
-            </VBox>
+            <Table id="tableId_users" items="{userMdl>/}" mode="SingleSelectMaster" growing="true" growingThreshold="20" itemPress="onListItemPress" autoPopinMode="true" class="sapFDynamicPageAlignContent">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <ToolbarSpacer />
+                        <Button text="Create" type="Ghost" press="onCreateEmployee" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <infoToolbar>
+                    <OverflowToolbar id="filterInfo">
+                        <Title text="{= 'Items (' + ${userMdl>/}.length + ')' }" />
+                        <ToolbarSpacer />
+                    </OverflowToolbar>
+                </infoToolbar>
+
+                <columns>
+                    <Column>
+                        <Text text="ID" />
+                    </Column>
+                    <Column>
+                        <Text text="Name" />
+                    </Column>
+                    <Column>
+                        <Text text="Designation" />
+                    </Column>
+                    <Column>
+                        <Text text="Created By" />
+                    </Column>
+                    <Column>
+                        <Text text="Created On" />
+                    </Column>
+                    <Column>
+                        <Text text="Status" />
+                    </Column>
+                    <Column>
+                        <Text text="Actions" visible="False" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press="onListItemPress">
+                        <cells>
+                            <ObjectIdentifier title="{userMdl>id}" />
+                            <Text text="{userMdl>name}" />
+                            <Text text="{userMdl>designation}" />
+                            <Text text="{userMdl>createdBy}" />
+                            <Text text="{ path: 'userMdl>createdOn', formatter: '.formatter.formatDate' }" />
+                            <ObjectStatus text="{ path: 'userMdl>status', formatter: '.formatter.getStatusText' }" state="{ path: 'userMdl>status', formatter: '.formatter.getStatusState' }" />
+                            <Button text="View Payslip" icon="sap-icon://pdf-attachment" press="onPressViewTemplate" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
         </f:content>
     </f:DynamicPage>
-
 </mvc:View>

@@ -13,8 +13,8 @@ sap.ui.define([], function () {
 
               // RESTful update using PUT
             employee_update: "employee/{id}", // PUT - update employee
-            employee_patch: "employee/{id}" // PATCH request to update partial data
-
+            employee_patch: "employee/{id}", // PATCH request to update partial data
+            user_filter:"user/filter"
 
 
 
