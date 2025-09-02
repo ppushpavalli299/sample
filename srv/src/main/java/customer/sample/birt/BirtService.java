@@ -11,19 +11,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream; 
-import java.io.File; 
-import java.io.IOException; 
-import java.io.InputStream; 
-import java.nio.file.DirectoryStream; 
-import java.nio.file.Files; 
-import java.nio.file.Path; 
-import java.nio.file.Paths; 
-import java.util.ArrayList; 
-import java.util.Base64; 
-import java.util.HashMap; 
-import java.util.List; 
-import java.util.Map; 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -35,6 +35,7 @@ public class BirtService {
 
     private final PayslipDAO payslipDAO;
     private IReportEngine engine;
+    private final ImageDAO imageDAO;
 
     /* Engine life‑cycle */
     @PostConstruct
@@ -84,9 +85,8 @@ public class BirtService {
         }
     }
 
-
-    //dynamicimagesbase64
-     /* Produce PDF containing Base64 images */
+    // dynamicimagesbase64
+    /* Produce PDF containing Base64 images */
     public byte[] generateImageReport() throws Exception {
         String fileParam = null;
         String design = (fileParam != null && !fileParam.isBlank()) ? fileParam : "payslip";
@@ -115,6 +115,35 @@ public class BirtService {
 
             }
             task.getAppContext().put("images", imagesList);
+
+            ByteArrayOutputStream pdf = new ByteArrayOutputStream();
+            PDFRenderOption opt = new PDFRenderOption();
+            opt.setOutputFormat(IRenderOption.OUTPUT_FORMAT_PDF);
+            opt.setOutputStream(pdf);
+            task.setRenderOption(opt);
+
+            task.run();
+            task.close();
+
+            return pdf.toByteArray();
+        }
+    }
+
+    // imagesblob
+    public byte[] generateBlobImageReport() throws Exception {
+        String design = "image"; // no extension here
+        String path = "reports/" + design + ".rptdesign"; 
+
+        try (InputStream designStream = getClass().getClassLoader().getResourceAsStream(path)) {
+            if (designStream == null) {
+                throw new IllegalArgumentException("Report not found: " + path);
+            }
+
+            IReportRunnable runnable = engine.openReportDesign(designStream);
+            IRunAndRenderTask task = engine.createRunAndRenderTask(runnable);
+
+            List<Image> imageList = imageDAO.getImages();
+            task.getAppContext().put("images", imageList);
 
             ByteArrayOutputStream pdf = new ByteArrayOutputStream();
             PDFRenderOption opt = new PDFRenderOption();

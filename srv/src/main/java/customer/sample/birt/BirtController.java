@@ -16,7 +16,6 @@ public class BirtController {
     private static final Logger log = LoggerFactory.getLogger(BirtController.class);
 
     private final BirtService birtService;
- 
 
     @PostMapping(path = "/payslip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> generatePaySlipReport(
@@ -32,9 +31,9 @@ public class BirtController {
         }
     }
 
-   //dynamicimagesbase64
+    // dynamicimagesbase64
 
-     @PostMapping("/images")
+    @PostMapping("/images")
     public ResponseEntity<byte[]> getBase64Image() {
         try {
             // Pass Input object to service
@@ -54,6 +53,24 @@ public class BirtController {
         }
     }
 
-    
+    // imagesblob
+    @PostMapping("/imageblob")
+    public ResponseEntity<byte[]> generateBlobImageReport() {
+        try {
+            byte[] pdfBytes = birtService.generateBlobImageReport();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(
+                    ContentDisposition.builder("inline")
+                            .filename("image.pdf")
+                            .build());
+
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 
 }
