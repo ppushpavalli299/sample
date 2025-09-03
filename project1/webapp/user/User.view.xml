@@ -17,41 +17,34 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <fb:FilterBar id="filterbar" filterBarExpanded="true" search="onSearch" clear="clearAllFilters" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false">
-
                     <fb:filterItems>
                         <fb:FilterItem name="A" label="ID">
                             <fb:control>
                                 <Input placeholder="Enter ID" value="{advancedFilterMdl>/id}" />
                             </fb:control>
                         </fb:FilterItem>
-
                         <fb:FilterItem name="B" label="Name">
                             <fb:control>
                                 <Input placeholder="Enter Name" value="{advancedFilterMdl>/name}" />
                             </fb:control>
                         </fb:FilterItem>
-
                         <fb:FilterItem name="C" label="Designation">
                             <fb:control>
-                                <ComboBox id="sel_employee" placeholder="Please Select Designation" items="{employeeMdl>/}" selectedKey="{advancedFilterMdl>/designation}" change="onChangeCompany">
+                                <ComboBox id="sel_employee" placeholder="Select Designation" items="{employeeMdl>/}" selectedKey="{advancedFilterMdl>/designation}" change="onChangeCompany">
                                     <core:Item key="{employeeMdl>id}" text="{employeeMdl>name}" />
                                 </ComboBox>
                             </fb:control>
                         </fb:FilterItem>
-
                         <fb:FilterItem name="D" label="Created By">
                             <fb:control>
                                 <Input placeholder="Enter Created By" value="{advancedFilterMdl>/createdBy}" />
                             </fb:control>
                         </fb:FilterItem>
-
                         <fb:FilterItem name="E" label="Created On">
                             <fb:control>
                                 <DatePicker dateValue="{advancedFilterMdl>/createdOn}" displayFormat="dd-MM-yyyy" placeholder="dd-MM-yyyy" />
                             </fb:control>
                         </fb:FilterItem>
-
-
                         <fb:FilterItem name="F" label="Status">
                             <fb:control>
                                 <MultiComboBox items="{masterdataMdl>/status}" selectedKeys="{advancedFilterMdl>/status}" placeholder="Select Status">
@@ -66,6 +59,7 @@
 
         <f:content>
             <Table id="tableId_users" items="{userMdl>/}" mode="SingleSelectMaster" growing="true" growingThreshold="20" itemPress="onListItemPress" autoPopinMode="true" class="sapFDynamicPageAlignContent">
+
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
@@ -100,7 +94,7 @@
                         <Text text="Status" />
                     </Column>
                     <Column>
-                        <Text text="Actions" visible="False" />
+                        <Text text="Actions" />
                     </Column>
                 </columns>
 
