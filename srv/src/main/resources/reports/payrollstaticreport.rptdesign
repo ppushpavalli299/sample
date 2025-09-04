@@ -1,0 +1,1346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202303021806</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">120</property>
+    <parameters>
+        <scalar-parameter name="employeeNumber" id="1247">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="employeeName" id="1248">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="costCenter" id="1249">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="position" id="1250">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="dateOfJoining" id="1251">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="nationality" id="1252">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentDate" id="1253">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="unpaidDays" id="1254">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentCurrency" id="1255">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Payroll DS" id="99">
+            <list-property name="userProperties">
+                <structure>
+                    <property name="name">script_type</property>
+                    <property name="type">string</property>
+                    <property name="default">me.prettyprint.hector</property>
+                </structure>
+            </list-property>
+        </script-data-source>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="earnings" id="487">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">cost</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">name</property>
+                    <text-property name="displayName">Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">cost</property>
+                    <text-property name="displayName">Cost</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">cost</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Payroll DS</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.util);
+ 
+var reportData = reportContext.getAppContext().get("payslip");
+
+if (reportData != null &amp;&amp; reportData["earnings"] != null) {
+
+    earningsIterator = reportData["earnings"].iterator();
+
+} else {
+
+    earningsIterator = java.util.Collections.emptyIterator();
+
+}
+
+ ]]></method>
+            <method name="fetch"><![CDATA[if (earningsIterator  == null || !earningsIterator.hasNext()) {
+    return false;
+}
+var items = earningsIterator.next();
+row["name"] = items.getName();
+row["cost"] = items.getCost();
+return true;]]></method>
+        </script-data-set>
+        <script-data-set name="deductions" id="506">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">cost</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">name</property>
+                    <text-property name="displayName">Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">cost</property>
+                    <text-property name="displayName">Cost</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">cost</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Payroll DS</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.util);
+ 
+var reportData = reportContext.getAppContext().get("payslip");
+
+if (reportData != null &amp;&amp; reportData["deductions"] != null) {
+
+    deductionsIterator = reportData["deductions"].iterator();
+
+} else {
+
+    deductions = java.util.Collections.emptyIterator();
+
+}
+
+ ]]></method>
+            <method name="fetch"><![CDATA[if (deductionsIterator == null || !deductionsIterator.hasNext()) {
+    return false;
+}
+var items = deductionsIterator.next();
+row["name"] = items.getName();
+row["cost"] = items.getCost();
+return true;]]></method>
+        </script-data-set>
+        <script-data-set name="payroll" id="507">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">totalEarnings</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">totalDeductions</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">netPay</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">totalEarnings</property>
+                    <text-property name="displayName">TotalEarnings</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalDeductions</property>
+                    <text-property name="displayName">TotalDeductions</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">netPay</property>
+                    <text-property name="displayName">NetPay</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">totalEarnings</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">totalDeductions</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">netPay</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Payroll DS</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.util);
+ 
+var reportData = reportContext.getAppContext().get("payslip");
+
+if (reportData != null &amp;&amp; reportData["payroll"] != null) {
+
+    payroll = reportData["payroll"].iterator();
+
+} else {
+
+    payroll = java.util.Collections.emptyIterator();
+
+}
+
+ ]]></method>
+            <method name="fetch"><![CDATA[if (payroll  == null || !payroll.hasNext()) {
+    return false;
+}
+var items = payroll.next();
+row["totalEarnings"] = items.getTotalEarnings();
+row["totalDeductions"] = items.getTotalDeductions();
+row["netPay"] = items.getNetPay();
+return true;]]></method>
+        </script-data-set>
+        <script-data-set name="paymentInformation" id="752">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">method</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">bankName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">ibanAccountNumber</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">amount</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">method</property>
+                    <text-property name="displayName">Method</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bankName</property>
+                    <text-property name="displayName">BankName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ibanAccountNumber</property>
+                    <text-property name="displayName">IBAN/AccountName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">amount</property>
+                    <text-property name="displayName">Amount</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">method</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">bankName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">ibanAccountNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">amount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Payroll DS</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.util);
+ 
+var reportData = reportContext.getAppContext().get("payslip");
+
+if (reportData != null &amp;&amp; reportData["paymentInformation"] != null) {
+
+    paymentIterator = reportData["paymentInformation"].iterator();
+
+} else {
+
+    paymentIterator = java.util.Collections.emptyIterator();
+
+}]]></method>
+            <method name="fetch"><![CDATA[
+if (paymentIterator  == null || !paymentIterator.hasNext()) {
+    return false;
+}
+var items = paymentIterator.next();
+row["method"] = items.getMethod();
+row["bankName"] = items.getBankName();
+row["ibanAccountNumber"] = items.getIbanAccountNumber();
+row["amount"] = items.getAmount();
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="2668">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1px</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1px</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1px</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1px</property>
+            <column id="2669"/>
+            <column id="2670"/>
+            <column id="2671"/>
+            <row id="2792">
+                <cell id="2793">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <label id="2796">
+                        <property name="fontSize">12pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">Payroll Period(01.03.2025 - 31.03.2025)</text-property>
+                    </label>
+                </cell>
+            </row>
+            <row id="2788">
+                <cell id="2789">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <label id="2667">
+                        <property name="fontWeight">bold</property>
+                        <property name="marginBottom">0.1in</property>
+                        <text-property name="text">Personal Information</text-property>
+                    </label>
+                </cell>
+            </row>
+            <row id="2672">
+                <cell id="2673">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2684">
+                        <column id="2685">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2686">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2687"/>
+                        <row id="2688">
+                            <cell id="2689">
+                                <label id="2693">
+                                    <text-property name="text">Employee Number</text-property>
+                                </label>
+                            </cell>
+                            <cell id="2690">
+                                <text id="2692">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2691">
+                                <label id="2694">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">PAYR005-01182</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="2674">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2720">
+                        <column id="2721">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2722">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2723"/>
+                        <row id="2724">
+                            <cell id="2725">
+                                <label id="2729">
+                                    <text-property name="text">Position</text-property>
+                                </label>
+                            </cell>
+                            <cell id="2726">
+                                <text id="2728">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2727">
+                                <label id="2730">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">Key Account Manager</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="2675">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2753">
+                        <column id="2754">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2755">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2756"/>
+                        <row id="2757">
+                            <cell id="2758">
+                                <label id="2762">
+                                    <text-property name="text">Payment Date </text-property>
+                                </label>
+                            </cell>
+                            <cell id="2759">
+                                <text id="2761">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2760">
+                                <label id="2763">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">08-08-2025</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+            <row id="2676">
+                <cell id="2677">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2695">
+                        <column id="2696">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2697">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2698"/>
+                        <row id="2699">
+                            <cell id="2700">
+                                <label id="2786">
+                                    <text-property name="text">Employee Name</text-property>
+                                </label>
+                            </cell>
+                            <cell id="2701">
+                                <text id="2704">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2702">
+                                <label id="2706">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">EHAB FAISAL M &#13;
+HAMZA</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="2678">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2731">
+                        <column id="2732">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2733">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2734"/>
+                        <row id="2735">
+                            <cell id="2736">
+                                <label id="2740">
+                                    <text-property name="text">Date of joining </text-property>
+                                </label>
+                            </cell>
+                            <cell id="2737">
+                                <text id="2739">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2738">
+                                <label id="2741">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">01-01-2020 </text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="2679">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2764">
+                        <column id="2765">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2766">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2767"/>
+                        <row id="2768">
+                            <cell id="2769">
+                                <label id="2773">
+                                    <text-property name="text">UnPaid Days </text-property>
+                                </label>
+                            </cell>
+                            <cell id="2770">
+                                <text id="2772">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2771">
+                                <label id="2774">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">0.00</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+            <row id="2680">
+                <cell id="2681">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2707">
+                        <column id="2708">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2709">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2710"/>
+                        <row id="2711">
+                            <cell id="2712">
+                                <label id="2718">
+                                    <property name="paddingLeft">1pt</property>
+                                    <text-property name="text">Cost Center</text-property>
+                                </label>
+                            </cell>
+                            <cell id="2713">
+                                <text id="2717">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2714">
+                                <label id="2719">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">11032,11071</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="2682">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2742">
+                        <column id="2743">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2744">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2745"/>
+                        <row id="2746">
+                            <cell id="2747">
+                                <label id="2751">
+                                    <text-property name="text">Nationality </text-property>
+                                </label>
+                            </cell>
+                            <cell id="2748">
+                                <text id="2750">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2749">
+                                <label id="2752">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">Omani</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="2683">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <grid id="2775">
+                        <column id="2776">
+                            <property name="width">135px</property>
+                        </column>
+                        <column id="2777">
+                            <property name="width">5px</property>
+                        </column>
+                        <column id="2778"/>
+                        <row id="2779">
+                            <cell id="2780">
+                                <label id="2787">
+                                    <text-property name="text">Payment Currency</text-property>
+                                </label>
+                            </cell>
+                            <cell id="2781">
+                                <text id="2783">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[:]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="2782">
+                                <label id="2785">
+                                    <property name="textAlign">left</property>
+                                    <text-property name="text">AED</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+        <label id="1562">
+            <property name="fontWeight">bold</property>
+            <property name="marginTop">0.1in</property>
+            <text-property name="text">Summary of Payment</text-property>
+        </label>
+        <grid id="1537">
+            <property name="marginTop">0.1in</property>
+            <column id="1538"/>
+            <column id="1539"/>
+            <column id="1540"/>
+            <row id="1541">
+                <cell id="1542">
+                    <property name="backgroundColor">#5911F9</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1555">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">white</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">TotalEarnings</text-property>
+                    </label>
+                </cell>
+                <cell id="1543">
+                    <property name="backgroundColor">#5911F9</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1556">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">white</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">TotalDeductions</text-property>
+                    </label>
+                </cell>
+                <cell id="1544">
+                    <property name="backgroundColor">#5911F9</property>
+                    <property name="color">white</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1557">
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">NetPay</text-property>
+                    </label>
+                </cell>
+            </row>
+            <row id="1545">
+                <cell id="1546">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1558">
+                        <property name="marginLeft">0pt</property>
+                        <property name="marginRight">2pt</property>
+                        <property name="paddingLeft">1pt</property>
+                        <property name="textAlign">right</property>
+                        <text-property name="text">23,787.5</text-property>
+                    </label>
+                </cell>
+                <cell id="1547">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1559">
+                        <property name="marginRight">2pt</property>
+                        <property name="textAlign">right</property>
+                        <text-property name="text">8,437.5</text-property>
+                    </label>
+                </cell>
+                <cell id="1548">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1560">
+                        <property name="marginRight">2pt</property>
+                        <property name="paddingLeft">1pt</property>
+                        <property name="textAlign">right</property>
+                        <text-property name="text">15350</text-property>
+                    </label>
+                </cell>
+            </row>
+        </grid>
+        <grid id="1563">
+            <property name="marginTop">0.2in</property>
+            <column id="1564"/>
+            <column id="1565">
+                <property name="width">20px</property>
+            </column>
+            <column id="1566"/>
+            <row id="1567">
+                <cell id="1568">
+                    <grid id="1697">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <column id="1698"/>
+                        <column id="1699"/>
+                        <row id="1700">
+                            <property name="backgroundColor">#5911F9</property>
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderTopStyle">solid</property>
+                            <property name="borderTopWidth">1px</property>
+                            <cell id="1701">
+                                <property name="colSpan">2</property>
+                                <property name="rowSpan">1</property>
+                                <label id="1719">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="color">white</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Earnings</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="1703">
+                            <cell id="1704">
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <label id="1720">
+                                    <text-property name="text">Basic</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1705">
+                                <label id="1735">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">12000</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="1706">
+                            <cell id="1707">
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <label id="1721">
+                                    <text-property name="text">Hra</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1708">
+                                <label id="1734">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">5000</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="1709">
+                            <cell id="1710">
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <label id="1722">
+                                    <text-property name="text">Phone Allowance</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1711">
+                                <label id="1733">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">350</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="1712">
+                            <cell id="1713">
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <label id="1723">
+                                    <text-property name="text">Other Allowance</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1714">
+                                <label id="1731">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">3000</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="1715">
+                            <cell id="1716">
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <label id="1724">
+                                    <text-property name="text">Education Allowance</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1717">
+                                <label id="1730">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">3437.5</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="1725">
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderTopStyle">solid</property>
+                            <property name="borderTopWidth">1px</property>
+                            <cell id="1726">
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <label id="1728">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Totals</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1727">
+                                <label id="1729">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">23,787.5</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="1569"/>
+                <cell id="1570">
+                    <property name="paddingLeft">0.9pt</property>
+                    <grid id="1603">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <column id="1604"/>
+                        <column id="1605"/>
+                        <row id="1606">
+                            <property name="backgroundColor">#5911F9</property>
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
+                            <cell id="1607">
+                                <property name="colSpan">2</property>
+                                <property name="rowSpan">1</property>
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderRightStyle">none</property>
+                                <property name="borderTopStyle">none</property>
+                                <text id="1622">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="color">white</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[Deductions]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="1609">
+                            <cell id="1610">
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <property name="borderTopStyle">none</property>
+                                <label id="1633">
+                                    <text-property name="text">Prepaid To Emp Educ Allow</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1611">
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderRightStyle">none</property>
+                                <property name="borderTopStyle">none</property>
+                                <label id="1631">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">3437.5</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="1612">
+                            <cell id="1613">
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <property name="borderTopStyle">none</property>
+                                <label id="1632">
+                                    <text-property name="text">Prepaid To Emp Housing Allow</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1614">
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderRightStyle">none</property>
+                                <property name="borderTopStyle">none</property>
+                                <label id="1630">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">5000</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="1625">
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderTopStyle">solid</property>
+                            <property name="borderTopWidth">1px</property>
+                            <cell id="1626">
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">1px</property>
+                                <property name="borderTopStyle">none</property>
+                                <label id="1628">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Totals</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1627">
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderRightStyle">none</property>
+                                <property name="borderTopStyle">none</property>
+                                <label id="1629">
+                                    <property name="marginRight">2pt</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">8,437.5</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+        <label id="603">
+            <property name="fontWeight">bold</property>
+            <property name="marginTop">0.2in</property>
+            <text-property name="text">Payment Information</text-property>
+        </label>
+        <grid id="1508">
+            <property name="marginTop">0.1in</property>
+            <column id="1509"/>
+            <column id="1510"/>
+            <column id="1511"/>
+            <column id="1512"/>
+            <row id="1518">
+                <cell id="1519">
+                    <property name="backgroundColor">#5911F9</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1529">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">white</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">Method</text-property>
+                    </label>
+                </cell>
+                <cell id="1520">
+                    <property name="backgroundColor">#5911F9</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1530">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">white</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">BankName</text-property>
+                    </label>
+                </cell>
+                <cell id="1521">
+                    <property name="backgroundColor">#5911F9</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1531">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">white</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">IBAN/AccountName</text-property>
+                    </label>
+                </cell>
+                <cell id="1522">
+                    <property name="backgroundColor">#5911F9</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1532">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">white</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">Amount</text-property>
+                    </label>
+                </cell>
+            </row>
+            <row id="1513">
+                <cell id="1514">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1536">
+                        <text-property name="text">Payroll</text-property>
+                    </label>
+                </cell>
+                <cell id="1515">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1535">
+                        <text-property name="text">Emirates NBD</text-property>
+                    </label>
+                </cell>
+                <cell id="1516">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1534">
+                        <property name="textAlign">center</property>
+                        <text-property name="text">IBP00001/EHAB FAISAL</text-property>
+                    </label>
+                </cell>
+                <cell id="1517">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1533">
+                        <property name="paddingRight">2pt</property>
+                        <property name="textAlign">right</property>
+                        <text-property name="text">15350</text-property>
+                    </label>
+                </cell>
+            </row>
+        </grid>
+        <label id="670">
+            <property name="fontWeight">bold</property>
+            <property name="marginTop">0.2in</property>
+            <text-property name="text">Remarks:</text-property>
+        </label>
+        <label id="671">
+            <text-property name="text">Prorated salary for the new joiners after 1st of the month</text-property>
+        </label>
+        <label id="672">
+            <text-property name="text">This is computer-generated document.</text-property>
+        </label>
+    </body>
+</report>

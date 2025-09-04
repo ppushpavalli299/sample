@@ -21,7 +21,7 @@ public class User {
 
     private String name;
     private String designation;
-    private String status;
+    private Integer status;
     private String createdBy;
     private Date createdOn;
 
@@ -50,11 +50,11 @@ public class User {
         this.designation = designation;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

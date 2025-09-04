@@ -5,6 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
+import customer.sample.birt.Payslip;
+
 import java.util.Base64;
 
 @RestController
@@ -46,5 +49,7 @@ public class PayrollController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+ 
 
 }

@@ -63,7 +63,7 @@
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
-                        <Button text="Create" type="Ghost" press="onCreateEmployee" />
+                        <Button text="Create" type="Ghost" press="onCreateUser" />
                     </OverflowToolbar>
                 </headerToolbar>
 

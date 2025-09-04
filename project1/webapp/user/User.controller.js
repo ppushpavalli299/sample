@@ -82,6 +82,19 @@ sap.ui.define([
         this.showLoading(false);
       }
     },
+    onListItemPress: function (oEvent) {
+      let oItem = oEvent.getParameter("listItem");
+      let oCtx = oItem.getBindingContext("userMdl");
+
+      if (oCtx) {
+        let oEmp = oCtx.getObject();
+        this.oRouter.navTo("userdetail", {
+          layout: "TwoColumnsMidExpanded",
+          id: oEmp.id
+        });
+      }
+    },
+
 
     onSearch: function () {
       const oData = this.getView().getModel("advancedFilterMdl").getData();
@@ -136,8 +149,8 @@ sap.ui.define([
       }
     },
 
-    onCreateEmployee: function () {
-      this.oRouter.navTo("create_employee", { layout: "TwoColumnsMidExpanded" });
+    onCreateUser: function () {
+      this.oRouter.navTo("createUser", { layout: "TwoColumnsMidExpanded" });
     },
 
     onChangeCompany: function (oEvent) {

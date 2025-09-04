@@ -1,4 +1,5 @@
-sap.ui.define([], () => {
+sap.ui.define([], function () {
+    "use strict";
     return {
         formatDate: function (sDate) {
             if (!sDate) return "";
@@ -12,7 +13,6 @@ sap.ui.define([], () => {
 
             return `${day}-${month}-${year}`;
         },
-
 
         getStatusText: function (value) {
             switch (Number(value)) {

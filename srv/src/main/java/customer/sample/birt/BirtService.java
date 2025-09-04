@@ -89,7 +89,7 @@ public class BirtService {
     /* Produce PDF containing Base64 images */
     public byte[] generateImageReport() throws Exception {
         String fileParam = null;
-        String design = (fileParam != null && !fileParam.isBlank()) ? fileParam : "payslip";
+        String design = (fileParam != null && !fileParam.isBlank()) ? fileParam : "image";
         String path = reportFolder + design + ".rptdesign";
 
         try (InputStream designStream = getClass().getClassLoader().getResourceAsStream(path)) {

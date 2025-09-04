@@ -1,0 +1,67 @@
+<mvc:View controllerName="project1.user.CreateUser"
+    xmlns:uxap="sap.uxap"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <uxap:ObjectPageLayout id="id_Createemp" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="New User" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </uxap:expandedHeading>
+
+                <uxap:snappedHeading>
+                    <Title text="New User" wrapping="true" class="sapUiTinyMarginEnd"/>
+                </uxap:snappedHeading>
+
+                <uxap:navigationActions>
+
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close Middle Column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+                </uxap:navigationActions>
+
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:sections>
+            <uxap:ObjectPageSection title="General">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id="form_id" editable="true" layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="4">
+                                <form:content>
+                                    <Label text="Name" required="true"/>
+                                    <Input value="{createUserMdl>/name}" field:type="Input"/>
+                                    <Label text="Designation" required="true"/>
+                                    <Input value="{createUserMdl>/designation}" field:type="Input"/>
+                                    <Label text="Created By"/>
+                                    <Input value="{createUserMdl>/createdBy}" />
+
+                                    <Label text="Created On"/>
+                                    <DatePicker value="{ path: 'createUserMdl>/createdOn', formatter: 'formatter.formatDate' }" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd"   placeholder="dd-MM-yyyy" />
+
+                                    <Label text="Status"/>
+                                    <Select id="id_Status" items="{masterdataMdl>/status}" selectedKey="{createUserMdl>/status}">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                        <!-- <core:Item key="1" text="Active" />  -->
+                                    </Select>
+
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar >
+                <Button id="errorBtn" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject" press="handleMessagePopoverPress" ariaHasPopup="Dialog"/>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://save" tooltip="Save" text="Save" type="Success" press="onPressSave"/>
+                <Button icon="sap-icon://sys-cancel" tooltip="Cancel" text="Cancel" type="Reject" press="onPressCancel"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

@@ -1,0 +1,92 @@
+<mvc:View controllerName="project1.user.UserDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:formatter="project1.utils.Formatter"
+    displayBlock="true"
+    height="100%">
+
+    <uxap:ObjectPageLayout id="oplConfigDetail"
+        showFooter="{= !${visible>/view} || !!${errors>/}.length}"
+        showTitleInHeaderContent="true"
+        alwaysShowContentHeader="false"
+        preserveHeaderStateOnScroll="false"
+        headerContentPinnable="true"
+        isChildPage="true"
+        upperCaseAnchorBar="false">
+
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{userdetailsMdl>/name}" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{userdetailsMdl>/name}" wrapping="true" class="sapUiTinyMarginEnd"/>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <ObjectAttribute title="ID" text="{userdetailsMdl>/id}" />
+                </uxap:expandedContent>
+                <uxap:snappedContent>
+                    <ObjectAttribute title="ID" text="{userdetailsMdl>/id}" />
+                </uxap:snappedContent>
+                <uxap:actions>
+                    <Button icon="sap-icon://edit" tooltip="{i18n>btn_edit}" type="Transparent" enabled="{visible>/view}" press="onPressEdit" />
+                </uxap:actions>
+                <uxap:navigationActions>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="{i18n>pos_closeMiddleColumn}" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="General">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id="form_id" editable="true" layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="4">
+                                <form:content>
+                                    <Label text="Name" required="true"/>
+                                    <Input value="{userdetailsMdl>/name}" field:type="Input" editable="{visible>/edit}"/>
+
+                                    <Label text="Designation" required="true"/>
+                                    <Input value="{userdetailsMdl>/designation}" field:type="Input" editable="{visible>/edit}"/>
+
+                                    <Label text="Created By"/>
+                                    <Input value="{userdetailsMdl>/createdBy}" editable="false"/>
+
+                                    <Label text="Created On"/>
+                                    <DatePicker
+                                        value="{ path: 'userdetailsMdl>/createdOn', formatter: 'formatter.formatDate' }"
+                                        displayFormat="dd-MM-yyyy"
+                                        valueFormat="dd-MM-yyyy"
+                                        editable="false"
+                                        placeholder="dd-MM-yyyy"
+                                    />
+
+                                    <Label text="Status"/>
+                                    <Select id="id_Status" items="{masterdataMdl>/status}" selectedKey="{userdetailsMdl>/status}" editable="{visible>/edit}">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </Select>
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+
+        <uxap:footer>
+            <OverflowToolbar>
+                <Button id="errorBtnEditsystem" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject" />
+                <ToolbarSpacer />
+                <Button icon="sap-icon://save" tooltip="Save" text="Save" type="Success" press="onPressSave"/>
+                <Button icon="sap-icon://sys-cancel" tooltip="Cancel" text="Cancel" type="Reject" press="onPressCancel"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

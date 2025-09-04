@@ -116,6 +116,22 @@
           "target": [
             "User"
           ]
+        },
+        {
+          "name": "userdetail",
+          "pattern": "userdetail/{id}/{layout}",
+          "target": [
+            "User",
+            "UserDetail"
+          ]
+        },
+        {
+          "name": "createUser",
+          "pattern": "createUser/{layout}",
+          "target": [
+            "User",
+            "CreateUser"
+          ]
         }
       ],
       "targets": {
@@ -158,6 +174,22 @@
           "viewType": "XML",
           "transition": "slide",
           "viewId": "User",
+          "parent": "AppUnified"
+        },
+        "UserDetail": {
+          "viewPath": "project1.user",
+          "viewName": "UserDetail",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "UserDetail",
+          "parent": "AppUnified"
+        },
+        "CreateUser": {
+          "viewPath": "project1.user",
+          "viewName": "CreateUser",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateUser",
           "parent": "AppUnified"
         }
       }

@@ -15,7 +15,9 @@ sap.ui.define([], function () {
             employee_update: "employee/{id}", // PUT - update employee
             employee_patch: "employee/{id}", // PATCH request to update partial data
             user_filter:"user/filter",
-            payroll_report:"payroll/payroll"
+            user_by_id:"user/{id}",
+            user_add:"user/add",
+            payroll_report:"report/static-payslip"
 
 
 
