@@ -45,4 +45,14 @@ public class UserController {
         }
     }
 
+    @PostMapping("/addEdit")
+    public ResponseEntity<?> addEditUser(@RequestBody UserRequest userRequest) {
+        try {
+            String message = userService.addEditUser(userRequest);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
 }

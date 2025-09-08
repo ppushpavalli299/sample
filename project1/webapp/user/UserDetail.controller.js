@@ -96,16 +96,43 @@ sap.ui.define([
             }
         },
 
-        onPressSave: async function () {
+        // onPressSave: async function () {
+        //     try {
+        //         ErrorMessage.formValidation([this.formId], this.eMdl, this.pageId);
+        //         const reqData = this.getView().getModel("userdetailsMdl")?.getData();
+        //         const validationErrors = this.eMdl?.getData() || [];
+
+        //         if (validationErrors.length === 0) {
+        //             this.showLoading(true);
+        //             const path = URLConstants.URL.emp_add_edit;
+        //             const response = await this.restMethodPost(path, reqData);
+
+        //             this.showLoading(false);
+        //             this.setInitialModel();
+
+        //             MessageBox.information("Saved successfully!", {
+        //                 actions: [MessageBox.Action.OK],
+        //                 onClose: () => {
+        //                     this.oRouter.navTo("user", { layout: "OneColumn" });
+        //                 }
+        //             });
+        //         } else {
+        //             this.errorHandling();
+        //         }
+        //     } catch (ex) {
+        //         this.errorHandling(ex);
+        //     }
+        // },
+         onPressSave: async function () {
             try {
                 ErrorMessage.formValidation([this.formId], this.eMdl, this.pageId);
-                const reqData = this.getView().getModel("userdetailsMdl")?.getData();
-                const validationErrors = this.eMdl?.getData() || [];
+                let reqData = this.getView().getModel("userdetailsMdl")?.getData();
+                let valid = this.eMdl?.getData() || [];
 
-                if (validationErrors.length === 0) {
+                if (valid.length === 0) {
                     this.showLoading(true);
-                    const path = URLConstants.URL.emp_add_edit;
-                    const response = await this.restMethodPost(path, reqData);
+                    let path = URLConstants.URL.user_add_edit;
+                    let response = await this.restMethodPost(path, reqData);
 
                     this.showLoading(false);
                     this.setInitialModel();
@@ -113,7 +140,7 @@ sap.ui.define([
                     MessageBox.information("Saved successfully!", {
                         actions: [MessageBox.Action.OK],
                         onClose: () => {
-                            this.oRouter.navTo("user", { layout: "OneColumn" });
+                            this.getRouter().navTo("user", { layout: "OneColumn" });
                         }
                     });
                 } else {

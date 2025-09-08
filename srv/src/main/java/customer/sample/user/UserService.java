@@ -28,4 +28,8 @@ public class UserService {
     public String createUser(UserRequest userRequest) throws Exception {
         return userDAO.createUser(userRequest);
     }
+
+    public String addEditUser(UserRequest userRequest) throws Exception {
+        return userDAO.addEditUser(userRequest);
+    }
 }

@@ -105,4 +105,23 @@ public class UserDAO {
             throw new Exception("Error while inserting user: " + e.getMessage(), e);
         }
     }
+
+      public String addEditUser(UserRequest userRequest) throws Exception {
+        try {
+            String userJson = new Gson().toJson(userRequest); 
+
+            StoredProcedureQuery spQuery = entityManager
+                    .createStoredProcedureQuery( "FBC5AAD3564D4EEBBCFF6701C64CECD5.ADDEDIT_USER");
+
+            spQuery.registerStoredProcedureParameter(1, String.class, ParameterMode.IN); // USER_DATA
+            spQuery.registerStoredProcedureParameter(2, String.class, ParameterMode.OUT); // RESULT_MESSAGE
+
+            spQuery.setParameter(1, userJson);
+            spQuery.execute();
+
+            return (String) spQuery.getOutputParameterValue(2);
+        } catch (Exception e) {
+            throw new Exception("Error while inserting user: " + e.getMessage(), e);
+        }
+    }
 }
