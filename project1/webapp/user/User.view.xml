@@ -4,31 +4,32 @@
     xmlns:f="sap.f"
     xmlns:core="sap.ui.core"
     xmlns="sap.m">
-
     <f:DynamicPage id="page_MngUser" headerExpanded="true">
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
                     <Title text="User" />
                 </f:heading>
+
             </f:DynamicPageTitle>
+
         </f:title>
 
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <fb:FilterBar id="filterbar" filterBarExpanded="true" search="onSearch" clear="clearAllFilters" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false">
                     <fb:filterItems>
-                        <fb:FilterItem name="A" label="ID">
+                        <fb:FilterItem name="A" label="ID" mandatory="true">
                             <fb:control>
                                 <Input placeholder="Enter ID" value="{advancedFilterMdl>/id}" />
                             </fb:control>
                         </fb:FilterItem>
-                        <fb:FilterItem name="B" label="Name">
+                        <fb:FilterItem name="B" label="Name" mandatory="true">
                             <fb:control>
                                 <Input placeholder="Enter Name" value="{advancedFilterMdl>/name}" />
                             </fb:control>
                         </fb:FilterItem>
-                        <fb:FilterItem name="C" label="Designation">
+                        <fb:FilterItem name="C" label="Designation" mandatory="true">
                             <fb:control>
                                 <ComboBox id="sel_employee" placeholder="Select Designation" items="{employeeMdl>/}" selectedKey="{advancedFilterMdl>/designation}" change="onChangeCompany">
                                     <core:Item key="{employeeMdl>id}" text="{employeeMdl>name}" />
@@ -59,7 +60,6 @@
 
         <f:content>
             <Table id="tableId_users" items="{userMdl>/}" mode="SingleSelectMaster" growing="true" growingThreshold="20" itemPress="onListItemPress" autoPopinMode="true" class="sapFDynamicPageAlignContent">
-
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
@@ -113,5 +113,11 @@
                 </items>
             </Table>
         </f:content>
+        <f:footer>
+            <Toolbar>
+                <Button id="messagePopoverBtn" visible="{= !!${messageModel>/messages}.length }" icon="sap-icon://message-popup" type="Negative" text="{= 'Errors (' + ${messageModel>/messages}.length + ')' }" press=".onMessagePopoverPress" />
+                <ToolbarSpacer />
+            </Toolbar>
+        </f:footer>
     </f:DynamicPage>
 </mvc:View>

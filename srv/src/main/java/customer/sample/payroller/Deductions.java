@@ -1,14 +1,11 @@
 package customer.sample.payroller;
 
-import org.osgi.service.component.annotations.Component;
-import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
-
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Component
 @Data
+@NoArgsConstructor
 public class Deductions {
     private String name;
     private String cost;
-
 }

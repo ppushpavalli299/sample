@@ -18,8 +18,9 @@ sap.ui.define([], function () {
             user_by_id: "user/{id}",
             user_add: "user/add",
             user_add_edit: "user/addEdit",
-            payroll_report: "report/static-payslip"
+            payroll_report: "report/static-payslip",
 
+            payroll_report: "payroll/payroller"
 
 
 

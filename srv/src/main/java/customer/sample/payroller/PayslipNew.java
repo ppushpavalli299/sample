@@ -1,17 +1,14 @@
 package customer.sample.payroller;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.util.List;
 
-import org.osgi.service.component.annotations.Component;
-
 @Data
-@Component
+@NoArgsConstructor
 public class PayslipNew {
-    @Id
     private Long id;
     private String employeeNumber;
     private String employeeName;
@@ -27,5 +24,4 @@ public class PayslipNew {
     private List<Earnings> earnings;
     private List<Deductions> deductions;
     private List<PaymentInformation> paymentInformation;
-
 }
