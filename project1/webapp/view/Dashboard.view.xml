@@ -63,6 +63,15 @@
                                                     <ImageContent src="sap-icon://company-view" class="sapUiTinyMarginBegin"/>
                                                 </TileContent>
                                             </GenericTile>
+                                            <GenericTile sizeBehavior="Responsive" header="Loan Application" subheader="" press="onPressTile" app:route="loanapplication" app:key="3">
+                                                <layoutData>
+                                                    <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                                                </layoutData>
+                                                <TileContent>
+                                                    <ImageContent src="sap-icon://loan" class="sapUiTinyMarginBegin"/>
+                                                </TileContent>
+                                            </GenericTile>
+
 
                                         </f:GridContainer>
                                     </u:ObjectPageSubSection>

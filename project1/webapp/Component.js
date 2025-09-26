@@ -20,11 +20,16 @@ sap.ui.define([
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
 
-            // ✅ Initialize the 'errors' model here
+            // Initialize the 'errors' model here
             this.setModel(new JSONModel([]), "errors");
+
+            // Initialize the 'settings' model here with empty columns array
+            this.setModel(new JSONModel({
+                columns: []
+            }), "settings");
 
             // enable routing
             this.getRouter().initialize();
-        }
+        },
     });
 });

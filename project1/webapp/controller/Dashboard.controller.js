@@ -123,6 +123,11 @@ sap.ui.define([
                                     "title": "User",
                                     "key": 2,        // child key 2
                                     "enabled": true
+                                },
+                                {
+                                    "title": "Loan Application",
+                                    "key": 3,
+                                    "enabled": true
                                 }
                             ]
                         }

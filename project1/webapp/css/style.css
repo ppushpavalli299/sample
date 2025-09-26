@@ -56,3 +56,26 @@
 .tileLayout {
 	float: left;
 }
+
+.fullHeightVBox {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: auto;
+}
+
+/* Make sure the VBox inside TabContainerItem fills height and allows scrolling */
+.customTabContent {
+    height: 100%;
+    overflow-y: auto; 
+    padding: 1rem; 
+}
+.scrollableContainer {
+    overflow-y: auto;   
+    max-height: 500px;  
+    padding: 1rem;      
+}
+.formRow {
+    margin-bottom: 1rem;
+}

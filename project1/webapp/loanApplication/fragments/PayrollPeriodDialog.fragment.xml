@@ -1,0 +1,79 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog id="PayrollPeriodDialog" title="Loan Application Details" contentHeight="500px" contentWidth="90%" verticalScrolling="false">
+
+        <content>
+            <TabContainer id="tabContainer" items="{LoanModel>/Employees}">
+                <items>
+                    <TabContainerItem name="{LoanModel>EmpName}">
+                        <content>
+                            <VBox>
+                                <Table items="{LoanModel>Loans}">
+                                    <columns>
+                                        <Column>
+                                            <header>
+                                                <Text text="Loan Code" />
+                                            </header>
+                                        </Column>
+                                        <Column>
+                                            <header>
+                                                <Text text="Loan Amount" />
+                                            </header>
+                                        </Column>
+                                        <Column>
+                                            <header>
+                                                <Text text="Adjustment Amount" />
+                                            </header>
+                                        </Column>
+                                        <Column>
+                                            <header>
+                                                <Text text="Disbursal Date" />
+                                            </header>
+                                        </Column>
+                                        <Column>
+                                            <header>
+                                                <Text text="Repayment Start Date" />
+                                            </header>
+                                        </Column>
+                                        <Column>
+                                            <header>
+                                                <Text text="Repayment Installments" />
+                                            </header>
+                                        </Column>
+                                        <Column>
+                                            <header>
+                                                <Text text="Repayment Pay Code" />
+                                            </header>
+                                        </Column>
+                                        <Column>
+                                            <header>
+                                                <Text text="Remarks" />
+                                            </header>
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{LoanModel>LoanCode}" />
+                                                <Text text="{LoanModel>LoanAmount}" />
+                                                <Text text="{LoanModel>AdjustmentAmount}" />
+                                                <Text text="{LoanModel>DisbursalDate}" />
+                                                <Text text="{LoanModel>RepaymentStartDate}" />
+                                                <Text text="{LoanModel>RepaymentInstallments}" />
+                                                <Text text="{LoanModel>RepaymentPayCode}" />
+                                                <Text text="{LoanModel>Remarks}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                        </content>
+                    </TabContainerItem>
+                </items>
+            </TabContainer>
+        </content>
+        <endButton>
+            <Button text="Close" press=".onClosePayrollPeriodDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

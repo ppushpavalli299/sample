@@ -132,6 +132,21 @@
             "User",
             "CreateUser"
           ]
+        },
+        {
+          "name": "loanapplication",
+          "pattern": "loanapplication",
+          "target": [
+            "LoanApplication"
+          ]
+        },
+        {
+          "name": "createLoanApplication",
+          "pattern": "createLoanApplication/{layout}",
+          "target": [
+            "LoanApplication",
+            "CreateLoanApplication"
+          ]
         }
       ],
       "targets": {
@@ -190,6 +205,22 @@
           "viewType": "XML",
           "transition": "slide",
           "viewId": "CreateUser",
+          "parent": "AppUnified"
+        },
+        "LoanApplication": {
+          "viewPath": "project1.loanapplication",
+          "viewName": "LoanApplication",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "LoanApplication",
+          "parent": "AppUnified"
+        },
+        "CreateLoanApplication": {
+          "viewPath": "project1.loanapplication",
+          "viewName": "CreateLoanApplication",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateLoanApplication",
           "parent": "AppUnified"
         }
       }
