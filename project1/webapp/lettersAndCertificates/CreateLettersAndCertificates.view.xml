@@ -18,19 +18,19 @@
         <f:content>
             <m:VBox width="100%">
 
-                <form:SimpleForm id="mainForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" columnsXL="1" columnsL="1" columnsM="1" width="100%" class="sapUiResponsiveMargin">
+                <form:SimpleForm id="mainForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="2" labelSpanS="8" columnsXL="1" columnsL="1" columnsM="1" width="100%" class="sapUiResponsiveMargin">
 
                     <!-- Employee with ValueHelp -->
                     <m:Label text="Employee" />
-                    <m:Input id="inp_EmployeeName" value="{mainModel>/employee}" valueHelpOnly="true" showValueHelp="true" placeholder="Select Employee" valueHelpRequest="valueHelpDialogEmployee" />
+                    <m:Input id="inp_EmployeeName" value="{mainModel>/employee}" valueHelpOnly="true" showValueHelp="true" placeholder="Select Employee" valueHelpRequest="valueHelpDialogEmployee" width="70%"/>
 
                     <!-- Request Date -->
                     <m:Label text="Request Date" />
-                    <m:DatePicker value="{mainModel>/request_date}" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" placeholder="Please Select Date" />
+                    <m:DatePicker value="{mainModel>/request_date}" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" placeholder="Please Select Date" width="70%"/>
 
                     <!-- Request Type -->
                     <m:Label text="Request Type" />
-                    <m:ComboBox id="requestType" selectedKey="{mainModel>/request_type}" change="onRequestTypeChange" placeholder="Select Request Type">
+                    <m:ComboBox id="requestType" selectedKey="{mainModel>/request_type}" change="onRequestTypeChange" placeholder="Select Request Type" width="70%">
                         <m:items>
                             <core:Item key="letter" text="Letter" />
                             <core:Item key="form" text="Form" />
@@ -40,7 +40,7 @@
 
                     <!-- Request Name -->
                     <m:Label text="Request Name" />
-                    <m:Input value="{mainModel>/request_name}" visible="{= ${mainModel>/request_type} !== 'letter' }" placeholder="Please Enter Request Name" width="100%" />
+                    <m:Input value="{mainModel>/request_name}" visible="{= ${mainModel>/request_type} !== 'letter' }" placeholder="Please Enter Request Name" width="70%" />
                     <m:ComboBox visible="{= ${mainModel>/request_type} === 'letter' }" selectedKey="{mainModel>/request_name}" width="100%">
                         <m:items>
                             <core:Item key="NOC Format - Business Travel" text="NOC Format - Business Travel" />
@@ -50,13 +50,13 @@
 
                     <!-- Required Date -->
                     <m:Label text="Required Date" />
-                    <m:DatePicker value="{mainModel>/required_date}" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" placeholder="Please Select Date" />
+                    <m:DatePicker value="{mainModel>/required_date}" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" placeholder="Please Select Date" width="70%"/>
 
                     <!-- Status -->
                     <m:Label text="Status" />
-                    <m:ComboBox selectedKey="{mainModel>/status}" placeholder="Select Status">
+                    <m:ComboBox selectedKey="{mainModel>/status}" placeholder="Select Status" width="70%">
                         <m:items path="masterdataMdl>/">
-                            <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                            <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" width="70%"/>
                         </m:items>
                     </m:ComboBox>
 
@@ -64,14 +64,14 @@
 
                 <!-- Letters Panel -->
                 <m:Panel id="lettersPanel" headerText="Description" visible="{= ${mainModel>/request_type} === 'letter' }" expandable="false" expanded="true" class="sapUiResponsiveMargin">
-                    <form:SimpleForm id="lettersForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" columnsXL="1" columnsL="1" columnsM="1" width="100%">
+                    <form:SimpleForm id="lettersForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="2" labelSpanS="8" columnsXL="1" columnsL="1" columnsM="1" width="100%">
                         <m:Label text="Purpose" />
-                        <m:TextArea value="{letterModel>/purpose}" placeholder="Type Purpose Here..." rows="4" width="100%" growing="true" growingMaxLines="10" />
+                        <m:TextArea value="{letterModel>/purpose}" placeholder="Type Purpose Here..." rows="4" width="70%" growing="true" growingMaxLines="10" />
                         <m:Label text="Remarks" />
-                        <m:TextArea value="{letterModel>/remarks}" placeholder="Type Comments Here..." rows="4" width="100%" growing="true" growingMaxLines="10" />
+                        <m:TextArea value="{letterModel>/remarks}" placeholder="Type Comments Here..." rows="4" width="70%" growing="true" growingMaxLines="10" />
                         <m:Label text="Attachment" />
                         <m:VBox>
-                            <m:Button text="Choose" icon="sap-icon://upload" type="Emphasized" press="onFileUpload" class="sapUiTinyMarginBottom" />
+                            <m:Button text="Choose" icon="sap-icon://upload" type="Emphasized" press="onFileUpload" class="sapUiTinyMarginBottom" width="70%"/>
                             <m:Text text="Upload" class="sapUiTinyMarginTop" />
                         </m:VBox>
                     </form:SimpleForm>
@@ -79,9 +79,9 @@
 
                 <!-- Form Panel -->
                 <m:Panel id="formPanel" headerText="Form Details" visible="{= ${mainModel>/request_type} === 'form' }" expandable="false" expanded="true" class="sapUiResponsiveMargin">
-                    <form:SimpleForm id="formForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" columnsXL="1" columnsL="1" columnsM="1" width="100%">
+                    <form:SimpleForm id="formForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="2" labelSpanS="8" columnsXL="1" columnsL="1" columnsM="1" width="100%">
                         <m:Label text="Reason" />
-                        <m:ComboBox selectedKey="{formModel>/form_type}" change="onReasonChange" placeholder="Select Reason">
+                        <m:ComboBox selectedKey="{formModel>/form_type}" change="onReasonChange" placeholder="Select Reason" width="70%">
                             <m:items>
                                 <core:Item key="annualLeave" text="Annual Leave" />
                                 <core:Item key="businessTravel" text="Business Travel" />
@@ -92,22 +92,22 @@
                         </m:ComboBox>
 
                         <m:Label text="Passport Handed Over to Employee" />
-                        <m:Input value="{formModel>/passportHandedOver}" placeholder="Enter Passport Info" />
+                        <m:Input value="{formModel>/passportHandedOver}" placeholder="Enter Passport Info" width="70%"/>
 
                         <m:Label text="Medical Card Received by HR Department" />
-                        <m:Input value="{formModel>/medicalCardReceived}" placeholder="Enter Medical Info" />
+                        <m:Input value="{formModel>/medicalCardReceived}" placeholder="Enter Medical Info" width="70%"/>
 
                         <m:Label text="Date Released From" />
-                        <m:DatePicker value="{formModel>/dateReleasedFrom}" placeholder="Please Select Date" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" />
+                        <m:DatePicker value="{formModel>/dateReleasedFrom}" placeholder="Please Select Date" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" width="70%"/>
 
                         <m:Label text="Date Received To" />
-                        <m:DatePicker value="{formModel>/dateReceivedTo}" placeholder="Please Select Date" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" />
+                        <m:DatePicker value="{formModel>/dateReceivedTo}" placeholder="Please Select Date" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" width="70%"/>
 
                         <m:Label text="Received By" />
-                        <m:Input value="{formModel>/receivedBy}" placeholder="Please Enter Received By" />
+                        <m:Input value="{formModel>/receivedBy}" placeholder="Please Enter Received By" width="70%"/>
 
                         <m:Label text="Purpose" />
-                        <m:TextArea value="{formModel>/purpose}" placeholder="Type Purpose Here..." rows="4" growing="true" growingMaxLines="10" />
+                        <m:TextArea value="{formModel>/purpose}" placeholder="Type Purpose Here..." rows="4" growing="true" growingMaxLines="10" width="70%"/>
                     </form:SimpleForm>
                 </m:Panel>
 
@@ -115,11 +115,11 @@
                 <m:Panel id="certificatePanel" headerText="Certificate Details" visible="{= ${mainModel>/request_type} === 'certificate' }" expandable="false" expanded="true" class="sapUiResponsiveMargin">
                     <form:SimpleForm id="certificateForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" columnsXL="1" columnsL="1" columnsM="1" width="100%">
                         <m:Label text="Description" />
-                        <m:TextArea value="{certificateModel>/description}" rows="2" placeholder="Enter description" width="100%" />
+                        <m:TextArea value="{certificateModel>/description}" rows="2" placeholder="Enter description" width="70%" />
                         <m:Label text="Request Reason" />
-                        <m:Input value="{certificateModel>/requestReason}" placeholder="Please Enter Request Reason" />
+                        <m:Input value="{certificateModel>/requestReason}" placeholder="Please Enter Request Reason" width="70%"/>
                         <m:Label text="Approver" />
-                        <m:ComboBox selectedKey="{certificateModel>/approver}" placeholder="Select Approver" width="100%">
+                        <m:ComboBox selectedKey="{certificateModel>/approver}" placeholder="Select Approver" width="70%">
                             <m:items>
                                 <core:Item key="emp1" text="John Doe" />
                                 <core:Item key="emp2" text="Jane Smith" />
@@ -127,12 +127,12 @@
                             </m:items>
                         </m:ComboBox>
                         <m:Label text="Purpose" />
-                        <m:TextArea value="{certificateModel>/purpose}" placeholder="Type Purpose Here..." rows="4" growing="true" growingMaxLines="10" />
+                        <m:TextArea value="{certificateModel>/purpose}" placeholder="Type Purpose Here..." rows="4" growing="true" growingMaxLines="10" width="70%"/>
                         <m:Label text="Remarks" />
-                        <m:TextArea value="{certificateModel>/remarks}" placeholder="Type Comments Here..." rows="4" growing="true" growingMaxLines="10" />
+                        <m:TextArea value="{certificateModel>/remarks}" placeholder="Type Comments Here..." rows="4" growing="true" growingMaxLines="10" width="70%"/>
                         <m:Label text="Attachment" />
                         <m:VBox>
-                            <m:Button text="Choose" icon="sap-icon://upload" type="Emphasized" press="onFileUpload" class="sapUiTinyMarginBottom" />
+                            <m:Button text="Choose" icon="sap-icon://upload" type="Emphasized" press="onFileUpload" class="sapUiTinyMarginBottom" width="70%"/>
                             <m:Text text="Upload" class="sapUiTinyMarginTop" />
                         </m:VBox>
                     </form:SimpleForm>

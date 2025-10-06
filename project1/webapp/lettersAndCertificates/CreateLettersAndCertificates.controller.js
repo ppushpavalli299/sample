@@ -105,7 +105,7 @@ sap.ui.define([
             var oView = this.getView();
             if (!this._pEmployeeDialog) {
                 Fragment.load({
-                    name: "project1.lettersAndcertificates.fragments.Employee",
+                    name: "project1.lettersAndcertificates.fragment.Employee",
                     controller: this
                 }).then(function (oFragment) {
                     this._pEmployeeDialog = oFragment;
