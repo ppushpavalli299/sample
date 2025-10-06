@@ -31,17 +31,8 @@ sap.ui.define([
                                 RepaymentInstallments: "0",
                                 RepaymentPayCode: "D-LOAN",
                                 Remarks: "No Remarks"
-                            },
-                            {
-                                LoanCode: "Car Loan",
-                                LoanAmount: "45000.00",
-                                AdjustmentAmount: "1000.00",
-                                DisbursalDate: "2024-05-15",
-                                RepaymentStartDate: "2024-06-01",
-                                RepaymentInstallments: "12",
-                                RepaymentPayCode: "C-LOAN",
-                                Remarks: "New Car"
                             }
+                           
                         ]
                     },
                     {
