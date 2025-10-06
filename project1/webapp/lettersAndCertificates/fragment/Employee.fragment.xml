@@ -1,0 +1,103 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:table="sap.ui.table">
+    <Dialog resizable="true" title="{i18n>lod_employees}">
+        <content>
+            <fb:FilterBar id="sel_Employees" filterBarExpanded="true" search="advancedFilter" filterChange=".onFilterChange" useToolbar="false" showGoOnFB="true" clear="clearAllFilters" showClearOnFB="true" showFilterConfiguration = "false">
+                <fb:filterItems>
+                    <fb:FilterItem name="D" label="{i18n>organization_companyName}" mandatory="true">
+                        <fb:control>
+                            <ComboBox id="emp_CompanyFilter" placeholder="{i18n>organization_plhoCompany}" items="{companyModel>/}" selectedKey="{empSearchReqModel>/company_id}" showSecondaryValues= "true" change="changeCompany">
+                                <core:ListItem key="{companyModel>id}" text="{companyModel>name}"/>
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterItem>
+                    <fb:FilterItem name="A" label="{i18n>organization_empCode}">
+                        <fb:control>
+                            <Input placeholder="{i18n>organization_plhoCode}" value="{empSearchReqModel>/emp_code}"/>
+                        </fb:control>
+                    </fb:FilterItem>
+                    <fb:FilterItem name="B" label="{i18n>organization_employee_name}">
+                        <fb:control>
+                            <Input placeholder="{i18n>organization_Pleaseentertheemployeename}" value="{empSearchReqModel>/employee_name}"/>
+                        </fb:control>
+                    </fb:FilterItem>
+                    <!-- <fb:FilterItem name="C" label="{i18n>organization_lastName}">
+                        <fb:control>
+                            <Input placeholder="{i18n>organization_plholastname}" value="{empSearchReqModel>/last_name}"/>
+                        </fb:control>
+                    </fb:FilterItem> -->
+
+                    <fb:FilterItem name="F" label="{i18n>organization_status}">
+                        <fb:control>
+                            <ComboBox items="{masterDataMdl>/status}" placeholder="{i18n>organization_plhoStatus}" selectedKey="{empSearchReqModel>/status}">
+                                <core:Item key="{masterDataMdl>key}" text="{masterDataMdl>value}"/>
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterItem>
+                </fb:filterItems>
+            </fb:FilterBar>
+
+            <Table id= "table_SelectEmp" items="{employeeListMdl>/}" mode="MultiSelect" sticky="ColumnHeaders,HeaderToolbar" inset="false" class="sapUiSmallMarginTop" growing="true" growingThreshold="10000">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Label design="Bold" text="{i18n>lod_items}({= ${employeeListMdl>/}.length})" visible="{= ${MngUserRolesMdl>/}.length>=0}" />
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="{i18n>lod_EmployeeCode}" />
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>organization_employee_name}" />
+                    </Column>
+                    <!-- <Column>
+                        <Text text="{i18n>lod_LastName}" />
+                    </Column> -->
+                    <Column>
+                        <Text text="{i18n>lod_E-mail}" />
+                    </Column>
+                    <Column>
+                        <Text width="5rem" text="{i18n>lod_DOB}" />
+                    </Column>
+                    <Column>
+                        <Text width="5rem" text="{i18n>lod_Gender}" />
+                    </Column>
+                    <Column>
+                        <Text width="5rem" text="{i18n>lod_Status}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem >
+                        <cells>
+                            <Text text= "{employeeListMdl>empCode}" />
+                            <Text text= "{employeeListMdl>employee_name}" />
+                            <!-- <Text text= "{employeeListMdl>last_name}" /> -->
+                            <Text text= "{employeeListMdl>email}" />
+                            <Text text= "{employeeListMdl>dob}" />
+                            <Text text= "{employeeListMdl>gender} " />
+                            <ObjectStatus text= "{path : 'employeeListMdl>statusText'}" state="{=${employeeListMdl>status} === 0? 'Success' : 'Error'}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+
+
+        <footer>
+            <Toolbar>
+                <content>
+                    <ToolbarSpacer />
+                    <Button text="{i18n>lod_Select}" type="Emphasized" press="selectedEmpData"/>
+                    <Button text="{i18n>lod_Close}" type="Ghost" press="valueHelpEmployeeClose"/>
+                </content>
+            </Toolbar>
+        </footer>
+    </Dialog>
+
+</core:FragmentDefinition>

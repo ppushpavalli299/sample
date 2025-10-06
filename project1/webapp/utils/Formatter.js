@@ -22,7 +22,6 @@ sap.ui.define([], function () {
                 default: return "Unknown";
             }
         },
-
         getStatusState: function (value) {
             switch (Number(value)) {
                 case 1: return "Warning";
@@ -69,6 +68,15 @@ sap.ui.define([], function () {
             if (!sDate) return "";
             const parts = sDate.split("-");
             return `${parts[2]}-${parts[1]}-${parts[0]}`; // dd-MM-yyyy
+        },
+        formatRequestType: function (key, requestTypeList) {
+            if (!key || !requestTypeList) {
+                return key;
+            }
+            const match = requestTypeList.find(function (item) {
+                return item.key === key;
+            });
+            return match ? match.text : key;
         }
     };
 });

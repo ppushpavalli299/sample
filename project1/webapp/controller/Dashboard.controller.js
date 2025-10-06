@@ -128,7 +128,14 @@ sap.ui.define([
                                     "title": "Loan Application",
                                     "key": 3,
                                     "enabled": true
+                                },
+                                {
+                                    "title": "Letters and Certificates",
+                                    "key": 4,
+                                    "enabled": true
                                 }
+
+
                             ]
                         }
                     ],

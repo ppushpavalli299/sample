@@ -71,6 +71,15 @@
                                                     <ImageContent src="sap-icon://loan" class="sapUiTinyMarginBegin"/>
                                                 </TileContent>
                                             </GenericTile>
+                                            <GenericTile sizeBehavior="Responsive" header="Letters and Certificates" subheader="" press="onPressTile" app:route="lettersandcertificates" app:key="4">
+                                                <layoutData>
+                                                    <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                                                </layoutData>
+                                                <TileContent>
+                                                    <ImageContent src="sap-icon://loan" class="sapUiTinyMarginBegin"/>
+                                                </TileContent>
+                                            </GenericTile>
+
 
 
                                         </f:GridContainer>

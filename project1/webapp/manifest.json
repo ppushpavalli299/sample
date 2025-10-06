@@ -147,6 +147,18 @@
             "LoanApplication",
             "CreateLoanApplication"
           ]
+        },
+        {
+          "name": "lettersandcertificates",
+          "pattern": "lettersandcertificates",
+          "target": [
+            "LettersAndCertificates"
+          ]
+        },
+        {
+          "name": "createlettersandcertificates",
+          "pattern": "createlettersandcertificates/{layout}",
+          "target": ["LettersAndCertificates", "CreateLettersAndCertificates"]
         }
       ],
       "targets": {
@@ -221,6 +233,22 @@
           "viewType": "XML",
           "transition": "slide",
           "viewId": "CreateLoanApplication",
+          "parent": "AppUnified"
+        },
+        "LettersAndCertificates": {
+          "viewPath": "project1.lettersAndcertificates",
+          "viewName": "LettersAndCertificates",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "LettersAndCertificates",
+          "parent": "AppUnified"
+        },
+        "CreateLettersAndCertificates": {
+          "viewPath": "project1.lettersAndcertificates",
+          "viewName": "CreateLettersAndCertificates",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateLettersAndCertificates",
           "parent": "AppUnified"
         }
       }

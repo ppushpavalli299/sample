@@ -31,12 +31,7 @@ sap.ui.define([
                                 RepaymentInstallments: "0",
                                 RepaymentPayCode: "D-LOAN",
                                 Remarks: "No Remarks"
-                            }
-                        ]
-                    },
-                    {
-                        EmpName: "0420-Jane Doe",
-                        Loans: [
+                            },
                             {
                                 LoanCode: "Car Loan",
                                 LoanAmount: "45000.00",
@@ -46,6 +41,21 @@ sap.ui.define([
                                 RepaymentInstallments: "12",
                                 RepaymentPayCode: "C-LOAN",
                                 Remarks: "New Car"
+                            }
+                        ]
+                    },
+                    {
+                        EmpName: "0420-Jane Doe",
+                        Loans: [
+                            {
+                                "LoanCode": "Home Loan",
+                                "LoanAmount": "120000.00",
+                                "AdjustmentAmount": "5000.00",
+                                "DisbursalDate": "2023-03-10",
+                                "RepaymentStartDate": "2023-04-01",
+                                "RepaymentInstallments": "24",
+                                "RepaymentPayCode": "H-LOAN",
+                                "Remarks": "First Home"
                             }
                         ]
                     }
@@ -106,7 +116,7 @@ sap.ui.define([
         },
 
         handleClose: function () {
-           
+
             this.oRouter.navTo("loanapplication");
         }
     });

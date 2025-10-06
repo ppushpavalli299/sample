@@ -1,0 +1,187 @@
+<mvc:View controllerName="project1.lettersAndcertificates.CreateLettersAndCertificates"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:upload="sap.m.upload">
+
+    <f:DynamicPage id="pgGeneralExpense" headerExpanded="false" showFooter="true" fitContent="true">
+
+        <!-- Page Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <m:Title text="Letters And Certificates" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- Page Content -->
+        <f:content>
+            <m:VBox width="100%">
+
+                <!-- Main Form Section -->
+                <form:SimpleForm id="mainForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" maxContainerCols="1" singleContainerFullSize="false" width="100%" class="sapUiResponsiveMargin">
+
+                    <!-- Employee -->
+                    <m:Label text="Employee" />
+                    <m:Input id="inp_EmployeeName" value="{mainModel>/employee}" valueHelpOnly="true" showValueHelp="true" placeholder="Select Employee" valueHelpRequest="valueHelpDialogEmployee" />
+
+                    <!-- Request Date -->
+                    <m:Label text="Request Date" />
+                    <m:DatePicker value="{mainModel>/request_date}" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" placeholder="Please Select Date" />
+
+                    <!-- Request Type -->
+                    <m:Label text="Request Type" />
+                    <m:ComboBox id="requestType" selectedKey="{mainModel>/request_type}" change="onRequestTypeChange" placeholder="Select Request Type">
+                        <m:items>
+                            <core:Item key="1" text="Letter" />
+                            <core:Item key="2" text="Form" />
+                            <core:Item key="3" text="Certificate" />
+                        </m:items>
+                    </m:ComboBox>
+
+                    <!-- Request Name -->
+                    <m:Label text="Request Name" />
+                    <m:Input value="{mainModel>/request_name}"  visible="{= ${mainModel>/request_type} !== 'letter' }" placeholder="Please Enter Request Name" width="100%" />
+                    <m:ComboBox visible="{= ${mainModel>/request_type} === 'letter' }" selectedKey="{mainModel>/request_name}" width="100%">
+                        <m:items>
+                            <core:Item key="NOC Format - Business Travel" text="NOC Format - Business Travel" />
+                            <core:Item key="NOC Format - Personal Travel" text="NOC Format - Personal Travel" />
+                        </m:items>
+                    </m:ComboBox>
+
+                    <!-- Required Date -->
+                    <m:Label text="Required Date" />
+                    <m:DatePicker value="{mainModel>/required_date}" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" placeholder="Please Select Date" />
+
+                    <!-- Status -->
+                    <m:Label text="Status" />
+                    <m:ComboBox selectedKey="{mainModel>/status}" placeholder="Select Status">
+                        <m:items path="masterdataMdl>/">
+                            <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                        </m:items>
+                    </m:ComboBox>
+
+                </form:SimpleForm>
+
+                <!-- Letters Panel -->
+                <m:Panel id="lettersPanel" headerText="Description" visible="{= ${mainModel>/request_type} === 'letter' }" expandable="false" expanded="true" class="sapUiResponsiveMargin">
+                    <m:content>
+                        <form:SimpleForm id="lettersForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" maxContainerCols="1" width="100%">
+
+                            <m:Label text="Purpose" />
+                            <m:TextArea value="{letterModel>/purpose}" placeholder="Type Purpose Here..." rows="4" width="100%" growing="true" growingMaxLines="10" />
+
+                            <m:Label text="Remarks" />
+                            <m:TextArea value="{letterModel>/remarks}" placeholder="Type Comments Here..." rows="4" width="100%" growing="true" growingMaxLines="10" />
+
+                            <m:Label text="Attachment" />
+                            <m:VBox>
+                                <m:Button text="Choose" icon="sap-icon://upload" type="Emphasized" press="onFileUpload" class="sapUiTinyMarginBottom" />
+                                <m:Text text="Upload" class="sapUiTinyMarginTop" />
+                            </m:VBox>
+
+                        </form:SimpleForm>
+                    </m:content>
+                </m:Panel>
+
+                <!-- Form Panel -->
+                <m:Panel id="formPanel" headerText="Form Details" visible="{= ${mainModel>/request_type} === 'form' }" expandable="false" expanded="true" class="sapUiResponsiveMargin">
+
+                    <m:content>
+                        <form:SimpleForm id="formForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" maxContainerCols="1" width="100%">
+
+                            <!-- Reason -->
+                            <m:Label text="Reason" />
+                            <m:ComboBox selectedKey="{formModel>/form_type}" change="onReasonChange" placeholder="Select Reason">
+                                <m:items>
+                                    <core:Item key="annualLeave" text="Annual Leave" />
+                                    <core:Item key="businessTravel" text="Business Travel" />
+                                    <core:Item key="visaApplication" text="Visa Application" />
+                                    <core:Item key="visaCancellation" text="Visa Cancellation" />
+                                    <core:Item key="others" text="Others" />
+                                </m:items>
+                            </m:ComboBox>
+
+                            <!-- Passport Handed Over -->
+                            <m:Label text="Passport Handed Over to Employee" />
+                            <m:Input value="{formModel>/passportHandedOver}" placeholder="Enter Passport Info" />
+
+                            <!-- Medical Card -->
+                            <m:Label text="Medical Card Received by HR Department" />
+                            <m:Input value="{formModel>/medicalCardReceived}" placeholder="Enter Medical Info" />
+
+                            <!-- Date Released From -->
+                            <m:Label text="Date Released From" />
+                            <m:DatePicker value="{formModel>/dateReleasedFrom}" placeholder="Please Select Date" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" />
+
+                            <!-- Date Received To -->
+                            <m:Label text="Date Received To" />
+                            <m:DatePicker value="{formModel>/dateReceivedTo}" placeholder="Please Select Date" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" />
+
+                            <!-- Received By -->
+                            <m:Label text="Received By" />
+                            <m:Input value="{formModel>/receivedBy}" placeholder="Please Enter Received By" />
+
+                            <!-- Purpose -->
+                            <m:Label text="Purpose" />
+                            <m:TextArea value="{formModel>/purpose}" placeholder="Type Purpose Here..." rows="4" growing="true" growingMaxLines="10" />
+
+                        </form:SimpleForm>
+                    </m:content>
+                </m:Panel>
+
+                <!-- Certificate Panel -->
+                <m:Panel id="certificatePanel" headerText="Certificate Details" visible="{= ${mainModel>/request_type} === 'certificate' }" expandable="false" expanded="true" class="sapUiResponsiveMargin">
+                    <m:content>
+                        <form:SimpleForm id="certificateForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" maxContainerCols="1" width="100%">
+
+                            <m:Label text="Description" />
+                            <m:TextArea value="{certificateModel>/description}" rows="2" placeholder="Enter description" width="100%" />
+
+                            <m:Label text="Request Reason" />
+                            <m:Input value="{certificateModel>/requestReason}" placeholder="Please Enter Request Reason" />
+
+                            <!-- Approver -->
+                            <m:Label text="Approver" />
+                            <m:ComboBox selectedKey="{certificateModel>/approver}" placeholder="Select Approver" width="100%">
+                                <m:items>
+                                    <core:Item key="emp1" text="John Doe" />
+                                    <core:Item key="emp2" text="Jane Smith" />
+                                    <core:Item key="emp3" text="Michael Johnson" />
+                                </m:items>
+                            </m:ComboBox>
+
+                            <m:Label text="Purpose" />
+                            <m:TextArea value="{certificateModel>/purpose}" placeholder="Type Purpose Here..." rows="4" growing="true" growingMaxLines="10" />
+
+                            <m:Label text="Remarks" />
+                            <m:TextArea value="{certificateModel>/remarks}" placeholder="Type Comments Here..." rows="4" growing="true" growingMaxLines="10" />
+
+                            <m:Label text="Attachment" />
+                            <m:VBox>
+                                <m:Button text="Choose" icon="sap-icon://upload" type="Emphasized" press="onFileUpload" class="sapUiTinyMarginBottom" />
+                                <m:Text text="Upload" class="sapUiTinyMarginTop" />
+                            </m:VBox>
+
+                        </form:SimpleForm>
+                    </m:content>
+                </m:Panel>
+
+            </m:VBox>
+        </f:content>
+
+        <!-- Footer -->
+        <f:footer>
+            <m:OverflowToolbar>
+                <m:ToolbarSpacer />
+                <m:Button text="Save" type="Emphasized" icon="sap-icon://save" press="onSave" />
+                <m:Button text="Submit" type="Accept" icon="sap-icon://complete" press="onSubmit" />
+                <m:Button text="Close" type="Reject" press="onCancel" />
+            </m:OverflowToolbar>
+        </f:footer>
+
+    </f:DynamicPage>
+</mvc:View>
