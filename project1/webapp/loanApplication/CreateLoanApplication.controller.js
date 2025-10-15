@@ -18,35 +18,36 @@ sap.ui.define([
             this.oRouter.getRoute("createLoanApplication").attachPatternMatched(this.onRouteMatched, this);
 
             var oData = {
-                Employees: [
+                "Employees": [
                     {
-                        EmpName: "0286-Sammy Salonga Cabildo",
-                        Loans: [
+                        "EmpID": "0286",
+                        "EmpName": "Sammy Salonga Cabildo",
+                        "Loans": [
                             {
-                                LoanCode: "Personal Loan",
-                                LoanAmount: "30000.00",
-                                AdjustmentAmount: "0.00",
-                                DisbursalDate: "2025-08-20",
-                                RepaymentStartDate: "2025-10-01",
-                                RepaymentInstallments: "0",
-                                RepaymentPayCode: "D-LOAN",
-                                Remarks: "No Remarks"
+                                "LoanCode": "Personal Loan",
+                                "LoanAmount": "30000.00",
+                                "AdjustmentAmount": "0.00",
+                                "DisbursalDate": "2025-08-20",
+                                "RepaymentStartDate": "2025-10-01",
+                                "RepaymentInstallments": "0",
+                                "RepaymentPayCode": "D-LOAN",
+                                "Remarks": "No Remarks"
                             }
-                           
                         ]
                     },
                     {
-                        EmpName: "0420-Jane Doe",
-                        Loans: [
+                        "EmpID": "0420",
+                        "EmpName": "Jane Doe",
+                        "Loans": [
                             {
-                                "LoanCode": "Home Loan",
-                                "LoanAmount": "120000.00",
-                                "AdjustmentAmount": "5000.00",
-                                "DisbursalDate": "2023-03-10",
-                                "RepaymentStartDate": "2023-04-01",
-                                "RepaymentInstallments": "24",
-                                "RepaymentPayCode": "H-LOAN",
-                                "Remarks": "First Home"
+                                "LoanCode": "Personal Loan",
+                                "LoanAmount": "25000.00",
+                                "AdjustmentAmount": "0.00",
+                                "DisbursalDate": "2025-07-15",
+                                "RepaymentStartDate": "2025-09-01",
+                                "RepaymentInstallments": "10",
+                                "RepaymentPayCode": "P-LOAN",
+                                "Remarks": "Pending verification"
                             }
                         ]
                     }

@@ -79,6 +79,22 @@
                                                     <ImageContent src="sap-icon://loan" class="sapUiTinyMarginBegin"/>
                                                 </TileContent>
                                             </GenericTile>
+                                            <GenericTile sizeBehavior="Responsive" header=" My Letters and Certificates" subheader="" press="onPressTile" app:route="mylettersandcertificates" app:key="5">
+                                                <layoutData>
+                                                    <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                                                </layoutData>
+                                                <TileContent>
+                                                    <ImageContent src="sap-icon://loan" class="sapUiTinyMarginBegin"/>
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile sizeBehavior="Responsive" header=" Team Letters and Certificates" subheader="" press="onPressTile" app:route="teamlettersandcertificates" app:key="6">
+                                                <layoutData>
+                                                    <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                                                </layoutData>
+                                                <TileContent>
+                                                    <ImageContent src="sap-icon://loan" class="sapUiTinyMarginBegin"/>
+                                                </TileContent>
+                                            </GenericTile>
 
 
 

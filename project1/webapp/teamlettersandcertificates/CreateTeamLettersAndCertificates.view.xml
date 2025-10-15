@@ -1,4 +1,4 @@
-<mvc:View controllerName="project1.lettersAndcertificates.CreateLettersAndCertificates"
+<mvc:View controllerName="project1.teamlettersAndcertificates.CreateTeamLettersAndCertificates"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:m="sap.m"
     xmlns:f="sap.f"

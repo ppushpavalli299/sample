@@ -19,7 +19,7 @@ sap.ui.define([
 ) {
     "use strict";
 
-    return BaseController.extend("project1.lettersAndcertificates.LettersAndCertificates", {
+    return BaseController.extend("project1.teamlettersandcertificates.TeamLettersAndCertificates", {
         formatter: Formatter,
 
         onInit: function () {
@@ -27,9 +27,9 @@ sap.ui.define([
             this.oRouter = this.oOwnerComponent.getRouter();
             this.oModel = this.oOwnerComponent.getModel();
 
-            this.oRouter.getRoute("lettersandcertificates").attachMatched(this.onRouteMatched, this);
-            this.pageId = this.getView().byId("page_manageLettersAndCertificatesMdl");
-            this._tableId = this.getView().byId("tableManageLoanApplication");
+            this.oRouter.getRoute("teamlettersandcertificates").attachMatched(this.onRouteMatched, this);
+            this.pageId = this.getView().byId("page_manageTeamLettersAndCertificates");
+            this._tableId = this.getView().byId("tableTeamLettersAndCertificates");
 
             // Filter model
             const oFilterModel = new JSONModel({
@@ -44,45 +44,45 @@ sap.ui.define([
 
             // Dummy table data
             const dummyData = [
-                {
-                    employee: "John Doe",
-                    request_date: "2025-10-01",
-                    request_type: "1",
-                    request_name: "Employment Letter",
-                    required_date: "2025-10-05",
-                    status: "1"
+               {
+                    "employee": "John Doe",
+                    "request_date": "2025-09-20",
+                    "request_type": "LC01",
+                    "request_name": "Employment Certificate",
+                    "required_date": "2025-09-25",
+                    "status": "1"
                 },
                 {
-                    employee: "Jane Smith",
-                    request_date: "2025-09-20",
-                    request_type: "2",
-                    request_name: "Tax Certificate",
-                    required_date: "2025-09-25",
-                    status: "2"
+                    "employee": "Emily Smith",
+                    "request_date": "2025-09-21",
+                    "request_type": "LC02",
+                    "request_name": "Experience Letter",
+                    "required_date": "2025-09-28",
+                    "status": "2"
                 },
                 {
-                    employee: "Alice Johnson",
-                    request_date: "2025-08-15",
-                    request_type: "3",
-                    request_name: "Visa Letter",
-                    required_date: "2025-08-20",
-                    status: "3"
+                    "employee": "Michael Brown",
+                    "request_date": "2025-09-22",
+                    "request_type": "LC03",
+                    "request_name": "Salary Certificate",
+                    "required_date": "2025-09-27",
+                    "status": "3"
                 },
                 {
-                    employee: "Anu",
-                    request_date: "2025-10-02",
-                    request_type: "1",
-                    request_name: "Employment Letter",
-                    required_date: "2025-10-07",
-                    status: "1"
+                    "employee": "Sophia Johnson",
+                    "request_date": "2025-09-23",
+                    "request_type": "LC04",
+                    "request_name": "Relieving Letter",
+                    "required_date": "2025-09-29",
+                    "status": "1"
                 },
                 {
-                    employee: "Ravi",
-                    request_date: "2025-09-25",
-                    request_type: "2",
-                    request_name: "Tax Certificate",
-                    required_date: "2025-09-30",
-                    status: "2"
+                    "employee": "David Wilson",
+                    "request_date": "2025-09-24",
+                    "request_type": "LC05",
+                    "request_name": "Address Proof Letter",
+                    "required_date": "2025-09-30",
+                    "status": "2"
                 }
             ];
             this.getView().setModel(new JSONModel(dummyData), "manageLettersAndCertificatesMdl");
@@ -102,9 +102,11 @@ sap.ui.define([
 
             const masterData = {
                 request_type: [
-                    { key: "1", text: "Letter" },
-                    { key: "2", text: "Form" },
-                    { key: "3", text: "Certificate" }
+                   { "key": "LC01", "text": "Employment Certificate" },
+                    { "key": "LC02", "text": "Experience Letter" },
+                    { "key": "LC03", "text": "Salary Certificate" },
+                    { "key": "LC04", "text": "Relieving Letter" },
+                    { "key": "LC05", "text": "Address Proof Letter" }
                 ],
                 status: [
                     { key: "1", text: "Pending" },
@@ -141,7 +143,7 @@ sap.ui.define([
         },
 
         onPressCreate: function () {
-            this.oRouter.navTo("createlettersandcertificates", { layout: "TwoColumnsMidExpanded" });
+            this.oRouter.navTo("createteamlettersandcertificates", { layout: "TwoColumnsMidExpanded" });
         },
 
         createColumnConfig: function () {
@@ -179,7 +181,7 @@ sap.ui.define([
                 filters.push(new Filter("status", FilterOperator.EQ, data.status));
             }
 
-            const binding = this.byId("tableManageLoanApplication").getBinding("items");
+            const binding = this.byId("tableTeamLettersAndCertificates").getBinding("items");
             if (binding) {
                 binding.filter(filters.length > 0 ? new Filter(filters, true) : []);
             }
@@ -195,7 +197,7 @@ sap.ui.define([
                 status: ""
             });
 
-            const binding = this.byId("tableManageLoanApplication").getBinding("items");
+            const binding = this.byId("tableTeamLettersAndCertificates").getBinding("items");
             if (binding) {
                 binding.filter([]);
             }

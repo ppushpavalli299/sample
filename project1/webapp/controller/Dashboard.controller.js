@@ -133,6 +133,16 @@ sap.ui.define([
                                     "title": "Letters and Certificates",
                                     "key": 4,
                                     "enabled": true
+                                },
+                                {
+                                    "title": " My Letters and Certificates",
+                                    "key": 5,
+                                    "enabled": true
+                                },
+                                {
+                                    "title": "Team Letters and Certificates",
+                                    "key": 6,
+                                    "enabled": true
                                 }
 
 

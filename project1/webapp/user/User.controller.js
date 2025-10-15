@@ -282,6 +282,12 @@ sap.ui.define([
       }
 
       return new Blob(byteArrays, { type: contentType });
+    },
+
+    // *** ERROR HANDLING METHOD ADDED TO FIX THE ERROR ***
+    errorHandling: function (error) {
+      MessageBox.error(error.message || "An unexpected error occurred.");
+      console.error(error);
     }
 
   });

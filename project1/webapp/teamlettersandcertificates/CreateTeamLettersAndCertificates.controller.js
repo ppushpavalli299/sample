@@ -10,7 +10,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel, MessageToast, MessageBox, Fragment, Filter, FilterOperator, Formatter) {
     "use strict";
 
-    return BaseController.extend("project1.lettersAndcertificates.CreateLettersAndCertificates", {
+    return BaseController.extend("project1.teamlettersAndcertificates.CreateTeamLettersAndCertificates", {
         formatter: Formatter,
 
         onInit: function () {
@@ -18,7 +18,7 @@ sap.ui.define([
             this.oRouter = this.oOwnerComponent.getRouter();
             this.oModel = this.oOwnerComponent.getModel();
 
-            this.oRouter.getRoute("createLoanApplication").attachPatternMatched(this.onRouteMatched, this);
+            this.oRouter.getRoute("createteamlettersandcertificates").attachPatternMatched(this.onRouteMatched, this);
 
             var oMainModel = new JSONModel({
                 employee: "",

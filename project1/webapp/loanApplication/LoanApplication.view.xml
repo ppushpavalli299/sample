@@ -45,66 +45,65 @@
         </f:header>
 
         <f:content>
-            <Panel>
-                <OverflowToolbar>
-                    <content>
-                        <Label design="Bold" text="Items ({= ${manageLoanApplicationMdl>/}.length})" />
-                        <ToolbarSpacer />
-                        <Button id="btn_Create" type="Ghost" text="Create" press="onPressCreate" />
-                        <!-- <ToolbarSeparator />
+            <Table id="tableManageLoanApplication" items="{manageLoanApplicationMdl>/}" mode="None" sticky="ColumnHeaders,HeaderToolbar" inset="false" class="sapUiSmallMarginTop" selectionChange="onPressSelectRow">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Label design="Bold" text="Items ({= ${manageLoanApplicationMdl>/}.length})" />
+                            <ToolbarSpacer />
+                            <Button id="btn_Create" type="Ghost" text="Create" press="onPressCreate" />
+                            <!-- <ToolbarSeparator />
                         <Button icon="sap-icon://download" press="handleExport" tooltip="Download Excel" />
                         <ToolbarSeparator />
                         <OverflowToolbarButton type="Transparent" tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed"/>
                         <OverflowToolbarButton type="Transparent" tooltip="Group" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
                         <OverflowToolbarButton type="Transparent" icon="sap-icon://settings" tooltip="Settings" press="handlePersoButtonPressed"/> -->
-                    </content>
-                </OverflowToolbar>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Payroll Period" />
+                    </Column>
+                    <Column>
+                        <Text text="Date" />
+                    </Column>
+                    <Column>
+                        <Text text="Currency" />
+                    </Column>
+                    <Column>
+                        <Text text="Disbursal Method" />
+                    </Column>
+                    <Column>
+                        <Text text="Remarks" />
+                    </Column>
+                    <Column>
+                        <Text text="Status" />
+                    </Column>
+                    <Column hAlign="End" width="7rem" />
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{manageLoanApplicationMdl>payroll_period}" />
+                            <Text text="{ path: 'manageLoanApplicationMdl>date', formatter: '.formatter.formatDate' }" />
+                            <Text text="{manageLoanApplicationMdl>currency}" />
+                            <Text text="{manageLoanApplicationMdl>disbursal_method}" />
+                            <Text text="{manageLoanApplicationMdl>remarks}" />
+                            <ObjectStatus text="{ path: 'manageLoanApplicationMdl>status', formatter: '.formatter.getStatusText' }" state="{ path: 'manageLoanApplicationMdl>status', formatter: '.formatter.getStatusState' }" />
+                            <Button icon="sap-icon://show" type="Transparent" press="onPressView" tooltip="View Details" visible="{= !!${manageLoanApplicationMdl>hasDetails}}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
 
-                <ScrollContainer width="100%" vertical="true" focusable="true">
-                    <Table id="tableManageLoanApplication" items="{manageLoanApplicationMdl>/}" mode="None" sticky="ColumnHeaders,HeaderToolbar" inset="false" class="sapUiSmallMarginTop" selectionChange="onPressSelectRow">
-                        <columns>
-                            <Column>
-                                <Text text="Payroll Period" />
-                            </Column>
-                            <Column>
-                                <Text text="Date" />
-                            </Column>
-                            <Column>
-                                <Text text="Currency" />
-                            </Column>
-                            <Column>
-                                <Text text="Disbursal Method" />
-                            </Column>
-                            <Column>
-                                <Text text="Remarks" />
-                            </Column>
-                            <Column>
-                                <Text text="Status" />
-                            </Column>
-                            <Column hAlign="End" width="7rem" />
-                        </columns>
-                        <items>
-                            <ColumnListItem>
-                                <cells>
-                                    <Text text="{manageLoanApplicationMdl>payroll_period}" />
-                                    <Text text="{ path: 'manageLoanApplicationMdl>date', formatter: '.formatter.formatDate' }" />
-                                    <Text text="{manageLoanApplicationMdl>currency}" />
-                                    <Text text="{manageLoanApplicationMdl>disbursal_method}" />
-                                    <Text text="{manageLoanApplicationMdl>remarks}" />
-                                    <ObjectStatus text="{ path: 'manageLoanApplicationMdl>status', formatter: '.formatter.getStatusText' }" state="{ path: 'manageLoanApplicationMdl>status', formatter: '.formatter.getStatusState' }" />
-                                    <Button icon="sap-icon://show" type="Transparent" press="onPressView" tooltip="View Details" visible="{= !!${manageLoanApplicationMdl>hasDetails}}" />
-                                </cells>
-                            </ColumnListItem>
-                        </items>
-                    </Table>
-                </ScrollContainer>
-            </Panel>
-        </f:content>
+        </Panel>
+    </f:content>
 
-        <f:footer>
-            <Toolbar>
-                <Button id="btn_MngGeneralExpenseError" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Negative" text="Error" press=".handleMessagePopoverPress" ariaHasPopup="Dialog" />
-            </Toolbar>
-        </f:footer>
-    </f:DynamicPage>
+    <f:footer>
+        <Toolbar>
+            <Button id="btn_MngGeneralExpenseError" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Negative" text="Error" press=".handleMessagePopoverPress" ariaHasPopup="Dialog" />
+        </Toolbar>
+    </f:footer>
+</f:DynamicPage>
 </mvc:View>

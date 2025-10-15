@@ -1,4 +1,4 @@
-<mvc:View controllerName="project1.lettersAndcertificates.CreateLettersAndCertificates"
+<mvc:View controllerName="project1.mylettersAndcertificates.CreateMyLettersAndCertificates"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:m="sap.m"
     xmlns:f="sap.f"
@@ -11,7 +11,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <m:Title text="Letters And Certificates" />
+                    <m:Title text=" Create Letters And Certificates" />
                 </f:heading>
                 <f:actions>
                     <m:Button id="btnSave" type="Emphasized" text="Save" class="sapUiTinyMarginBegin" press="onPressSave" />

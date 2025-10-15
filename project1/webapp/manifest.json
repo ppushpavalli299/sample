@@ -158,7 +158,40 @@
         {
           "name": "createlettersandcertificates",
           "pattern": "createlettersandcertificates/{layout}",
-          "target": ["LettersAndCertificates", "CreateLettersAndCertificates"]
+          "target": [
+            "LettersAndCertificates",
+            "CreateLettersAndCertificates"
+          ]
+        },
+        {
+          "name": "mylettersandcertificates",
+          "pattern": "mylettersandcertificates",
+          "target": [
+            "MyLettersandCertificates"
+          ]
+        },
+        {
+          "name": "createMylettersandcertificates",
+          "pattern": "createMylettersandcertificates/{layout}",
+          "target": [
+            "MyLettersandCertificates",
+            "CreateLettersAndCertificates"
+          ]
+        },
+        {
+          "name": "teamlettersandcertificates",
+          "pattern": "teamlettersandcertificates",
+          "target": [
+            "TeamLettersandCertificates"
+          ]
+        },
+        {
+          "name": "createteamlettersandcertificates",
+          "pattern": "createteamlettersandcertificates/{layout}",
+          "target": [
+            "TeamLettersandCertificates",
+            "CreateTeamLettersAndCertificates"
+          ]
         }
       ],
       "targets": {
@@ -249,6 +282,38 @@
           "viewType": "XML",
           "transition": "slide",
           "viewId": "CreateLettersAndCertificates",
+          "parent": "AppUnified"
+        },
+        "MyLettersandCertificates": {
+          "viewPath": "project1.mylettersandcertificates",
+          "viewName": "mylettersandcertificates",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "mylettersandcertificates",
+          "parent": "AppUnified"
+        },
+        "CreateMyLettersAndCertificates": {
+          "viewPath": "project1.mylettersandcertificates",
+          "viewName": "createmylettersandcertificates",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "createmylettersandcertificates",
+          "parent": "AppUnified"
+        },
+        "TeamLettersandCertificates": {
+          "viewPath": "project1.teamlettersandcertificates",
+          "viewName": "teamlettersandcertificates",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "teamlettersandcertificates",
+          "parent": "AppUnified"
+        },
+        "CreateTeamLettersAndCertificates": {
+          "viewPath": "project1.teamLettersAndCertificates",
+          "viewName": "createteamlettersandcertificates",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "createteamlettersandcertificates",
           "parent": "AppUnified"
         }
       }

@@ -19,7 +19,7 @@ sap.ui.define([
 ) {
     "use strict";
 
-    return BaseController.extend("project1.lettersAndcertificates.LettersAndCertificates", {
+    return BaseController.extend("project1.mylettersAndcertificates.MyLettersAndCertificates", {
         formatter: Formatter,
 
         onInit: function () {
@@ -27,9 +27,9 @@ sap.ui.define([
             this.oRouter = this.oOwnerComponent.getRouter();
             this.oModel = this.oOwnerComponent.getModel();
 
-            this.oRouter.getRoute("lettersandcertificates").attachMatched(this.onRouteMatched, this);
-            this.pageId = this.getView().byId("page_manageLettersAndCertificatesMdl");
-            this._tableId = this.getView().byId("tableManageLoanApplication");
+            this.oRouter.getRoute("mylettersandcertificates").attachMatched(this.onRouteMatched, this);
+            this.pageId = this.getView().byId("page_manageMyLettersAndCertificates");
+            this._tableId = this.getView().byId("tableMyLettersAndCertificates");
 
             // Filter model
             const oFilterModel = new JSONModel({
@@ -45,44 +45,44 @@ sap.ui.define([
             // Dummy table data
             const dummyData = [
                 {
-                    employee: "John Doe",
-                    request_date: "2025-10-01",
-                    request_type: "1",
-                    request_name: "Employment Letter",
-                    required_date: "2025-10-05",
-                    status: "1"
+                    "employee": "John Doe",
+                    "request_date": "2025-10-10",
+                    "request_type": "1",
+                    "request_name": "Experience Letter",
+                    "required_date": "2025-10-15",
+                    "status": "1"
                 },
                 {
-                    employee: "Jane Smith",
-                    request_date: "2025-09-20",
-                    request_type: "2",
-                    request_name: "Tax Certificate",
-                    required_date: "2025-09-25",
-                    status: "2"
+                    "employee": "Emily Smith",
+                    "request_date": "2025-09-28",
+                    "request_type": "2",
+                    "request_name": "Salary Certificate",
+                    "required_date": "2025-10-02",
+                    "status": "2"
                 },
                 {
-                    employee: "Alice Johnson",
-                    request_date: "2025-08-15",
-                    request_type: "3",
-                    request_name: "Visa Letter",
-                    required_date: "2025-08-20",
-                    status: "3"
+                    "employee": "Michael Brown",
+                    "request_date": "2025-10-01",
+                    "request_type": "3",
+                    "request_name": "Employment Verification",
+                    "required_date": "2025-10-05",
+                    "status": "3"
                 },
                 {
-                    employee: "Anu",
-                    request_date: "2025-10-02",
-                    request_type: "1",
-                    request_name: "Employment Letter",
-                    required_date: "2025-10-07",
-                    status: "1"
+                    "employee": "Sophia Johnson",
+                    "request_date": "2025-10-12",
+                    "request_type": "1",
+                    "request_name": "Transfer Certificate",
+                    "required_date": "2025-10-20",
+                    "status": "2"
                 },
                 {
-                    employee: "Ravi",
-                    request_date: "2025-09-25",
-                    request_type: "2",
-                    request_name: "Tax Certificate",
-                    required_date: "2025-09-30",
-                    status: "2"
+                    "employee": "David Wilson",
+                    "request_date": "2025-09-25",
+                    "request_type": "2",
+                    "request_name": "Salary Certificate",
+                    "required_date": "2025-09-30",
+                    "status": "3"
                 }
             ];
             this.getView().setModel(new JSONModel(dummyData), "manageLettersAndCertificatesMdl");
@@ -107,10 +107,9 @@ sap.ui.define([
                     { key: "3", text: "Certificate" }
                 ],
                 status: [
-                    { key: "1", text: "Pending" },
-                    { key: "2", text: "Approval" },
-                    { key: "3", text: "Warning" },
-                    { key: "4", text: "Cancelled" }
+                    { "key": "1", "text": "Approved" },
+                    { "key": "2", "text": "Pending" },
+                    { "key": "3", "text": "Rejected" }
                 ]
             };
             this.getView().setModel(new JSONModel(masterData), "masterdataMdl");
@@ -141,7 +140,7 @@ sap.ui.define([
         },
 
         onPressCreate: function () {
-            this.oRouter.navTo("createlettersandcertificates", { layout: "TwoColumnsMidExpanded" });
+            this.oRouter.navTo("createMylettersandcertificates", { layout: "TwoColumnsMidExpanded" });
         },
 
         createColumnConfig: function () {
@@ -179,7 +178,7 @@ sap.ui.define([
                 filters.push(new Filter("status", FilterOperator.EQ, data.status));
             }
 
-            const binding = this.byId("tableManageLoanApplication").getBinding("items");
+            const binding = this.byId("tableMyLettersAndCertificates").getBinding("items");
             if (binding) {
                 binding.filter(filters.length > 0 ? new Filter(filters, true) : []);
             }
@@ -195,7 +194,7 @@ sap.ui.define([
                 status: ""
             });
 
-            const binding = this.byId("tableManageLoanApplication").getBinding("items");
+            const binding = this.byId("tableMyLettersAndCertificates").getBinding("items");
             if (binding) {
                 binding.filter([]);
             }

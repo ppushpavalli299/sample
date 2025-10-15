@@ -10,7 +10,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel, MessageToast, MessageBox, Fragment, Filter, FilterOperator, Formatter) {
     "use strict";
 
-    return BaseController.extend("project1.lettersAndcertificates.CreateLettersAndCertificates", {
+    return BaseController.extend("project1.mylettersAndcertificates.CreateMyLettersAndCertificates", {
         formatter: Formatter,
 
         onInit: function () {
@@ -18,7 +18,7 @@ sap.ui.define([
             this.oRouter = this.oOwnerComponent.getRouter();
             this.oModel = this.oOwnerComponent.getModel();
 
-            this.oRouter.getRoute("createLoanApplication").attachPatternMatched(this.onRouteMatched, this);
+            this.oRouter.getRoute("createMylettersandcertificates").attachPatternMatched(this.onRouteMatched, this);
 
             var oMainModel = new JSONModel({
                 employee: "",
@@ -82,7 +82,7 @@ sap.ui.define([
             var oView = this.getView();
             if (!this._pEmployeeDialog) {
                 Fragment.load({
-                    name: "project1.lettersAndcertificates.fragment.Employee",
+                    name: "project1.mylettersAndcertificates.fragment.Employee",
                     controller: this
                 }).then(function (oFragment) {
                     this._pEmployeeDialog = oFragment;
@@ -123,7 +123,7 @@ sap.ui.define([
             MessageToast.show("Saved locally. Data: " + JSON.stringify(oMainData));
         },
         handleClose: function () {
-            this.oRouter.navTo("lettersandcertificates");
+            this.oRouter.navTo("mylettersandcertificates");
         }
 
 
