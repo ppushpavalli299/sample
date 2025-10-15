@@ -97,13 +97,13 @@
                 </items>
             </Table>
 
-        </Panel>
-    </f:content>
 
-    <f:footer>
-        <Toolbar>
-            <Button id="btn_MngGeneralExpenseError" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Negative" text="Error" press=".handleMessagePopoverPress" ariaHasPopup="Dialog" />
-        </Toolbar>
-    </f:footer>
-</f:DynamicPage>
+        </f:content>
+
+        <f:footer>
+            <Toolbar>
+                <Button id="btn_MngGeneralExpenseError" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Negative" text="Error" press=".handleMessagePopoverPress" ariaHasPopup="Dialog" />
+            </Toolbar>
+        </f:footer>
+    </f:DynamicPage>
 </mvc:View>

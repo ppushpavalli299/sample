@@ -20,8 +20,9 @@ sap.ui.define([], function () {
             user_add_edit: "user/addEdit",
             payroll_report: "report/static-payslip",
 
-            payroll_report: "payroll/payroller"
+            payroll_report: "payroll/payroller",
 
+            loan_application_filter:"loanapplication/filter"
 
 
         },

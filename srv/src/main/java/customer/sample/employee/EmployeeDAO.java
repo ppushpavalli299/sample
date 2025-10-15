@@ -19,7 +19,7 @@ public class EmployeeDAO {
             String filterParams = new Gson().toJson(employeeSearch);
 
             StoredProcedureQuery spQuery = entityManager
-                    .createStoredProcedureQuery("FBC5AAD3564D4EEBBCFF6701C64CECD5.GET_EMPLOYEE", "Employee_Mapping");
+                    .createStoredProcedureQuery("SAMPLE_HDI_DB_1.GET_EMPLOYEE",  "Employee_Mapping");
 
             spQuery.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
             spQuery.registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN);

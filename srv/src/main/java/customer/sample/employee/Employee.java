@@ -3,10 +3,10 @@ package customer.sample.employee;
 import jakarta.persistence.*;
 
 @SqlResultSetMapping(name = "Employee_Mapping", entities = @EntityResult(entityClass = Employee.class, fields = {
-        @FieldResult(name = "id", column = "id"),
-        @FieldResult(name = "name", column = "name"),
-        @FieldResult(name = "designation", column = "designation"),
-        @FieldResult(name = "status", column = "status")
+        @FieldResult(name = "id", column = "ID"),
+        @FieldResult(name = "name", column = "NAME"),
+        @FieldResult(name = "designation", column = "DESIGNATION"),
+        @FieldResult(name = "status", column = "STATUS")
 }))
 @Entity
 @Table(name = "employee")
