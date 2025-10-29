@@ -1,0 +1,83 @@
+PROCEDURE "SAMPLE_HDI_DB_1"."GET_LOAN_APPLICATION" 
+(
+    IN FILTER_PARAMS NCLOB,
+    IN PAGE_NUMBER INTEGER,
+    IN PAGE_SIZE INTEGER
+)
+AS
+BEGIN
+    -- Declare variables
+    DECLARE APPLICATION_DATE NVARCHAR(20);
+    DECLARE CURRENCY NVARCHAR(10);
+    DECLARE DISBURSAL_METHOD NVARCHAR(50);
+    DECLARE PAYROLL_PERIOD NVARCHAR(10);
+    DECLARE STATUS NVARCHAR(10);
+    DECLARE QUERY NCLOB := '';
+    DECLARE BASE_QUERY NCLOB := '';
+    DECLARE START_INDEX INTEGER := (:PAGE_NUMBER - 1) * :PAGE_SIZE;
+    DECLARE TOTAL_RECORDS INTEGER := 0;
+
+    -- Base query string
+    BASE_QUERY := 'SELECT "ID", "APPLICATION_DATE", "CURRENCY", "DISBURSAL_METHOD", "PAYROLL_PERIOD", "REMARKS", "STATUS" FROM "SAMPLE_HDI_DB_1"."LOAN_APPLICATION"';
+
+    -- Extract filter values from JSON (case sensitive keys)
+    SELECT JSON_VALUE(:FILTER_PARAMS, '$.APPLICATION_DATE') INTO APPLICATION_DATE FROM DUMMY;
+    SELECT JSON_VALUE(:FILTER_PARAMS, '$.CURRENCY') INTO CURRENCY FROM DUMMY;
+    SELECT JSON_VALUE(:FILTER_PARAMS, '$.DISBURSAL_METHOD') INTO DISBURSAL_METHOD FROM DUMMY;
+    SELECT JSON_VALUE(:FILTER_PARAMS, '$.PAYROLL_PERIOD') INTO PAYROLL_PERIOD FROM DUMMY;
+    SELECT JSON_VALUE(:FILTER_PARAMS, '$.STATUS') INTO STATUS FROM DUMMY;
+
+    -- Build WHERE clause dynamically
+    IF (:FILTER_PARAMS IS NOT NULL AND :FILTER_PARAMS != '') THEN
+        IF (APPLICATION_DATE IS NOT NULL AND APPLICATION_DATE != '') THEN
+            QUERY := QUERY || CASE 
+                                WHEN QUERY = '' THEN ' "APPLICATION_DATE" = ''' || :APPLICATION_DATE || ''''
+                                ELSE ' AND "APPLICATION_DATE" = ''' || :APPLICATION_DATE || '''' 
+                              END;
+        END IF;
+
+        IF (CURRENCY IS NOT NULL AND CURRENCY != '') THEN
+            QUERY := QUERY || CASE 
+                                WHEN QUERY = '' THEN ' "CURRENCY" = ''' || :CURRENCY || ''''
+                                ELSE ' AND "CURRENCY" = ''' || :CURRENCY || '''' 
+                              END;
+        END IF;
+
+        IF (DISBURSAL_METHOD IS NOT NULL AND DISBURSAL_METHOD != '') THEN
+            QUERY := QUERY || CASE 
+                                WHEN QUERY = '' THEN ' "DISBURSAL_METHOD" = ''' || :DISBURSAL_METHOD || ''''
+                                ELSE ' AND "DISBURSAL_METHOD" = ''' || :DISBURSAL_METHOD || '''' 
+                              END;
+        END IF;
+
+        IF (PAYROLL_PERIOD IS NOT NULL AND PAYROLL_PERIOD != '') THEN
+            QUERY := QUERY || CASE 
+                                WHEN QUERY = '' THEN ' "PAYROLL_PERIOD" = ''' || :PAYROLL_PERIOD || ''''
+                                ELSE ' AND "PAYROLL_PERIOD" = ''' || :PAYROLL_PERIOD || '''' 
+                              END;
+        END IF;
+
+        IF (STATUS IS NOT NULL AND STATUS != '') THEN
+            QUERY := QUERY || CASE 
+                                WHEN QUERY = '' THEN ' "STATUS" = ''' || :STATUS || ''''
+                                ELSE ' AND "STATUS" = ''' || :STATUS || '''' 
+                              END;
+        END IF;
+
+        IF (QUERY IS NOT NULL AND QUERY != '') THEN
+            QUERY := ' WHERE ' || QUERY;
+        END IF;
+    END IF;
+
+    -- Count total records with filters
+    EXECUTE IMMEDIATE 'SELECT COUNT(*) FROM (' || BASE_QUERY || QUERY || ') AS COUNT_TABLE' INTO TOTAL_RECORDS;
+
+    -- If PAGE_SIZE = 0, get all records
+    PAGE_SIZE := CASE WHEN PAGE_SIZE = 0 THEN TOTAL_RECORDS ELSE PAGE_SIZE END;
+
+    -- Final paginated query with ORDER BY, LIMIT and OFFSET
+    BASE_QUERY := 'SELECT * FROM (' || BASE_QUERY || QUERY || ') AS TEMP_TABLE ORDER BY "ID" DESC LIMIT ' || :PAGE_SIZE || ' OFFSET ' || :START_INDEX;
+
+    -- Execute final query and return result set
+    EXECUTE IMMEDIATE BASE_QUERY;
+END

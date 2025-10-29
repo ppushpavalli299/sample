@@ -1,0 +1,19 @@
+PROCEDURE "SAMPLE_HDI_DB_1"."GET_LOAN_APPLICATION_BY_ID"
+(
+    IN "ID" BIGINT
+)
+AS
+BEGIN
+    IF (:ID > 0) THEN
+        SELECT 
+            "ID",
+            "APPLICATION_DATE",
+            "CURRENCY",
+            "DISBURSAL_METHOD",
+            "PAYROLL_PERIOD",
+            "REMARKS",
+            "STATUS"
+        FROM "SAMPLE_HDI_DB_1"."LOAN_APPLICATION"
+        WHERE "ID" = :ID;
+    END IF;
+END
