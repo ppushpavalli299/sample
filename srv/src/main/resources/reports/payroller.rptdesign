@@ -203,16 +203,16 @@
 
 var reportData = reportContext.getAppContext().get("payslip");
 
-if (reportData != null &amp;&amp; reportData.getPayroller() != null) {
-    payrollerIterator = reportData.getPayroller().iterator();
+if (reportData != null &amp;&amp; reportData.getPayroll() != null) {
+    payrollIterator = reportData.getPayroll().iterator();
 } else {
-    payrollerIterator = java.util.Collections.emptyIterator();
-}
-]]></method>
-            <method name="fetch"><![CDATA[if (!payrollerIterator.hasNext()) {
+    payrollIterator = java.util.Collections.emptyIterator();
+}]]></method>
+            <method name="fetch"><![CDATA[if (!payrollIterator.hasNext()) {
     return false;
 }
-var item = payrollerIterator.next();
+
+var item = payrollIterator.next();
 row["totalEarnings"] = item.getTotalEarnings();
 row["totalDeductions"] = item.getTotalDeductions();
 row["netPay"] = item.getNetPay();

@@ -240,6 +240,125 @@ sap.ui.define([
         resetPersoDialog: function () {
             this.persoReset = true;
             this._persoDialogTable?.removeSelections();
-        }
-    });
+        },
+        customErrorObject: function (errorMessages, pageId, oControl, description) {
+            return {
+                type: "Error",
+                active: true,
+                control: oControl,
+                title: errorMessages || "Unknown Error",
+                subTitle: null,
+                description: description || "",
+                page: pageId || "",
+            };
+        },
+
+        errorHandling: function (ex, oControl) {
+            try {
+                if (!this.errorData) {
+                    this.errorData = [];
+                }
+
+                if (!ex) {
+                    return;
+                }
+
+                // Handle session timeout or invalid session
+                const isInvalidSession = ex?.errorDescription?.includes("301") ||
+                    ex?.errorDescription?.includes("Invalid Session");
+
+                if (isInvalidSession) {
+                    sap.m.MessageBox.error(ex.errorDescription, {
+                        actions: [sap.m.MessageBox.Action.OK],
+                        emphasizedAction: "OK",
+                        onClose: () => this.getRouter().navTo("login")
+                    });
+                    this.showLoading(false);
+                    return;
+                }
+
+                const eModel = this.getOwnerComponent().getModel("errors");
+                const errorTitle =
+                    ex?.responseJSON?.errorDescription ||
+                    ex?.responseJSON?.debugMessage ||
+                    ex?.errorDescription ||
+                    ex?.message ||
+                    "An unexpected error occurred.";
+
+                // Prevent duplicate error entries
+                const exists = this.errorData.some(e => e.title === errorTitle);
+
+                if (!exists) {
+                    let errorObj;
+
+                    if (ex?.responseJSON?.debugMessage) {
+                        errorObj = this.customErrorObject(ex.responseJSON.debugMessage, this.pageId, oControl, null);
+                    } else if (ex?.responseJSON?.errorDescription) {
+                        errorObj = this.customErrorObject(ex.responseJSON.errorDescription, this.pageId, oControl, null);
+                    } else if (ex?.responseJSON?.error) {
+                        errorObj = this.customErrorObject(ex.responseJSON.error, this.pageId, oControl, null);
+                    } else if (ex?.status) {
+                        errorObj = this.customErrorObject(`${ex.status} ${ex.statusText}`, this.pageId, oControl, null);
+                    } else {
+                        errorObj = this.customErrorObject(errorTitle, this.pageId, oControl, null);
+                    }
+
+                    this.errorData.push(errorObj);
+                }
+
+                // Merge and update the "errors" model
+                const mergedData = [...(eModel.getData() || []), ...this.errorData];
+                eModel.setData(mergedData);
+
+                // Show error popover or message
+                if (mergedData.length) {
+                    this.errorMessagePopover(this.popoverBtn);
+                }
+
+                this.showLoading(false);
+
+            } catch (err) {
+                console.error("Error in errorHandling():", err);
+                sap.m.MessageBox.error("Something went wrong while processing the error.");
+                this.showLoading(false);
+            }
+        },
+
+        errorMessagePopover: function (oButton) {
+            const eModel = this.getOwnerComponent().getModel("errors");
+            const aErrors = eModel.getData();
+
+            if (!aErrors || !aErrors.length) {
+                sap.m.MessageToast.show("No errors to display");
+                return;
+            }
+
+            // Create the popover only once
+            if (!this._oErrorPopover) {
+                this._oErrorPopover = new sap.m.Popover({
+                    title: "Error Details",
+                    placement: sap.m.PlacementType.Bottom,
+                    contentWidth: "400px",
+                    content: [
+                        new sap.m.List({
+                            items: {
+                                path: "errors>/",
+                                template: new sap.m.StandardListItem({
+                                    title: "{errors>title}",
+                                    description: "{errors>description}"
+                                })
+                            }
+                        })
+                    ]
+                });
+                this.getView().addDependent(this._oErrorPopover);
+                this._oErrorPopover.setModel(eModel, "errors");
+            }
+
+            this._oErrorPopover.openBy(oButton);
+        },
+
+    }
+    );
 });
+

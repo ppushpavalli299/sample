@@ -68,9 +68,8 @@ sap.ui.define([
                 // Set the employee details to the "empdetailsMdl" model
                 this.getView().setModel(new JSONModel(response), "empdetailsMdl");
 
-            } catch (ex) {
-                this.errorHandling(ex);
-            } finally {
+            } 
+            finally {
                 this.showLoading(false);
             }
         },

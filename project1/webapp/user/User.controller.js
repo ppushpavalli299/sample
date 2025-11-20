@@ -8,7 +8,8 @@ sap.ui.define([
   "sap/m/MessageToast",
   "sap/ui/core/HTML",
   "sap/ui/Device",
-  "project1/utils/Formatter"
+  "project1/utils/Formatter",
+  "sap/m/PDFViewer"
 ], function (
   BaseController,
   JSONModel,
@@ -19,7 +20,8 @@ sap.ui.define([
   MessageToast,
   HTML,
   Device,
-  Formatter
+  Formatter,
+  PDFViewer
 ) {
   "use strict";
 
@@ -234,61 +236,113 @@ sap.ui.define([
       }
     },
 
-    loadPrevPDF: async function (pdfBase64Arr) {
-      const contentType = "application/pdf";
-      const base64String = pdfBase64Arr[0];
-      const blob = this.b64toBlob(base64String, contentType);
-      if (!blob) return MessageToast.show("Invalid PDF data.");
+    // loadPrevPDF: async function (pdfBase64Arr) {
+    //   const contentType = "application/pdf";
+    //   const base64String = pdfBase64Arr[0];
+    //   const blob = this.b64toBlob(base64String, contentType);
+    //   if (!blob) return MessageToast.show("Invalid PDF data.");
 
-      const blobUrl = URL.createObjectURL(blob);
-      jQuery.sap.addUrlWhitelist("blob");
+    //   const blobUrl = URL.createObjectURL(blob);
+    //   jQuery.sap.addUrlWhitelist("blob");
 
-      if (!this._pdfViewer) {
-        this._pdfViewer = new sap.m.Dialog({
-          title: "Payslip PDF",
-          content: new HTML({ content: `<iframe src="${blobUrl}" width="100%" height="600px" style="border:none;"></iframe>` }),
-          stretch: Device.system.phone,
-          endButton: new sap.m.Button({
-            text: "Close",
-            press: () => this._pdfViewer.close()
-          })
-        });
-        this.getView().addDependent(this._pdfViewer);
-      } else {
-        this._pdfViewer.getContent()[0].setContent(
-          `<iframe src="${blobUrl}" width="100%" height="600px" style="border:none;"></iframe>`
-        );
-      }
-      this._pdfViewer.open();
-    },
+    //   if (!this._pdfViewer) {
+    //     this._pdfViewer = new sap.m.Dialog({
+    //       title: "Payslip PDF",
+    //       contentWidth: "100%",
+    //       contentHeight: "100%",
+    //       stretch: true, // <-- makes the Dialog fullscreen
+    //       resizable: true,
+    //       draggable: false,
+    //       content: [
+    //         new sap.ui.core.HTML({
+    //           content: `<iframe src="${blobUrl}" width="100%" height="100%" style="border:none;"></iframe>`
+    //         })
+    //       ],
+    //       endButton: new sap.m.Button({
+    //         text: "Close",
+    //         press: () => this._pdfViewer.close()
+    //       })
+    //     });
+    //     this.getView().addDependent(this._pdfViewer);
+    //   } else {
+    //     this._pdfViewer.getContent()[0].setContent(
+    //       `<iframe src="${blobUrl}" width="100%" height="100%" style="border:none;"></iframe>`
+    //     );
+    //   }
 
-    b64toBlob: function (b64Data, contentType = "", sliceSize = 512) {
-      if (b64Data.startsWith("data:")) b64Data = b64Data.split(",")[1];
-      b64Data = b64Data.replace(/\s/g, "");
-      let byteChars;
-      try {
-        byteChars = atob(b64Data);
-      } catch (e) {
-        console.error("Invalid base64:", e, b64Data.substring(0, 50));
-        return null;
-      }
+    //   this._pdfViewer.open();
+    // },
 
-      const byteArrays = [];
-      for (let offset = 0; offset < byteChars.length; offset += sliceSize) {
-        const slice = byteChars.slice(offset, offset + sliceSize);
-        const byteNumbers = new Array(slice.length);
-        for (let i = 0; i < slice.length; i++) byteNumbers[i] = slice.charCodeAt(i);
-        byteArrays.push(new Uint8Array(byteNumbers));
-      }
+    // b64toBlob: function (b64Data, contentType = "", sliceSize = 512) {
+    //   if (b64Data.startsWith("data:")) b64Data = b64Data.split(",")[1];
+    //   b64Data = b64Data.replace(/\s/g, "");
+    //   let byteChars;
+    //   try {
+    //     byteChars = atob(b64Data);
+    //   } catch (e) {
+    //     console.error("Invalid base64:", e, b64Data.substring(0, 50));
+    //     return null;
+    //   }
 
-      return new Blob(byteArrays, { type: contentType });
-    },
+    //   const byteArrays = [];
+    //   for (let offset = 0; offset < byteChars.length; offset += sliceSize) {
+    //     const slice = byteChars.slice(offset, offset + sliceSize);
+    //     const byteNumbers = new Array(slice.length);
+    //     for (let i = 0; i < slice.length; i++) byteNumbers[i] = slice.charCodeAt(i);
+    //     byteArrays.push(new Uint8Array(byteNumbers));
+    //   }
+
+    //   return new Blob(byteArrays, { type: contentType });
+    // },
+     loadPrevPDF: async function (pdfs) {
+            const { PDFDocument } = PDFLib;
+            const contentType = 'application/pdf';
+            const pdfDocDisp = await PDFDocument.create();
+
+            for (let pdf of pdfs) {
+                const blob = this.b64toBlob(pdf, contentType);
+                const buffer = await blob.arrayBuffer();
+                const pdfDoc = await PDFDocument.load(buffer);
+                const pages = await pdfDoc.getPages();
+                for (let i = 0; i < pages.length; i++) {
+                    const [copiedPage] = await pdfDocDisp.copyPages(pdfDoc, [i]);
+                    pdfDocDisp.addPage(copiedPage);
+                }
+            }
+
+            const base64String = await pdfDocDisp.saveAsBase64();
+            const finalBlob = this.b64toBlob(base64String, contentType);
+            const blobUrl = URL.createObjectURL(finalBlob);
+
+            jQuery.sap.addUrlWhitelist("blob");
+            this._pdfViewer = new PDFViewer();
+            this.getView().addDependent(this._pdfViewer);
+            this._pdfViewer.setSource(blobUrl);
+            this._pdfViewer.open();
+        },
+
+        b64toBlob: function (b64Data, contentType = '', sliceSize = 512) {
+            const byteCharacters = atob(b64Data);
+            const byteArrays = [];
+
+            for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                const slice = byteCharacters.slice(offset, offset + sliceSize);
+                const byteNumbers = new Array(slice.length);
+                for (let i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+                byteArrays.push(new Uint8Array(byteNumbers));
+            }
+
+            return new Blob(byteArrays, { type: contentType });
+        },
+
 
     // *** ERROR HANDLING METHOD ADDED TO FIX THE ERROR ***
-    errorHandling: function (error) {
-      MessageBox.error(error.message || "An unexpected error occurred.");
-      console.error(error);
-    }
+    // errorHandling: function (error) {
+    //   MessageBox.error(error.message || "An unexpected error occurred.");
+    //   console.error(error);
+    // }
 
   });
 });

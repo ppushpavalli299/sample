@@ -1,27 +1,20 @@
 package customer.sample.payroller;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.osgi.service.component.annotations.Component;
 
-import java.sql.Date;
+import customer.sample.payroll.Payroll;
+import lombok.*;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-public class PayslipNew {
-    private Long id;
-    private String employeeNumber;
-    private String employeeName;
-    private String costCenter;
-    private String position;
-    private Date dateOfJoining;
-    private String nationality;
-    private Date paymentDate;
-    private String unpaidDays;
-    private String paymentCurrency;
 
-    private List<Payroller> payroller;
+@Data
+@Component
+public class PayslipNew {
+       
+    private Long id; 
+    private List<Payroll> payroll;
     private List<Earnings> earnings;
-    private List<Deductions> deductions;
-    private List<PaymentInformation> paymentInformation;
+    private List<Deductions>deductions;
+    private List<PaymentInformation>paymentInformation;
+
 }

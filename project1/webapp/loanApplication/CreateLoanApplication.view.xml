@@ -1,74 +1,120 @@
 <mvc:View controllerName="project1.loanapplication.CreateLoanApplication"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:m="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
     xmlns:f="sap.f"
-    xmlns:core="sap.ui.core"
     xmlns:form="sap.ui.layout.form"
-    xmlns:uxap="sap.uxap"
-    xmlns:tnt="sap.tnt"
-    xmlns:smartForm="sap.ui.comp.smartform"
-    xmlns:smartField="sap.ui.comp.smartfield"
-    xmlns:card="sap.f.cards"
-    xmlns:table="sap.ui.table"
-    xmlns:u="sap.ui.unified"
-    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:l="sap.ui.layout"
-    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout">
 
-    <f:DynamicPage id="pgGeneralExpense" headerExpanded="false" showFooter="{=!!${errors>/}.length}" fitContent="true">
-
+    <f:DynamicPage id="pgLoanApplication" headerExpanded="false" fitContent="true" showFooter="{=!!${errors>/}.length}">
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <m:Title text="Create Loan Application"/>
+                    <Title text="Create Loan Application"/>
                 </f:heading>
                 <f:actions>
-                    <m:Button id="btnSave" type="Emphasized" text="Save" press="onPressSave" class="sapUiTinyMarginBegin"/>
-                    <m:Button id="btnClose" type="Transparent" text="Close" class="sapUiTinyMarginBegin" press="handleClose"/>
+                    <Button id="btnSave" type="Emphasized" text="Save" press="onPressSave"/>
+                    <Button id="btnClose" type="Transparent" text="Close" press="handleClose"/>
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
 
         <f:content>
-            <m:Panel backgroundDesign="Transparent">
-                <form:SimpleForm id="sfCreateLoanApplication" editable="true" layout="ColumnLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="2">
+            <Panel backgroundDesign="Transparent">
+                <form:SimpleForm id="sfCreateLoanApplication" layout="ColumnLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" columnsXL="3" columnsL="3" columnsM="2">
+                    <form:content>
+                        <Label text="Loan Batch Name"/>
+                        <Input value="{loanApplicationMdl>/loan_batch_name}" placeholder="Please Enter Loan Batch Name"/>
 
-                    <!-- Payroll Period -->
-                    <m:Label text="Payroll Period" />
-                    <m:Input id="inp_PayrollPeriod" value="{loanApplicationMdl>/payroll_period}" valueHelpOnly="true" showValueHelp="true" placeholder="Select Payroll Period" valueHelpRequest="valueHelpDialogPayrollPeriod" editable="{= ${loanApplicationMdl>/isEditable} }"/>
+                        <Label text="Payroll Period"/>
+                        <ComboBox id="PeriodFil" placeholder="Please Select Payroll Period" items="{payrollPeriodMdl>/}" selectedKey="{empSearchReqModel>/payroll_period_id}" selectionChange="clearModel">
+                            <core:ListItem key="{payrollPeriodMdl>id}" text="{payrollPeriodMdl>name}" />
+                        </ComboBox>
 
-                    <!-- Date -->
-                    <m:Label text="Date" />
-                    <m:DatePicker id="eventDate" placeholder="{i18n>organization_Pleaseselectdate}" change="onChangeEventDate" value="{loanApplicationMdl>/date}" valueFormat="dd-MM-yyyy" displayFormat="{= ${settings>/userSettings/dateFormatKey} === 1 ? 'dd-MM-yyyy' : 'dd-MMM-yyyy' }" editable="{= ${loanApplicationMdl>/isEditable} }"/>
+                        <Label text="Date"/>
+                        <DatePicker value="{loanApplicationMdl>/date}" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy"/>
 
-                    <!-- Currency -->
-                    <m:Label text="Currency"/>
-                    <m:Input value="{loanApplicationMdl>/currency}" placeholder="Enter currency" editable="{= ${loanApplicationMdl>/isEditable} }"/>
+                        <!-- Currency -->
+                        <Label text="Currency"/>
+                        <ComboBox items="{loanApplicationMdl>/currency}" placeholder="Please Select Currency" selectedKey="{loanApplicationMdl>/currency}">
+                            <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}"/>
+                        </ComboBox>
 
-                    <!-- Disbursal Method -->
-                    <m:Label text="Disbursal Method"/>
-                    <m:Input value="{loanApplicationMdl>/disbursal_method}" placeholder="Enter disbursal method" editable="{= ${loanApplicationMdl>/isEditable} }"/>
+                        <Label text="Disbursal Method"/>
+                        <ComboBox items="{masterdataMdl>/disbursal_method}" placeholder="Please Select Disbursal Method" selectedKey="{loanApplicationMdl>/disbursal_method}">
+                            <core:Item key="{masterdataMdl>value}" text="{masterdataMdl>description}"/>
+                        </ComboBox>
 
-                    <!-- Status -->
-                    <m:Label text="Status" />
-                    <m:ComboBox items="{masterdataMdl>/status}" placeholder="{i18n>lod_PleaseSelectStatus}" editable="{= ${loanApplicationMdl>/isEditable} }" selectedKey="{loanApplicationMdl>/status}">
-                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}"/>
-                    </m:ComboBox>
 
-                    <!-- Remarks -->
-                    <m:Label text="Remarks"/>
-                    <m:Input value="{loanApplicationMdl>/remarks}" placeholder="Enter remarks" editable="{= ${loanApplicationMdl>/isEditable} }"/>
+                        <Label text="Remarks"/>
+                        <Input value="{loanApplicationMdl>/remarks}" placeholder="Enter remarks"/>
 
+                        <Label text="Status"/>
+                        <ComboBox items="{masterdataMdl>/status}" selectedKey="{loanApplicationMdl>/status}" placeholder="Please Select Status">
+                            <core:ListItem key="{masterdataMdl>key}" text="{masterdataMdl>text}"/>
+                        </ComboBox>
+                    </form:content>
                 </form:SimpleForm>
-            </m:Panel>
-        </f:content>
 
+
+                <Table id="tableLoanApplication" items="{LoanModel>/}" mode="None" class="sapUiSmallMarginTop">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <content>
+                                <ToolbarSpacer/>
+                                <Button text="Add" id="btnAddRow" visible="true" press="OnPressAddRow" />
+                            </content>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column>
+                            <Label text="Employee"/>
+                        </Column>
+                        <Column>
+                            <Label text="Loan Code"/>
+                        </Column>
+                        <Column>
+                            <Label text="Loan Amount"/>
+                        </Column>
+                        <Column>
+                            <Label text="Disbursal Date"/>
+                        </Column>
+                        <Column>
+                            <Label text="Repayment Start Date"/>
+                        </Column>
+                        <Column>
+                            <Label text="Repayment Installments"/>
+                        </Column>
+                        <Column>
+                            <Label text="Remarks"/>
+                        </Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <!-- <Input id="empID" class="sapUiSmallMarginEnd" type="Text" value="{LoanModel>emp_code}" placeholder="Please Select Employee"/> -->
+                                <ComboBox items="{masterdataMdl>/employee}" placeholder="Please Select Loan Code" selectedKey="{advancedFilterMdl>/employee}">
+                                    <core:Item key="{masterdataMdl>value}" text="{masterdataMdl>description}"/>
+                                </ComboBox>
+                                <ComboBox items="{masterdataMdl>/loan_code}" placeholder="Please Select Loan Code" selectedKey="{advancedFilterMdl>/loan_code}">
+                                    <core:Item key="{masterdataMdl>value}" text="{masterdataMdl>description}"/>
+                                </ComboBox>
+                                <Input value="{LoanModel>loan_amount}" type="Number"/>
+                                <DatePicker value="{LoanModel>disbursal_date}" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy" />
+                                <DatePicker value="{LoanModel>repayment_start_date}" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy" />
+                                <Input value="{LoanModel>repayment_installment}" />
+                                <Input value="{LoanModel>Remarks}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </Panel>
+        </f:content>
         <f:footer>
-            <m:Toolbar>
-                <m:Button id="btn_GeneralExpenseError" class="sapUiTinyMarginTop" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Negative" text="{i18n>organization_error}" press="handleMessagePopoverPress" ariaHasPopup="Dialog"/>
-            </m:Toolbar>
+            <Toolbar>
+                <Button id="btn_GeneralExpenseError" class="sapUiTinyMarginTop" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Negative" text="{i18n>organization_error}" press=".handleMessagePopoverPress" ariaHasPopup="Dialog" />
+            </Toolbar>
         </f:footer>
     </f:DynamicPage>
-
 </mvc:View>

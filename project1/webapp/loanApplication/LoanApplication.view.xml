@@ -18,6 +18,11 @@
             <f:DynamicPageHeader pinnable="true">
                 <fb:FilterBar id="loanapplication" persistencyKey="myPersKey" useToolbar="false" search="advancedFilter" showClearOnFB="true" clear="clearAllFilters">
                     <fb:filterItems>
+                        <fb:FilterItem name="Loan Batch Name" label="Loan Batch Name">
+                            <fb:control>
+                                <Input placeholder="Please Enter Loan Batch Name" value="{advancedFilterMdl>/loan_batch_name}"/>
+                            </fb:control>
+                        </fb:FilterItem>
                         <fb:FilterItem name="Payroll Period" label="Payroll Period">
                             <fb:control>
                                 <Input placeholder="Enter Payroll Period" value="{advancedFilterMdl>/payroll_period}" />
@@ -52,12 +57,12 @@
                             <Label design="Bold" text="Items ({= ${manageLoanApplicationMdl>/}.length})" />
                             <ToolbarSpacer />
                             <Button id="btn_Create" type="Ghost" text="Create" press="onPressCreate" />
-                            <!-- <ToolbarSeparator />
-                        <Button icon="sap-icon://download" press="handleExport" tooltip="Download Excel" />
-                        <ToolbarSeparator />
-                        <OverflowToolbarButton type="Transparent" tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed"/>
-                        <OverflowToolbarButton type="Transparent" tooltip="Group" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
-                        <OverflowToolbarButton type="Transparent" icon="sap-icon://settings" tooltip="Settings" press="handlePersoButtonPressed"/> -->
+                            <ToolbarSeparator />
+                            <Button icon="sap-icon://download" press="handleExport" tooltip="Download Excel" />
+                            <ToolbarSeparator />
+                            <OverflowToolbarButton type="Transparent" tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+                            <OverflowToolbarButton type="Transparent" tooltip="Group" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
+                            <OverflowToolbarButton type="Transparent" icon="sap-icon://settings" tooltip="Settings" press="handlePersoButtonPressed"/>
                         </content>
                     </OverflowToolbar>
                 </headerToolbar>
@@ -85,13 +90,13 @@
                 <items>
                     <ColumnListItem>
                         <cells>
-                            <Text text="{manageLoanApplicationMdl>payroll_period}" />
-                            <Text text="{ path: 'manageLoanApplicationMdl>date', formatter: '.formatter.formatDate' }" />
+                            <Text text="{manageLoanApplicationMdl>payrollPeriod}" />
+                            <Text text="{ path: 'manageLoanApplicationMdl>applicationDate', formatter: '.formatter.formatDate' }" />
                             <Text text="{manageLoanApplicationMdl>currency}" />
-                            <Text text="{manageLoanApplicationMdl>disbursal_method}" />
+                            <Text text="{manageLoanApplicationMdl>disbursalMethod}" />
                             <Text text="{manageLoanApplicationMdl>remarks}" />
                             <ObjectStatus text="{ path: 'manageLoanApplicationMdl>status', formatter: '.formatter.getStatusText' }" state="{ path: 'manageLoanApplicationMdl>status', formatter: '.formatter.getStatusState' }" />
-                            <Button icon="sap-icon://show" type="Transparent" press="onPressView" tooltip="View Details" visible="{= !!${manageLoanApplicationMdl>hasDetails}}" />
+                            <Button icon="sap-icon://show" type="Transparent" press="onPressView" tooltip="View Details" visible="{= !!${manageLoanApplicationMdl>}}" />
                         </cells>
                     </ColumnListItem>
                 </items>

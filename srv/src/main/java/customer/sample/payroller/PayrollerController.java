@@ -16,10 +16,6 @@ public class PayrollerController {
     @PostMapping(path = "/payroller", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> generatepayroll(@RequestBody PayslipNew payslipNew) {
         try {
-            if (payslipNew.getEmployeeNumber() == null || payslipNew.getEmployeeNumber().trim().isEmpty()) {
-                return ResponseEntity.badRequest().body(null); // Return 400 if employee number is missing
-            }
-
             byte[] pdf = payrollerService.generatePayroller("payroller", payslipNew);
 
             HttpHeaders headers = new HttpHeaders();
